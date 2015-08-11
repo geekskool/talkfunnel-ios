@@ -1,0 +1,504 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		DAF1E0821B79B80800649222 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0811B79B80800649222 /* AppDelegate.swift */; };
+		DAF1E0841B79B80800649222 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0831B79B80800649222 /* ViewController.swift */; };
+		DAF1E0871B79B80800649222 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E0851B79B80800649222 /* Main.storyboard */; };
+		DAF1E0891B79B80800649222 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E0881B79B80800649222 /* Assets.xcassets */; };
+		DAF1E08C1B79B80800649222 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E08A1B79B80800649222 /* LaunchScreen.storyboard */; };
+		DAF1E0971B79B80800649222 /* TalkFunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0961B79B80800649222 /* TalkFunnelTests.swift */; };
+		DAF1E0A21B79B80800649222 /* TalkFunnelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0A11B79B80800649222 /* TalkFunnelUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DAF1E0931B79B80800649222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAF1E0761B79B80800649222 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAF1E07D1B79B80800649222;
+			remoteInfo = TalkFunnel;
+		};
+		DAF1E09E1B79B80800649222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DAF1E0761B79B80800649222 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DAF1E07D1B79B80800649222;
+			remoteInfo = TalkFunnel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DAF1E07E1B79B80800649222 /* TalkFunnel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkFunnel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF1E0811B79B80800649222 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		DAF1E0831B79B80800649222 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DAF1E0861B79B80800649222 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DAF1E0881B79B80800649222 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		DAF1E08B1B79B80800649222 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		DAF1E08D1B79B80800649222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF1E0921B79B80800649222 /* TalkFunnelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TalkFunnelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF1E0961B79B80800649222 /* TalkFunnelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkFunnelTests.swift; sourceTree = "<group>"; };
+		DAF1E0981B79B80800649222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF1E09D1B79B80800649222 /* TalkFunnelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TalkFunnelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DAF1E0A11B79B80800649222 /* TalkFunnelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkFunnelUITests.swift; sourceTree = "<group>"; };
+		DAF1E0A31B79B80800649222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DAF1E07B1B79B80800649222 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF1E08F1B79B80800649222 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF1E09A1B79B80800649222 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DAF1E0751B79B80800649222 = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0801B79B80800649222 /* TalkFunnel */,
+				DAF1E0951B79B80800649222 /* TalkFunnelTests */,
+				DAF1E0A01B79B80800649222 /* TalkFunnelUITests */,
+				DAF1E07F1B79B80800649222 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DAF1E07F1B79B80800649222 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E07E1B79B80800649222 /* TalkFunnel.app */,
+				DAF1E0921B79B80800649222 /* TalkFunnelTests.xctest */,
+				DAF1E09D1B79B80800649222 /* TalkFunnelUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DAF1E0801B79B80800649222 /* TalkFunnel */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0811B79B80800649222 /* AppDelegate.swift */,
+				DAF1E0831B79B80800649222 /* ViewController.swift */,
+				DAF1E0851B79B80800649222 /* Main.storyboard */,
+				DAF1E0881B79B80800649222 /* Assets.xcassets */,
+				DAF1E08A1B79B80800649222 /* LaunchScreen.storyboard */,
+				DAF1E08D1B79B80800649222 /* Info.plist */,
+			);
+			path = TalkFunnel;
+			sourceTree = "<group>";
+		};
+		DAF1E0951B79B80800649222 /* TalkFunnelTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0961B79B80800649222 /* TalkFunnelTests.swift */,
+				DAF1E0981B79B80800649222 /* Info.plist */,
+			);
+			path = TalkFunnelTests;
+			sourceTree = "<group>";
+		};
+		DAF1E0A01B79B80800649222 /* TalkFunnelUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0A11B79B80800649222 /* TalkFunnelUITests.swift */,
+				DAF1E0A31B79B80800649222 /* Info.plist */,
+			);
+			path = TalkFunnelUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DAF1E07D1B79B80800649222 /* TalkFunnel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF1E0A61B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnel" */;
+			buildPhases = (
+				DAF1E07A1B79B80800649222 /* Sources */,
+				DAF1E07B1B79B80800649222 /* Frameworks */,
+				DAF1E07C1B79B80800649222 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = TalkFunnel;
+			productName = TalkFunnel;
+			productReference = DAF1E07E1B79B80800649222 /* TalkFunnel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DAF1E0911B79B80800649222 /* TalkFunnelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF1E0A91B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnelTests" */;
+			buildPhases = (
+				DAF1E08E1B79B80800649222 /* Sources */,
+				DAF1E08F1B79B80800649222 /* Frameworks */,
+				DAF1E0901B79B80800649222 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAF1E0941B79B80800649222 /* PBXTargetDependency */,
+			);
+			name = TalkFunnelTests;
+			productName = TalkFunnelTests;
+			productReference = DAF1E0921B79B80800649222 /* TalkFunnelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DAF1E09C1B79B80800649222 /* TalkFunnelUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DAF1E0AC1B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnelUITests" */;
+			buildPhases = (
+				DAF1E0991B79B80800649222 /* Sources */,
+				DAF1E09A1B79B80800649222 /* Frameworks */,
+				DAF1E09B1B79B80800649222 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DAF1E09F1B79B80800649222 /* PBXTargetDependency */,
+			);
+			name = TalkFunnelUITests;
+			productName = TalkFunnelUITests;
+			productReference = DAF1E09D1B79B80800649222 /* TalkFunnelUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DAF1E0761B79B80800649222 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = Hasgeek;
+				TargetAttributes = {
+					DAF1E07D1B79B80800649222 = {
+						CreatedOnToolsVersion = 7.0;
+					};
+					DAF1E0911B79B80800649222 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = DAF1E07D1B79B80800649222;
+					};
+					DAF1E09C1B79B80800649222 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = DAF1E07D1B79B80800649222;
+					};
+				};
+			};
+			buildConfigurationList = DAF1E0791B79B80800649222 /* Build configuration list for PBXProject "TalkFunnel" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DAF1E0751B79B80800649222;
+			productRefGroup = DAF1E07F1B79B80800649222 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DAF1E07D1B79B80800649222 /* TalkFunnel */,
+				DAF1E0911B79B80800649222 /* TalkFunnelTests */,
+				DAF1E09C1B79B80800649222 /* TalkFunnelUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DAF1E07C1B79B80800649222 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF1E08C1B79B80800649222 /* LaunchScreen.storyboard in Resources */,
+				DAF1E0891B79B80800649222 /* Assets.xcassets in Resources */,
+				DAF1E0871B79B80800649222 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF1E0901B79B80800649222 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF1E09B1B79B80800649222 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DAF1E07A1B79B80800649222 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF1E0841B79B80800649222 /* ViewController.swift in Sources */,
+				DAF1E0821B79B80800649222 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF1E08E1B79B80800649222 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF1E0971B79B80800649222 /* TalkFunnelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DAF1E0991B79B80800649222 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DAF1E0A21B79B80800649222 /* TalkFunnelUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DAF1E0941B79B80800649222 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAF1E07D1B79B80800649222 /* TalkFunnel */;
+			targetProxy = DAF1E0931B79B80800649222 /* PBXContainerItemProxy */;
+		};
+		DAF1E09F1B79B80800649222 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DAF1E07D1B79B80800649222 /* TalkFunnel */;
+			targetProxy = DAF1E09E1B79B80800649222 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		DAF1E0851B79B80800649222 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAF1E0861B79B80800649222 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		DAF1E08A1B79B80800649222 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DAF1E08B1B79B80800649222 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		DAF1E0A41B79B80800649222 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DAF1E0A51B79B80800649222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DAF1E0A71B79B80800649222 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TalkFunnel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		DAF1E0A81B79B80800649222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = TalkFunnel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		DAF1E0AA1B79B80800649222 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TalkFunnelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TalkFunnel.app/TalkFunnel";
+			};
+			name = Debug;
+		};
+		DAF1E0AB1B79B80800649222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = TalkFunnelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TalkFunnel.app/TalkFunnel";
+			};
+			name = Release;
+		};
+		DAF1E0AD1B79B80800649222 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TalkFunnelUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnelUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TalkFunnel;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		DAF1E0AE1B79B80800649222 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = TalkFunnelUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnelUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = TalkFunnel;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DAF1E0791B79B80800649222 /* Build configuration list for PBXProject "TalkFunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF1E0A41B79B80800649222 /* Debug */,
+				DAF1E0A51B79B80800649222 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DAF1E0A61B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF1E0A71B79B80800649222 /* Debug */,
+				DAF1E0A81B79B80800649222 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DAF1E0A91B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF1E0AA1B79B80800649222 /* Debug */,
+				DAF1E0AB1B79B80800649222 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		DAF1E0AC1B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnelUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DAF1E0AD1B79B80800649222 /* Debug */,
+				DAF1E0AE1B79B80800649222 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DAF1E0761B79B80800649222 /* Project object */;
+}
