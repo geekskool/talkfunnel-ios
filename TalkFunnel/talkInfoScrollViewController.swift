@@ -8,29 +8,18 @@
 
 import UIKit
 
-protocol talkInforScrollViewControllerDelegate {
-    func talkScrolled()
-}
+class talkInfoScrollViewController: UIViewController, UITableViewDelegate,UITableViewDataSource {
 
-class talkInfoScrollViewController: UIViewController, UIScrollViewDelegate {
-
-    @IBOutlet weak var scrollView: UIScrollView!
     
     var width: CGFloat = 0.0
     var height: CGFloat = 0.0
     var talkCount = 0
-    
-    var delegate: talkInforScrollViewControllerDelegate?
+    @IBOutlet weak var tableView: UITableView!
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         getBounds()
         getTalks()
-    }
-    
-    func getBounds() {
-        width = scrollView.frame.size.width
-        height = scrollView.frame.size.height
     }
     
     func getTalks() {
