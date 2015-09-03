@@ -46,7 +46,7 @@ class talkInfoScrollViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func addTalkToScrollView(session: Session) {
-        let talk = talkView()
+        let talk = talkView(frame: CGRectMake(0, CGFloat(talkCount) * height, width, height))
         
         talk.talkTitle.text = session.title
         talk.talkTitle.numberOfLines = 0
@@ -58,11 +58,9 @@ class talkInfoScrollViewController: UIViewController, UIScrollViewDelegate {
         talk.roomAndVenue.text = session.roomName
         
         talk.talkDescription.text = session.description
-        talk.talkDescription.numberOfLines = 0
         talk.talkDescription.sizeToFit()
         
         talk.speakerBio.text = session.speakerBio
-        talk.speakerBio.numberOfLines = 0
         talk.speakerBio.sizeToFit()
         
         talk.sizeToFit()
@@ -75,7 +73,7 @@ class talkInfoScrollViewController: UIViewController, UIScrollViewDelegate {
         
         //Set up and add scrollView to view
         scrollView.frame = self.view.frame
-        self.scrollView.pagingEnabled = false
+        self.scrollView.pagingEnabled = true
         self.scrollView.delegate = self
     }
     

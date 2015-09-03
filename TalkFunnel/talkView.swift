@@ -16,24 +16,25 @@ import UIKit
     @IBOutlet weak var roomAndVenue: UILabel!
     @IBOutlet weak var sectionType: UILabel!
     @IBOutlet weak var technicalLevel: UILabel!
-    @IBOutlet weak var speakerBio: UILabel!
-    @IBOutlet weak var talkDescription: UILabel!
+    
+    @IBOutlet weak var speakerBio: UITextView!
+    @IBOutlet weak var talkDescription: UITextView!
     var talk: Session?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadViewFromNib()
+        loadViewFromNib(frame)
     }
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func loadViewFromNib() {
+    func loadViewFromNib(frame: CGRect) {
         let bundle = NSBundle(forClass: self.dynamicType)
         let nib = UINib(nibName: "talkView", bundle: bundle)
         let view = nib.instantiateWithOwner(self, options: nil)[0] as! UIView
-        view.frame.size.width = frame.width
+        view.frame.size = frame.size
         view.sizeToFit()
         view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
         self.addSubview(view)
