@@ -7,13 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DA4D09B31B94205300B7B7CB /* SLPagingViewSwift.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D09B21B94205300B7B7CB /* SLPagingViewSwift.swift */; };
+		DA4D28A31B96C89B002C4E2A /* SaveContactToAddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */; };
+		DA89B05B1B7DBAB900AB381F /* talkInfoScrollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA89B05A1B7DBAB900AB381F /* talkInfoScrollViewController.swift */; };
+		DA9038B01B83628300D6EA7C /* ParticipantsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9038AF1B83628300D6EA7C /* ParticipantsInformation.swift */; };
+		DA95F6201B7FEBE300BA71B1 /* talkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA95F61F1B7FEBE300BA71B1 /* talkView.swift */; };
+		DAA748CC1B95876300A05ED3 /* qrCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */; };
+		DAA748D31B96130000A05ED3 /* addContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA748D11B96130000A05ED3 /* addContactViewController.swift */; };
+		DAC209BD1B80DD9400003209 /* talkView.xib in Resources */ = {isa = PBXBuildFile; fileRef = DAC209BC1B80DD9400003209 /* talkView.xib */; };
 		DAF1E0821B79B80800649222 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0811B79B80800649222 /* AppDelegate.swift */; };
-		DAF1E0841B79B80800649222 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0831B79B80800649222 /* ViewController.swift */; };
 		DAF1E0871B79B80800649222 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E0851B79B80800649222 /* Main.storyboard */; };
 		DAF1E0891B79B80800649222 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E0881B79B80800649222 /* Assets.xcassets */; };
 		DAF1E08C1B79B80800649222 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E08A1B79B80800649222 /* LaunchScreen.storyboard */; };
 		DAF1E0971B79B80800649222 /* TalkFunnelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0961B79B80800649222 /* TalkFunnelTests.swift */; };
 		DAF1E0A21B79B80800649222 /* TalkFunnelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0A11B79B80800649222 /* TalkFunnelUITests.swift */; };
+		DAF1E0B01B79B8C400649222 /* EventInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0AF1B79B8C400649222 /* EventInformationViewController.swift */; };
+		DAF1E0B21B79B90400649222 /* EventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0B11B79B90400649222 /* EventListViewController.swift */; };
+		DAF1E0B61B79B98100649222 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0B51B79B98100649222 /* ChatViewController.swift */; };
+		DAF1E0B81B79B9A700649222 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0B71B79B9A700649222 /* ContactsViewController.swift */; };
+		DAF1E0BA1B79B9E100649222 /* DynamicPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0B91B79B9E100649222 /* DynamicPageViewController.swift */; };
+		DAF1E0CD1B79BFB800649222 /* EventList.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0C81B79BFB800649222 /* EventList.swift */; };
+		DAF1E0CE1B79BFB800649222 /* EventInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0C91B79BFB800649222 /* EventInformation.swift */; };
+		DAF1E0CF1B79BFB800649222 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0CA1B79BFB800649222 /* Schedule.swift */; };
+		DAF1E0D01B79BFB800649222 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0CB1B79BFB800649222 /* Session.swift */; };
+		DAF1E0D11B79BFB800649222 /* Rooms.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0CC1B79BFB800649222 /* Rooms.swift */; };
+		DAF1E0D41B79C05B00649222 /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0D31B79C05B00649222 /* HttpRequest.swift */; };
+		DAFC15991B79E3F100E5573F /* Slots.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFC15981B79E3F100E5573F /* Slots.swift */; };
+		DAFC159B1B79F63900E5573F /* ScheduleTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFC159A1B79F63900E5573F /* ScheduleTableViewCell.swift */; };
+		DAFC159D1B7B13FF00E5573F /* FetchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFC159C1B7B13FF00E5573F /* FetchData.swift */; };
+		DAFC15A11B7B21E000E5573F /* LoadApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAFC15A01B7B21E000E5573F /* LoadApplicationViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,9 +56,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DA4D09B21B94205300B7B7CB /* SLPagingViewSwift.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SLPagingViewSwift.swift; sourceTree = "<group>"; };
+		DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveContactToAddressBook.swift; sourceTree = "<group>"; };
+		DA89B05A1B7DBAB900AB381F /* talkInfoScrollViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = talkInfoScrollViewController.swift; sourceTree = "<group>"; };
+		DA9038AF1B83628300D6EA7C /* ParticipantsInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsInformation.swift; sourceTree = "<group>"; };
+		DA95F61F1B7FEBE300BA71B1 /* talkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = talkView.swift; sourceTree = "<group>"; };
+		DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = qrCodeScannerViewController.swift; sourceTree = "<group>"; };
+		DAA748D11B96130000A05ED3 /* addContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactViewController.swift; sourceTree = "<group>"; };
+		DAC209BC1B80DD9400003209 /* talkView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = talkView.xib; sourceTree = "<group>"; };
 		DAF1E07E1B79B80800649222 /* TalkFunnel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkFunnel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF1E0811B79B80800649222 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DAF1E0831B79B80800649222 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		DAF1E0861B79B80800649222 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DAF1E0881B79B80800649222 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DAF1E08B1B79B80800649222 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -47,6 +76,21 @@
 		DAF1E09D1B79B80800649222 /* TalkFunnelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TalkFunnelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF1E0A11B79B80800649222 /* TalkFunnelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkFunnelUITests.swift; sourceTree = "<group>"; };
 		DAF1E0A31B79B80800649222 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DAF1E0AF1B79B8C400649222 /* EventInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventInformationViewController.swift; path = ../EventInformationViewController.swift; sourceTree = "<group>"; };
+		DAF1E0B11B79B90400649222 /* EventListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListViewController.swift; sourceTree = "<group>"; };
+		DAF1E0B51B79B98100649222 /* ChatViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		DAF1E0B71B79B9A700649222 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
+		DAF1E0B91B79B9E100649222 /* DynamicPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicPageViewController.swift; sourceTree = "<group>"; };
+		DAF1E0C81B79BFB800649222 /* EventList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventList.swift; sourceTree = "<group>"; };
+		DAF1E0C91B79BFB800649222 /* EventInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventInformation.swift; sourceTree = "<group>"; };
+		DAF1E0CA1B79BFB800649222 /* Schedule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
+		DAF1E0CB1B79BFB800649222 /* Session.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		DAF1E0CC1B79BFB800649222 /* Rooms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rooms.swift; sourceTree = "<group>"; };
+		DAF1E0D31B79C05B00649222 /* HttpRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		DAFC15981B79E3F100E5573F /* Slots.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Slots.swift; sourceTree = "<group>"; };
+		DAFC159A1B79F63900E5573F /* ScheduleTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScheduleTableViewCell.swift; sourceTree = "<group>"; };
+		DAFC159C1B7B13FF00E5573F /* FetchData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FetchData.swift; sourceTree = "<group>"; };
+		DAFC15A01B7B21E000E5573F /* LoadApplicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoadApplicationViewController.swift; path = ../LoadApplicationViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +118,96 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DAA7DFFC1B835208001D104C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0D21B79BFC100649222 /* EventRelatedData */,
+				DA9038AF1B83628300D6EA7C /* ParticipantsInformation.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		DAC209B21B80DBB800003209 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0811B79B80800649222 /* AppDelegate.swift */,
+				DAF1E0881B79B80800649222 /* Assets.xcassets */,
+				DAF1E08A1B79B80800649222 /* LaunchScreen.storyboard */,
+				DAF1E08D1B79B80800649222 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		DAC209B31B80DBF100003209 /* App StartUp */ = {
+			isa = PBXGroup;
+			children = (
+				DA4D09B21B94205300B7B7CB /* SLPagingViewSwift.swift */,
+				DAF1E0B91B79B9E100649222 /* DynamicPageViewController.swift */,
+				DAFC15A01B7B21E000E5573F /* LoadApplicationViewController.swift */,
+				DAFC159C1B7B13FF00E5573F /* FetchData.swift */,
+				DAF1E0D31B79C05B00649222 /* HttpRequest.swift */,
+			);
+			name = "App StartUp";
+			sourceTree = "<group>";
+		};
+		DAC209B41B80DC1900003209 /* Swipeable Pages */ = {
+			isa = PBXGroup;
+			children = (
+				DAC209B51B80DC5E00003209 /* Chat */,
+				DAC209B61B80DC6C00003209 /* Event List */,
+				DAC209B71B80DC7A00003209 /* Current Event */,
+				DAC209B81B80DC8300003209 /* Talk List */,
+				DAC209B91B80DC9200003209 /* Contacts */,
+			);
+			name = "Swipeable Pages";
+			sourceTree = "<group>";
+		};
+		DAC209B51B80DC5E00003209 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0B51B79B98100649222 /* ChatViewController.swift */,
+			);
+			name = Chat;
+			sourceTree = "<group>";
+		};
+		DAC209B61B80DC6C00003209 /* Event List */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0B11B79B90400649222 /* EventListViewController.swift */,
+			);
+			name = "Event List";
+			sourceTree = "<group>";
+		};
+		DAC209B71B80DC7A00003209 /* Current Event */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0AF1B79B8C400649222 /* EventInformationViewController.swift */,
+				DAFC159A1B79F63900E5573F /* ScheduleTableViewCell.swift */,
+			);
+			name = "Current Event";
+			sourceTree = "<group>";
+		};
+		DAC209B81B80DC8300003209 /* Talk List */ = {
+			isa = PBXGroup;
+			children = (
+				DA89B05A1B7DBAB900AB381F /* talkInfoScrollViewController.swift */,
+				DA95F61F1B7FEBE300BA71B1 /* talkView.swift */,
+				DAC209BC1B80DD9400003209 /* talkView.xib */,
+			);
+			name = "Talk List";
+			sourceTree = "<group>";
+		};
+		DAC209B91B80DC9200003209 /* Contacts */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0B71B79B9A700649222 /* ContactsViewController.swift */,
+				DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */,
+				DAA748D11B96130000A05ED3 /* addContactViewController.swift */,
+				DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */,
+			);
+			name = Contacts;
+			sourceTree = "<group>";
+		};
 		DAF1E0751B79B80800649222 = {
 			isa = PBXGroup;
 			children = (
@@ -97,12 +231,11 @@
 		DAF1E0801B79B80800649222 /* TalkFunnel */ = {
 			isa = PBXGroup;
 			children = (
-				DAF1E0811B79B80800649222 /* AppDelegate.swift */,
-				DAF1E0831B79B80800649222 /* ViewController.swift */,
+				DAA7DFFC1B835208001D104C /* Model */,
+				DAC209B31B80DBF100003209 /* App StartUp */,
+				DAC209B41B80DC1900003209 /* Swipeable Pages */,
 				DAF1E0851B79B80800649222 /* Main.storyboard */,
-				DAF1E0881B79B80800649222 /* Assets.xcassets */,
-				DAF1E08A1B79B80800649222 /* LaunchScreen.storyboard */,
-				DAF1E08D1B79B80800649222 /* Info.plist */,
+				DAC209B21B80DBB800003209 /* Supporting Files */,
 			);
 			path = TalkFunnel;
 			sourceTree = "<group>";
@@ -123,6 +256,19 @@
 				DAF1E0A31B79B80800649222 /* Info.plist */,
 			);
 			path = TalkFunnelUITests;
+			sourceTree = "<group>";
+		};
+		DAF1E0D21B79BFC100649222 /* EventRelatedData */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0C81B79BFB800649222 /* EventList.swift */,
+				DAF1E0C91B79BFB800649222 /* EventInformation.swift */,
+				DAF1E0CA1B79BFB800649222 /* Schedule.swift */,
+				DAFC15981B79E3F100E5573F /* Slots.swift */,
+				DAF1E0CB1B79BFB800649222 /* Session.swift */,
+				DAF1E0CC1B79BFB800649222 /* Rooms.swift */,
+			);
+			name = EventRelatedData;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,6 +338,7 @@
 				TargetAttributes = {
 					DAF1E07D1B79B80800649222 = {
 						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = L4DYQ6ZSWZ;
 					};
 					DAF1E0911B79B80800649222 = {
 						CreatedOnToolsVersion = 7.0;
@@ -228,6 +375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DAC209BD1B80DD9400003209 /* talkView.xib in Resources */,
 				DAF1E08C1B79B80800649222 /* LaunchScreen.storyboard in Resources */,
 				DAF1E0891B79B80800649222 /* Assets.xcassets in Resources */,
 				DAF1E0871B79B80800649222 /* Main.storyboard in Resources */,
@@ -255,8 +403,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DAF1E0841B79B80800649222 /* ViewController.swift in Sources */,
+				DAF1E0CD1B79BFB800649222 /* EventList.swift in Sources */,
+				DAA748D31B96130000A05ED3 /* addContactViewController.swift in Sources */,
+				DAA748CC1B95876300A05ED3 /* qrCodeScannerViewController.swift in Sources */,
+				DA4D09B31B94205300B7B7CB /* SLPagingViewSwift.swift in Sources */,
+				DAF1E0B01B79B8C400649222 /* EventInformationViewController.swift in Sources */,
+				DAF1E0D11B79BFB800649222 /* Rooms.swift in Sources */,
+				DAF1E0B21B79B90400649222 /* EventListViewController.swift in Sources */,
 				DAF1E0821B79B80800649222 /* AppDelegate.swift in Sources */,
+				DAFC15A11B7B21E000E5573F /* LoadApplicationViewController.swift in Sources */,
+				DAFC15991B79E3F100E5573F /* Slots.swift in Sources */,
+				DAF1E0D41B79C05B00649222 /* HttpRequest.swift in Sources */,
+				DA95F6201B7FEBE300BA71B1 /* talkView.swift in Sources */,
+				DA4D28A31B96C89B002C4E2A /* SaveContactToAddressBook.swift in Sources */,
+				DAF1E0B61B79B98100649222 /* ChatViewController.swift in Sources */,
+				DAF1E0BA1B79B9E100649222 /* DynamicPageViewController.swift in Sources */,
+				DAF1E0D01B79BFB800649222 /* Session.swift in Sources */,
+				DAFC159B1B79F63900E5573F /* ScheduleTableViewCell.swift in Sources */,
+				DAF1E0B81B79B9A700649222 /* ContactsViewController.swift in Sources */,
+				DAF1E0CF1B79BFB800649222 /* Schedule.swift in Sources */,
+				DA89B05B1B7DBAB900AB381F /* talkInfoScrollViewController.swift in Sources */,
+				DAFC159D1B7B13FF00E5573F /* FetchData.swift in Sources */,
+				DA9038B01B83628300D6EA7C /* ParticipantsInformation.swift in Sources */,
+				DAF1E0CE1B79BFB800649222 /* EventInformation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -396,10 +565,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TalkFunnel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -407,10 +580,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = TalkFunnel/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hasgeek.TalkFunnel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -481,6 +658,7 @@
 				DAF1E0A81B79B80800649222 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DAF1E0A91B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnelTests" */ = {
 			isa = XCConfigurationList;
@@ -489,6 +667,7 @@
 				DAF1E0AB1B79B80800649222 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DAF1E0AC1B79B80800649222 /* Build configuration list for PBXNativeTarget "TalkFunnelUITests" */ = {
 			isa = XCConfigurationList;
@@ -497,6 +676,7 @@
 				DAF1E0AE1B79B80800649222 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
