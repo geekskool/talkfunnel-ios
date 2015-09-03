@@ -120,7 +120,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         let selectedTalk = schedule[indexPath.section][indexPath.row]
-        talksVC.scrollToSelectedTalk(selectedTalk)
+        //talksVC.scrollToSelectedTalk(selectedTalk)
         pageController?.currentPage = 3
     }
     

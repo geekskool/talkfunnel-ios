@@ -17,10 +17,10 @@ let contactsVC = storyBoard.instantiateViewControllerWithIdentifier("Contacts") 
 let chatVC = storyBoard.instantiateViewControllerWithIdentifier("Chat") as UIViewController
 let eventInfoVC = storyBoard.instantiateViewControllerWithIdentifier("EventInformation") as! EventInformationViewController
 let eventListVC = storyBoard.instantiateViewControllerWithIdentifier("EventList") as UIViewController
-let talksVC = storyBoard.instantiateViewControllerWithIdentifier("Talks") as! talkInfoScrollViewController
+let talksVC = storyBoard.instantiateViewControllerWithIdentifier("Talks") as! TalkInformationViewController
 
 
-class LoadApplicationViewController: UIViewController,DMDynamicPageViewControllerDelegate,talkInforScrollViewControllerDelegate {
+class LoadApplicationViewController: UIViewController,DMDynamicPageViewControllerDelegate {
     
     var pageTitleLabel = UILabel()
     
