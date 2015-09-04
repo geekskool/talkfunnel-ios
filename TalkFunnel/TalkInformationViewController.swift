@@ -14,11 +14,12 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var tableView: UITableView!
     var talks = [Session]()
     
+    var messageLabel = UILabel()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getTalks()
-        
         //set the delegate and the datasource of the table view to be the instance of this class (UI View controller)
         tableView.delegate = self
         tableView.dataSource = self
@@ -29,11 +30,47 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
     }
     
     func refresh() {
+        messageLabel.removeFromSuperview()
         getTalks()
         tableView.reloadData()
+        resetTalksScroll()
+    }
+    
+    func scrollToSelectedTalk(talk: Session) {
+        let indexPath = NSIndexPath(forRow: findTalk(talk), inSection: 0)
+        tableView.scrollToRowAtIndexPath(indexPath,
+            atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+    }
+    
+    
+    //A fix to the weird layout issues, laying out the whole tableview so that the height doesnt mess up initially , basically scroll to the bottom
+    func resetTalksScroll() {
+        if talks.count > 0 {
+            scrollToTalk(talks.count - 1)
+        }
+    }
+    
+    func scrollToTalk(talkNumber: Int) {
+        let indexPath = NSIndexPath(forRow: talkNumber, inSection: 0)
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: UITableViewScrollPosition.Top, animated: true)
+    }
+    
+    private func findTalk(talk: Session) -> Int {
+        var talkNumber = 0
+        
+        for t in talks {
+            if let talkTitle = t.title {
+                if talkTitle == talk.title! {
+                    return talkNumber
+                }
+            }
+            talkNumber++
+        }
+        return talkNumber
     }
     
     private func getTalks() {
+        talks.removeAll()
         for schedulePerDay in schedule {
             for talk in schedulePerDay {
                 if talk.isBreak! {
@@ -44,16 +81,26 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         }
     }
     
-    //TableViewDelegate Methods
-    
-    
-    
-    
     //TableView Datasource Methods
     
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return talks.count
+        let count = talks.count
+        if count == 0 {
+            addMessageLabel()
+        }
+        return count
+    }
+    
+    private func addMessageLabel() {
+        messageLabel.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)
+        messageLabel.textAlignment = NSTextAlignment.Center
+        messageLabel.text = "Talks for this Event has not been decided yet"
+        messageLabel.textColor = UIColor.grayColor()
+        messageLabel.numberOfLines = 0
+        messageLabel.backgroundColor = UIColor.whiteColor()
+        messageLabel.font = UIFont(name: "Helvetica", size: 25)
+        view.addSubview(messageLabel)
     }
     
     

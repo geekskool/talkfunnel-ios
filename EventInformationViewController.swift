@@ -70,7 +70,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let date = dateFormatter.dateFromString(sectionName)
-        dateFormatter.dateStyle = .MediumStyle
+        dateFormatter.dateStyle = .FullStyle
         return dateFormatter.stringFromDate(date!)
     }
     
@@ -87,6 +87,8 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
         messageLabel.textAlignment = NSTextAlignment.Center
         messageLabel.text = "Schedule for this Event has not been decided yet"
         messageLabel.textColor = UIColor.grayColor()
+        messageLabel.backgroundColor = UIColor.whiteColor()
+        messageLabel.font = UIFont(name: "Helvetica", size: 25)
         messageLabel.numberOfLines = 0
         view.addSubview(messageLabel)
     }
@@ -120,7 +122,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
         let selectedTalk = schedule[indexPath.section][indexPath.row]
-        //talksVC.scrollToSelectedTalk(selectedTalk)
+        talksVC.scrollToSelectedTalk(selectedTalk)
         pageController?.currentPage = 3
     }
     

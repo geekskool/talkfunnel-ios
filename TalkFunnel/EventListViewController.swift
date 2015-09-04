@@ -34,7 +34,7 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("Events", forIndexPath: indexPath) as UITableViewCell
         
         let event = eventList
-        let e = event[indexPath.row]
+        let e = event[(event.count - 1) - indexPath.row]
         cell.textLabel?.text = e.title
         cell.textLabel?.textColor = UIColor.purpleColor()
         cell.textLabel?.font = UIFont(name: "Helvetica", size: 30)
@@ -44,7 +44,7 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        currentEvent = eventList[indexPath.row]
+        currentEvent = eventList[(eventList.count - 1) - indexPath.row]
         fetchDataForEvent { (doneFetching) -> Void in
             if doneFetching {
                 eventInfoVC.refresh()

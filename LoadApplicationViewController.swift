@@ -56,6 +56,9 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
                 if error != nil {
                     self.noInternetConnection()
                 }
+                else {
+                    self.setUpApp()
+                }
             }
         }
     }
@@ -73,6 +76,7 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
         view.addSubview(pageController!.view)
         pageController?.delegate = self
         
+        talksVC.resetTalksScroll()
     }
     
     private func setUpNavigationBar() {
@@ -161,11 +165,5 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     
     func pageViewController(pageController: DMDynamicViewController, didChangeViewControllers viewControllers: Array<UIViewController>) {
         
-    }
-    
-    //talkInforScrollViewControllerDelegate Method
-    func talkScrolled() {
-        pageController?.currentPage = 3
-        hideNavigationBar()
     }
 }

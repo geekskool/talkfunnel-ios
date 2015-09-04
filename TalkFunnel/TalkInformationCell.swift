@@ -68,27 +68,20 @@ class TalkInformationCell: UITableViewCell {
     }
     
     private func setTalkTimings() {
-        if let talkStartTime = talk.startTime {
-            if let talkEndTime = talk.endTime {
-                talkTimings.text = talkStartTime + " - " + talkEndTime
-            }
-            else {
-                talkTimings.text = talkStartTime
-            }
+        let startTime = getTimeFromDate(talk.startTime)
+        let endTime = getTimeFromDate(talk.endTime)
+        
+        if startTime != "" || endTime != "" {
+            talkTimings.text = "from " + startTime + " - " + endTime
         }
         else {
-            if let talkEndTime = talk.endTime {
-                talkTimings.text = talkEndTime
-            }
-            else {
-                talkTimings.text = "Talk Timings not Provided"
-                talkTimings.textColor = UIColor.lightGrayColor()
-            }
+            talkTimings.text = "Talk Timings not Provided"
+            talkTimings.textColor = UIColor.lightGrayColor()
         }
     }
     
     private func setTalkRoomName() {
-        talkRoomName.text = talk.roomName
+        talkRoomName.text = getRoomName(talk.roomName)
     }
     
     private func setTalkSectionType() {
@@ -150,5 +143,37 @@ class TalkInformationCell: UITableViewCell {
         speakerBio.numberOfLines = 0
         speakerBio.sizeToFit()
     }
+    
+    private func getTimeFromDate(string: String?) -> String {
+        if let dateString = string {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ" //iso 8601
+            let date = dateFormatter.dateFromString(dateString)
+            
+            let newDateFormatter = NSDateFormatter()
+            newDateFormatter.dateFormat = "HH:mm" // 08:30
+            return newDateFormatter.stringFromDate(date!)
+        }
+        return ""
+    }
+    
+    private func getRoomName(string: String?) -> String {
+        if let givenRoomName = string {
+            if let rooms = currentEventInformation?.roomNames {
+                for room in rooms {
+                    if let roomName = room.name {
+                        if roomName == givenRoomName {
+                            if let roomTitle = room.title {
+                                return "at " + roomTitle
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return ""
+    }
+    
+    
 
 }

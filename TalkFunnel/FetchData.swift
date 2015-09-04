@@ -142,6 +142,7 @@ func fetchDataForEvent(callback: Bool -> Void) {
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if error != nil {
                 print("EventInfo error is \(error)")
+                callback(false)
             }
             else {
                 currentEventInformation = EventInformation(data: data)
@@ -178,6 +179,9 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                     fetchDataForEvent({ (doneFetching) -> Void in
                         if doneFetching {
                             callback(true,nil)
+                        }
+                        else {
+                            callback(false,nil)
                         }
                     })
                 }
