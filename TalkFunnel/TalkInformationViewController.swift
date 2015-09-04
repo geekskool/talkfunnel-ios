@@ -47,10 +47,13 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
     //TableViewDelegate Methods
     
     
+    
+    
     //TableView Datasource Methods
+    
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return talks.count
-        
     }
     
     
@@ -62,6 +65,14 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         talkInformationCell.setUpCell(talk)
         
         return talkInformationCell
+    }
+    
+    
+    //Private Methods
+    
+    private func getLabelSize(lbl: UILabel) -> CGSize{
+        let txt = lbl.text!
+        return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
     }
         
 
