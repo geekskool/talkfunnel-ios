@@ -329,9 +329,30 @@
                     <view key="view" contentMode="scaleToFill" id="Pac-1s-pMi">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hasGeekLogo" translatesAutoresizingMaskIntoConstraints="NO" id="eEP-Ml-oyo">
+                                <rect key="frame" x="40" y="136" width="241" height="231"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="241" id="dek-Yj-r5U"/>
+                                    <constraint firstAttribute="height" constant="231" id="lpZ-nM-wAS"/>
+                                </constraints>
+                            </imageView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="cQv-Z9-5Ac">
+                                <rect key="frame" x="150" y="375" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eEP-Ml-oyo" firstAttribute="centerY" secondItem="Pac-1s-pMi" secondAttribute="centerY" id="Wen-ys-9Dc"/>
+                            <constraint firstItem="cQv-Z9-5Ac" firstAttribute="centerX" secondItem="Pac-1s-pMi" secondAttribute="centerX" id="cWz-Fv-BGU"/>
+                            <constraint firstItem="cQv-Z9-5Ac" firstAttribute="top" secondItem="eEP-Ml-oyo" secondAttribute="bottom" constant="8" symbolic="YES" id="eyC-hv-vtK"/>
+                            <constraint firstItem="cQv-Z9-5Ac" firstAttribute="centerX" secondItem="eEP-Ml-oyo" secondAttribute="centerX" id="vDe-3W-UkZ"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="sTs-jw-xiS"/>
+                    <connections>
+                        <outlet property="loadingIcon" destination="cQv-Z9-5Ac" id="PAI-GQ-WbQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaL-X5-oeS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -350,7 +371,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Eve-Dq-vRx">
-                                <rect key="frame" x="0.0" y="28" width="320" height="540"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Events" textLabel="7St-8C-lxK" detailTextLabel="g8i-yk-oXe" style="IBUITableViewCellStyleSubtitle" id="XtN-4f-vOr">
@@ -383,10 +404,10 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Eve-Dq-vRx" secondAttribute="trailing" id="9Uh-DT-RD1"/>
-                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="leading" secondItem="hsU-3K-qgh" secondAttribute="leading" id="MIb-G1-G45"/>
-                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="bottom" secondItem="pWb-Ak-zey" secondAttribute="top" id="MlM-3U-C9J"/>
-                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="top" secondItem="bdy-99-DEF" secondAttribute="bottom" constant="8" symbolic="YES" id="kgc-ev-FAM"/>
+                            <constraint firstAttribute="trailing" secondItem="Eve-Dq-vRx" secondAttribute="trailing" id="Xao-Xd-iV0"/>
+                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="leading" secondItem="hsU-3K-qgh" secondAttribute="leading" id="lNr-Ih-HeM"/>
+                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="bottom" secondItem="pWb-Ak-zey" secondAttribute="top" id="mSv-gN-X5J"/>
+                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="top" secondItem="bdy-99-DEF" secondAttribute="bottom" id="toT-uK-pwg"/>
                         </constraints>
                     </view>
                     <connections>
@@ -410,16 +431,16 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTF-l5-Tu3">
-                                <rect key="frame" x="0.0" y="28" width="320" height="540"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="top" secondItem="TVL-jq-3Ja" secondAttribute="bottom" constant="8" symbolic="YES" id="3j5-lG-jvv"/>
-                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="leading" secondItem="3Vc-Or-8Nc" secondAttribute="leading" id="XAC-Yd-FCJ"/>
-                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="bottom" secondItem="0ha-wm-3oF" secondAttribute="top" id="cjb-1o-lWf"/>
-                            <constraint firstAttribute="trailing" secondItem="iTF-l5-Tu3" secondAttribute="trailing" id="tOl-ef-WHX"/>
+                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="bottom" secondItem="0ha-wm-3oF" secondAttribute="top" id="8Y9-Yo-OG8"/>
+                            <constraint firstAttribute="trailing" secondItem="iTF-l5-Tu3" secondAttribute="trailing" id="eii-LO-p4f"/>
+                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="leading" secondItem="3Vc-Or-8Nc" secondAttribute="leading" id="gpF-A8-E1O"/>
+                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="top" secondItem="TVL-jq-3Ja" secondAttribute="bottom" id="ko1-1g-nNR"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Daj-7k-SHc"/>
@@ -429,7 +450,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CF2-ef-cmY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2052" y="181"/>
+            <point key="canvasLocation" x="1890" y="181"/>
         </scene>
         <!--Add Contact View Controller-->
         <scene sceneID="eH9-iR-70L">
@@ -658,4 +679,7 @@
             <point key="canvasLocation" x="957" y="-460"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="hasGeekLogo" width="291" height="291"/>
+    </resources>
 </document>

@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "rchat.png",
+      "filename" : "TalkFunnelLogo.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "rchat@2x.png",
       "scale" : "2x"
     },
     {

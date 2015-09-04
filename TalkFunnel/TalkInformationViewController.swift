@@ -13,7 +13,7 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
 
     @IBOutlet weak var tableView: UITableView!
     var talks = [Session]()
-    
+    var loadingView = UIView()
     var messageLabel = UILabel()
     
     override func viewDidLoad() {
@@ -31,9 +31,24 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
     
     func refresh() {
         messageLabel.removeFromSuperview()
+        loadingView.removeFromSuperview()
         getTalks()
         tableView.reloadData()
         resetTalksScroll()
+    }
+    
+    func addLoadingDataView() {
+        loadingView.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)
+        loadingView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingIcon = UIActivityIndicatorView()
+        loadingIcon.frame.origin = CGPointMake(loadingView.frame.width/2, loadingView.frame.height/2)
+        loadingIcon.color = UIColor.orangeColor()
+        loadingView.addSubview(loadingIcon)
+        view.addSubview(loadingView)
+        
+        loadingIcon.startAnimating()
+        
     }
     
     func scrollToSelectedTalk(talk: Session) {

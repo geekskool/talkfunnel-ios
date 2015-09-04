@@ -45,12 +45,13 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         currentEvent = eventList[(eventList.count - 1) - indexPath.row]
+        eventInfoVC.addLoadingDataView()
+        talksVC.addLoadingDataView()
+        pageController!.currentPage = 2
         fetchDataForEvent { (doneFetching) -> Void in
             if doneFetching {
                 eventInfoVC.refresh()
                 talksVC.refresh()
-                pageController!.currentPage = 2
-                
             }
         }
     }

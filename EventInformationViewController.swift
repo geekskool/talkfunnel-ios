@@ -15,6 +15,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     var dailyColors = [UIColor]()
     var breakColors = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
     let messageLabel = UILabel()
+    let loadingView = UIView()
 
     private struct constants {
         static let breakCellReuseIdentifier = "Break"
@@ -36,7 +37,22 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     
     func refresh() {
         messageLabel.removeFromSuperview()
+        loadingView.removeFromSuperview()
         tableViewForSchedule.reloadData()
+    }
+    
+    func addLoadingDataView() {
+        loadingView.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)
+        loadingView.backgroundColor = UIColor.whiteColor()
+        
+        let loadingIcon = UIActivityIndicatorView()
+        loadingIcon.frame.origin = CGPointMake(loadingView.frame.width/2, loadingView.frame.height/2)
+        loadingIcon.color = UIColor.orangeColor()
+        loadingView.addSubview(loadingIcon)
+        view.addSubview(loadingView)
+        
+        loadingIcon.startAnimating()
+        
     }
     
     // MARK: - Table view data source

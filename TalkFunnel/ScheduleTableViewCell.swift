@@ -19,10 +19,10 @@ class ScheduleTableViewCell: UITableViewCell {
     var session: Session? {
         didSet {
             if let talk = session {
-                talkTiming.text = getTimeFromDate(talk.startTime!)
+                talkTiming.text = getTimeFromDate(talk.startTime)
                 talkTitle.text = talk.title
                 speakerName.text = talk.speakerName
-                roomName.text = getRoomName(talk.roomName!)
+                roomName.text = getRoomName(talk.roomName)
                 setNeedsDisplay()
             }
         }
@@ -32,27 +32,32 @@ class ScheduleTableViewCell: UITableViewCell {
         return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
     }
     
-    private func getRoomName(roomString: String) -> String {
-        if let eventInfo = currentEventInformation {
-            let rooms = eventInfo.roomNames
-            for room in rooms {
-                if room.name == roomString {
-                    return room.title!
+    private func getRoomName(string: String?) -> String {
+        if let roomString = string {
+            if let eventInfo = currentEventInformation {
+                let rooms = eventInfo.roomNames
+                for room in rooms {
+                    if room.name == roomString {
+                        return room.title!
+                    }
                 }
             }
         }
-        return roomString
+        return ""
     }
     
     
-    private func getTimeFromDate(dateString: String) -> String {
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ" //iso 8601
-        let date = dateFormatter.dateFromString(dateString)
-        
-        let newDateFormatter = NSDateFormatter()
-        newDateFormatter.dateFormat = "HH:mm" // 08:30
-        return newDateFormatter.stringFromDate(date!)
+    private func getTimeFromDate(string: String?) -> String {
+        if let dateString = string {
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZZZZ" //iso 8601
+            let date = dateFormatter.dateFromString(dateString)
+            
+            let newDateFormatter = NSDateFormatter()
+            newDateFormatter.dateFormat = "HH:mm" // 08:30
+            return newDateFormatter.stringFromDate(date!)
+        }
+        return ""
     }
     
 }

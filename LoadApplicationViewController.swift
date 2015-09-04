@@ -23,6 +23,7 @@ let talksVC = storyBoard.instantiateViewControllerWithIdentifier("Talks") as! Ta
 class LoadApplicationViewController: UIViewController,DMDynamicPageViewControllerDelegate {
     
     var pageTitleLabel = UILabel()
+    @IBOutlet weak var loadingIcon: UIActivityIndicatorView!
     
     private var SCREENSIZE: CGSize {
         return UIScreen.mainScreen().bounds.size
@@ -30,21 +31,16 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpMessageLabel()
         setUpApp()
     }
     
-    private func setUpMessageLabel() {
-        let messageLabel = UILabel()
-        messageLabel.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)
-        messageLabel.textAlignment = NSTextAlignment.Center
-        messageLabel.text = "Loading Data"
-        messageLabel.textColor = UIColor.blackColor()
-        view.addSubview(messageLabel)
+    private func setUpLoadingScreen() {
+        loadingIcon.startAnimating()
         hideNavigationBar()
     }
     
     private func setUpApp() {
+        setUpLoadingScreen()
         getLocalData()
         fetchDataForEventList { (doneFetching,error) -> Void in
             if doneFetching {
@@ -64,6 +60,7 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     }
     
     private func setUpPageView() {
+        loadingIcon.stopAnimating()
         setUpPageController()
         setUpNavigationBar()
     }
@@ -95,6 +92,7 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     }
 
     func noInternetConnection() {
+        loadingIcon.stopAnimating()
         let noInternetConnectionAlert = UIAlertController(title: "Connection Error", message: "Unable to connect with server.Check your internet connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
         let tryAgainAction = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.setUpApp()
