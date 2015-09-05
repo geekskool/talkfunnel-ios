@@ -349,9 +349,24 @@
                             <constraint firstItem="cQv-Z9-5Ac" firstAttribute="centerX" secondItem="eEP-Ml-oyo" secondAttribute="centerX" id="vDe-3W-UkZ"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="sTs-jw-xiS"/>
+                    <navigationItem key="navigationItem" id="sTs-jw-xiS">
+                        <barButtonItem key="leftBarButtonItem" image="Back" id="rUr-ca-wQd">
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onBackPressed:" destination="SU0-SD-AHN" id="AKb-1I-r2z"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="Forward" id="L1b-lT-8sq">
+                            <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <connections>
+                                <action selector="onNextPressed:" destination="SU0-SD-AHN" id="a3l-19-Uqa"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="backArrow" destination="rUr-ca-wQd" id="0xD-FZ-zbO"/>
                         <outlet property="loadingIcon" destination="cQv-Z9-5Ac" id="PAI-GQ-WbQ"/>
+                        <outlet property="nextArrow" destination="L1b-lT-8sq" id="zpw-kz-KW1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaL-X5-oeS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -680,6 +695,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="Back" width="22" height="22"/>
+        <image name="Forward" width="22" height="22"/>
         <image name="hasGeekLogo" width="291" height="291"/>
     </resources>
 </document>

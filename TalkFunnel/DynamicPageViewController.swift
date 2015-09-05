@@ -11,7 +11,7 @@ import UIKit
 protocol DMDynamicPageViewControllerDelegate {
     func pageViewController(pageController: DMDynamicViewController, didSwitchToViewController viewController: UIViewController)
     func pageViewController(pageController: DMDynamicViewController, didChangeViewControllers viewControllers: Array<UIViewController>)
-    func pageIsMoving(scrollView: UIScrollView,pageNumber: CGFloat)
+    func pageIsMoving(pageNumber: CGFloat)
 }
 
 class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
@@ -146,6 +146,10 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    func moveToPage(pageNumber: CGFloat) {
+        containerScrollView.setContentOffset(CGPointMake(pageNumber * self.view.bounds.size.width, 0.0), animated: true)
+    }
+    
     func notifyDelegateDidSwitchPage() {
         self.delegate?.pageViewController(self, didSwitchToViewController: self.viewControllers![self.currentPage])
     }
@@ -154,8 +158,8 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
         self.delegate?.pageViewController(self, didChangeViewControllers: self.viewControllers!)
     }
     
-    func notifyDelegatePageIsMoving(scrollView: UIScrollView,pageNumber: CGFloat) {
-        self.delegate?.pageIsMoving(scrollView,pageNumber: pageNumber)
+    func notifyDelegatePageIsMoving(pageNumber: CGFloat) {
+        self.delegate?.pageIsMoving(pageNumber)
     }
     
     // MARK: UIScrollViewDelegate
@@ -163,7 +167,7 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
     func scrollViewDidScroll(scrollView: UIScrollView) {
         //for delegate
         let p = ((containerScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1
-        self.notifyDelegatePageIsMoving(containerScrollView,pageNumber: p)
+        self.notifyDelegatePageIsMoving(p)
         
         // Update the page when more than 50% of the previous/next page is visible
         let page = floor((containerScrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1

@@ -65,7 +65,7 @@ class SaveContactToAddressBook {
         // 2. Add the member to the group
         let addedToGroup = ABGroupAddMember(group, contact, nil)
         if !addedToGroup {
-            print("Couldn't add pet to group.")
+            print("Couldn't add contact to group.")
         }
         
         // 3. Save the changes
@@ -105,9 +105,7 @@ class SaveContactToAddressBook {
         
         ABRecordSetValue(contactRecord, kABPersonFirstNameProperty, scannedParticipantInfo?.fullName, nil)
 //        ABRecordSetValue(contactRecord, kABPersonEmailProperty, scannedParticipantInfo?.email, nil)
-//        ABRecordSetValue(contactRecord, kABPersonOrganizationProperty, scannedParticipantInfo?.company, nil)
-//        ABRecordSetValue(contactRecord, kABPersonEmailProperty, scannedParticipantInfo?.fullName, nil)
-        
+        ABRecordSetValue(contactRecord, kABPersonOrganizationProperty, scannedParticipantInfo?.company, nil)
         let phoneNumbers: ABMutableMultiValue = ABMultiValueCreateMutable(ABPropertyType(kABMultiStringPropertyType)).takeRetainedValue()
         ABMultiValueAddValueAndLabel(phoneNumbers, scannedParticipantInfo?.phoneNumber, kABPersonPhoneMainLabel, nil)
         ABRecordSetValue(contactRecord, kABPersonPhoneProperty, phoneNumbers, nil)

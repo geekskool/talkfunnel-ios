@@ -148,8 +148,6 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
         }
     }
     
-    //contact scan stuff
-    
     func fetchParticipantRelatedData(urlAddition: String, callback: (Bool) -> Void) {
         if let currentEventURL = theEvent?.url {
             let participantListURL = currentEventURL + urlAddition
@@ -176,8 +174,10 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
                                 scannedParticipantInfo = ParticipantsInformation(participant: allParticipants)
                                 callback(true)
                             }
+                            else {
+                                callback(false)
+                            }
                         }
-                        callback(false)
                     }
                 })
             })
