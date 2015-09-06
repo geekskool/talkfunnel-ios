@@ -10,14 +10,13 @@ import UIKit
 
 
 var pageController:DMDynamicViewController? = nil
-
-
 let storyBoard = UIStoryboard(name: "Main",bundle: nil)
 let contactsVC = storyBoard.instantiateViewControllerWithIdentifier("Contacts") as! ContactsViewController
 let chatVC = storyBoard.instantiateViewControllerWithIdentifier("Chat") as UIViewController
 let eventInfoVC = storyBoard.instantiateViewControllerWithIdentifier("EventInformation") as! EventInformationViewController
 let eventListVC = storyBoard.instantiateViewControllerWithIdentifier("EventList") as UIViewController
 let talksVC = storyBoard.instantiateViewControllerWithIdentifier("Talks") as! TalkInformationViewController
+let loadAppVC = storyBoard.instantiateViewControllerWithIdentifier("LoadApplication") as! LoadApplicationViewController
 
 
 class LoadApplicationViewController: UIViewController,DMDynamicPageViewControllerDelegate {
@@ -139,7 +138,12 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     
     
     private func logOut() {
-        
+        userAccessToken = nil
+        userTokenType = nil
+        addToLocalData()
+        isUserLoggedIn = false
+        backArrow.tintColor = UIColor.clearColor()
+        contactsVC.refresh()
     }
     
     private func changeBarButtonImage(barButton: UIBarButtonItem,imageName: String) {
@@ -190,7 +194,13 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     private func setBarButtonAlpha(alpha: CGFloat) {
         switch currentPageNumber {
         case 0:
-            backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: alpha)
+            if isUserLoggedIn {
+               backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: alpha)
+            }
+            else {
+                backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: 0.0)
+            }
+
         case 1:
             backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: alpha)
         case 2:
@@ -253,5 +263,11 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     
     func pageViewController(pageController: DMDynamicViewController, didChangeViewControllers viewControllers: Array<UIViewController>) {
         
+    }
+    
+    
+    //MARK: Method called after user logs in and after AUTH
+    func makeLogOutButtonVisible() {
+        backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: 1.0)
     }
 }

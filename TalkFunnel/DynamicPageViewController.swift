@@ -182,10 +182,10 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
         {
             //Turn off video capture when the user isnt on the contacts page
             if page != 0.0 {
-                contactsVC.qrCodeScannerVC.stopRunning()
+                contactsVC.scanContactsVC.qrCodeScannerVC.stopRunning()
             }
             else {
-                contactsVC.qrCodeScannerVC.startRunning()
+                contactsVC.scanContactsVC.qrCodeScannerVC.startRunning()
             }
             self.fullySwitchedPage = self.currentPage;
         }
