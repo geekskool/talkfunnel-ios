@@ -10,20 +10,23 @@ import UIKit
 
 
 var pageController:DMDynamicViewController? = nil
-
-
 let storyBoard = UIStoryboard(name: "Main",bundle: nil)
 let contactsVC = storyBoard.instantiateViewControllerWithIdentifier("Contacts") as! ContactsViewController
 let chatVC = storyBoard.instantiateViewControllerWithIdentifier("Chat") as UIViewController
 let eventInfoVC = storyBoard.instantiateViewControllerWithIdentifier("EventInformation") as! EventInformationViewController
 let eventListVC = storyBoard.instantiateViewControllerWithIdentifier("EventList") as UIViewController
 let talksVC = storyBoard.instantiateViewControllerWithIdentifier("Talks") as! TalkInformationViewController
+let loadAppVC = storyBoard.instantiateViewControllerWithIdentifier("LoadApplication") as! LoadApplicationViewController
 
 
 class LoadApplicationViewController: UIViewController,DMDynamicPageViewControllerDelegate {
     
-    var pageTitleLabel = UILabel()
+    @IBOutlet weak var backArrow: UIBarButtonItem!
+    @IBOutlet weak var nextArrow: UIBarButtonItem!
     @IBOutlet weak var loadingIcon: UIActivityIndicatorView!
+    
+    var pageTitleLabel = UILabel()
+    var currentPageNumber: CGFloat = 2.0
     
     private var SCREENSIZE: CGSize {
         return UIScreen.mainScreen().bounds.size
@@ -32,11 +35,6 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpApp()
-    }
-    
-    private func setUpLoadingScreen() {
-        loadingIcon.startAnimating()
-        hideNavigationBar()
     }
     
     private func setUpApp() {
@@ -57,6 +55,11 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
                 }
             }
         }
+    }
+    
+    private func setUpLoadingScreen() {
+        loadingIcon.startAnimating()
+        hideNavigationBar()
     }
     
     private func setUpPageView() {
@@ -80,7 +83,6 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
         navigationController?.navigationBar.addSubview(pageTitleLabel)
         navigationController?.navigationBarHidden = false
         navigationController?.navigationBar.translucent = false
-        navigationController?.navigationBar.barTintColor = UIColor.orangeColor()
     }
     
     private func hideNavigationBar() {
@@ -101,51 +103,73 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
         self.presentViewController(noInternetConnectionAlert, animated: true, completion: nil)
     }
     
+    @IBAction func onBackPressed(sender: UIBarButtonItem) {
+        switch currentPageNumber {
+        case 0:
+            logOut()
+        case 1:
+            changeBarButtonImage(backArrow, imageName: "Logout")
+            currentPageNumber--
+        case 4:
+            nextArrow.tintColor = UIColor.orangeColor()
+            currentPageNumber--
+        default:
+            currentPageNumber--
+        }
+        pageController?.moveToPage(currentPageNumber)
+    }
+    
+    @IBAction func onNextPressed(sender: UIBarButtonItem) {
+        nextArrow.tintColor = UIColor.orangeColor()
+        switch currentPageNumber {
+        case 0:
+            changeBarButtonImage(backArrow, imageName: "Back")
+            currentPageNumber++
+        case 3:
+            nextArrow.tintColor = UIColor.clearColor()
+            currentPageNumber++
+        case 4:
+            nextArrow.tintColor = UIColor.clearColor()
+        default:
+            currentPageNumber++
+        }
+        pageController?.moveToPage(currentPageNumber)
+    }
+    
+    
+    private func logOut() {
+        userAccessToken = nil
+        userTokenType = nil
+        addToLocalData()
+        isUserLoggedIn = false
+        backArrow.tintColor = UIColor.clearColor()
+        contactsVC.refresh()
+    }
+    
+    private func changeBarButtonImage(barButton: UIBarButtonItem,imageName: String) {
+        var image = UIImage(named: imageName)
+        image = image?.imageWithRenderingMode(.AlwaysTemplate)
+        barButton.image = image
+    }
+    
     //DMDynamic Page View controller Delegate Method
-    func pageIsMoving(scrollView: UIScrollView, pageNumber: CGFloat) {
+    func pageIsMoving(pageNumber: CGFloat) {
+        let value = 2*(pageNumber - floor(pageNumber))
+        let alpha = getAlpha(value)
+        
+        currentPageNumber = floor(pageNumber)
         setPageTitle(pageNumber)
         setPageTitleFrame()
+        setPageTitleAlpha(alpha)
         
-        let value = 2*(pageNumber - floor(pageNumber))
-        setPageTitleAlpha(value)
-    }
-    
-    private func setPageTitle(pageNumber: CGFloat) {
-        switch floor(pageNumber) {
-        case 0:
-            if isUserLoggedIn {
-                pageTitleLabel.text = "SCAN CONTACT"
-            }
-            else {
-                pageTitleLabel.text = "LOG IN"
-            }
-        case 1:
-            pageTitleLabel.text = "EVENTS"
-        case 2:
-            pageTitleLabel.text = currentEvent?.title
-        case 3:
-            pageTitleLabel.text = "TALKS"
-        case 4:
-            pageTitleLabel.text = "CHAT"
-        default:
-            break
+        setBarButtonImage(pageNumber)
+        if pageNumber < 1.5 || pageNumber > 3.5 {
+            setBarButtonAlpha(alpha)
         }
+        
     }
     
-    private func setPageTitleFrame() {
-        pageTitleLabel.font = UIFont(name: "Helvetica", size: 25)
-        pageTitleLabel.textColor = UIColor.whiteColor()
-        let vSize: CGSize = getLabelSize(pageTitleLabel)
-        let originX = (self.SCREENSIZE.width/2.0 - vSize.width/2.0)
-        pageTitleLabel.frame = CGRectMake(originX, 8, vSize.width, vSize.height)
-    }
-    
-    private func getLabelSize(lbl: UILabel) -> CGSize{
-        let txt = lbl.text!
-        return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
-    }
-    
-    private func setPageTitleAlpha(value: CGFloat) {
+    private func getAlpha(value: CGFloat) -> CGFloat {
         var alpha: CGFloat
         if value > 1 {
             alpha = 2 - value
@@ -153,6 +177,82 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
         else {
             alpha = value
         }
+        return alpha
+    }
+    
+    private func setBarButtonImage(pageNumber: CGFloat) {
+        switch floor(pageNumber) {
+        case 0:
+            changeBarButtonImage(backArrow, imageName: "Logout")
+        case 1:
+            changeBarButtonImage(backArrow, imageName: "Back")
+        default:
+            break
+        }
+    }
+    
+    private func setBarButtonAlpha(alpha: CGFloat) {
+        switch currentPageNumber {
+        case 0:
+            if isUserLoggedIn {
+               backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: alpha)
+            }
+            else {
+                backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: 0.0)
+            }
+
+        case 1:
+            backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: alpha)
+        case 2:
+            backArrow.tintColor = UIColor.orangeColor()
+        case 3:
+            nextArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: alpha)
+        case 4:
+            nextArrow.tintColor = UIColor.clearColor()
+        default :
+            break
+        }
+        
+
+    }
+    
+    private func setPageTitle(pageNumber: CGFloat) {
+        switch floor(pageNumber) {
+        case 0:
+            if isUserLoggedIn {
+                pageTitleLabel.text = "Contacts"
+            }
+            else {
+                pageTitleLabel.text = "Log In"
+            }
+        case 1:
+            pageTitleLabel.text = "Events"
+        case 2:
+            pageTitleLabel.text = currentEvent?.title
+        case 3:
+            pageTitleLabel.text = "Talks"
+        case 4:
+            pageTitleLabel.text = "Chat"
+        default:
+            break
+        }
+    }
+    
+    private func setPageTitleFrame() {
+        pageTitleLabel.font = UIFont.boldSystemFontOfSize(25)
+        pageTitleLabel.textColor = UIColor.orangeColor()
+        pageTitleLabel.textAlignment = .Center
+        let vSize: CGSize = getLabelSize(pageTitleLabel)
+        let originX = (self.SCREENSIZE.width/2.0 - vSize.width/2.0)
+        pageTitleLabel.frame = CGRectMake(originX - 10, 8, vSize.width + 20, vSize.height)
+    }
+    
+    private func getLabelSize(lbl: UILabel) -> CGSize{
+        let txt = lbl.text!
+        return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
+    }
+    
+    private func setPageTitleAlpha(alpha: CGFloat) {
         pageTitleLabel.alpha = alpha
     }
     
@@ -163,5 +263,11 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     
     func pageViewController(pageController: DMDynamicViewController, didChangeViewControllers viewControllers: Array<UIViewController>) {
         
+    }
+    
+    
+    //MARK: Method called after user logs in and after AUTH
+    func makeLogOutButtonVisible() {
+        backArrow.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: 1.0)
     }
 }

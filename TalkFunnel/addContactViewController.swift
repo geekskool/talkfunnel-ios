@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol addContactViewControllerDelegate {
+    func saveScannedContact()
+}
 class addContactViewController: UITableViewController {
     
     @IBOutlet weak var contactName: UILabel!
@@ -15,6 +18,8 @@ class addContactViewController: UITableViewController {
     @IBOutlet weak var contactTwitterHandle: UILabel!
     @IBOutlet weak var contactPhoneNumber: UILabel!
     @IBOutlet weak var contactEmail: UILabel!
+    
+    var delegate :addContactViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,6 +32,12 @@ class addContactViewController: UITableViewController {
         contactEmail.text = scannedParticipantInfo?.email
         contactPhoneNumber.text = scannedParticipantInfo?.phoneNumber
         contactTwitterHandle.text = scannedParticipantInfo?.twitter
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if let delegate = self.delegate {
+            delegate.saveScannedContact()
+        }
     }
 }
 

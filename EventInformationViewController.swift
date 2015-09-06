@@ -60,9 +60,9 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     //make changes to the section header
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView //recast your view as a UITableViewHeaderFooterView
-        header.contentView.backgroundColor = colorGradient(UIColor.orangeColor(), mixColor: UIColor.grayColor(), t: 0.2)
+        header.contentView.backgroundColor = UIColor.whiteColor()
         //UIColor(red: 0/255, green: 181/255, blue: 229/255, alpha: 1.0) //make the background color light blue
-        header.textLabel!.textColor = UIColor.whiteColor() //make the text white
+        header.textLabel!.textColor = UIColor.lightGrayColor() //make the text white
     }
     
     private func colorGradient(initColor: UIColor, mixColor: UIColor, t: CGFloat) -> UIColor {

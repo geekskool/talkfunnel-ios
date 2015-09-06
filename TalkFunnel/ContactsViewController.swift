@@ -2,126 +2,104 @@
 //  ContactsViewController.swift
 //  TalkFunnel
 //
-//  Created by Jaison Titus on 11/08/15.
+//  Created by Jaison Titus on 06/09/15.
 //  Copyright © 2015 Hasgeek. All rights reserved.
 //
 
 import UIKit
 
-class ContactsViewController: UIViewController, qrCodeScannerViewControllerDelegate {
+class ContactsViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var instructionText: UILabel!
-    @IBOutlet weak var logInOrOutButton: UIButton!
+    @IBOutlet weak var button: UIButton!
     
-    let addContactVC = storyBoard.instantiateViewControllerWithIdentifier("addContact") as! addContactViewController
-    var qrCodeScannerVC = storyBoard.instantiateViewControllerWithIdentifier("qrCodeScanner") as! qrCodeScannerViewController
+    let savedContactsListVC = storyBoard.instantiateViewControllerWithIdentifier("SavedContactsList") as! SavedContactsListViewController
+    let scanContactsVC = storyBoard.instantiateViewControllerWithIdentifier("ScanContact") as! ScanContactsViewController
     
-    var isScanningComplete = false {
-        willSet(newValue) {
-            if newValue {
-                changeButtonToSaveContact()
-            }
-            else {
-                revertButtonBackToLogInOrLogOut()
-            }
-        }
-    }
+    var isShowingSavedContactList = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        refresh()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        addQRCodeScannerVC()
-    }
-    
-    
-    func addQRCodeScannerVC() {
-        addChildViewController(qrCodeScannerVC)
-        qrCodeScannerVC.view.frame = containerView.bounds
-        containerView.addSubview(qrCodeScannerVC.view)
-        qrCodeScannerVC.didMoveToParentViewController(self)
-        qrCodeScannerVC.delegate = self
-        qrCodeScannerVC.startReadingQRCode()
-    }
-    
-    func removeQRCodeSCannerVC() {
-        qrCodeScannerVC.willMoveToParentViewController(nil)
-        qrCodeScannerVC.view.removeFromSuperview()
-        qrCodeScannerVC.removeFromParentViewController()
-    }
-    
-    func addAddContactVC() {
-        addChildViewController(addContactVC)
-        addContactVC.view.frame = containerView.bounds
-        containerView.addSubview(addContactVC.view)
-        addContactVC.didMoveToParentViewController(self)
-    }
-    
-    func removeAddContactVC() {
-        addContactVC.willMoveToParentViewController(nil)
-        addContactVC.view.removeFromSuperview()
-        addContactVC.removeFromParentViewController()
-    }
-    
-    func refresh() {
-        hasUserLoggedIn()
-    }
-    
-    func changeButtonToSaveContact() {
-        instructionText.text = "Scanned Contact Information "
-        logInOrOutButton.setTitle("Save Contact", forState: UIControlState.Normal)
-    }
-    
-    func revertButtonBackToLogInOrLogOut() {
-        hasUserLoggedIn()
-    }
-    
-    func hasUserLoggedIn() {
-        if isUserLoggedIn {
-            instructionText.text = "Point the camera at the QR Code to scan"
-            logInOrOutButton.setTitle("Log out", forState: UIControlState.Normal)
-        }
-        else {
-            instructionText.text = "Please Log In to scan badges"
-            logInOrOutButton.setTitle("Log In", forState: UIControlState.Normal)
-        }
-    }
-    
-    @IBAction func logInOrOut(sender: UIButton) {
-        if isScanningComplete {
-            saveScannedContact()
-        }
-        else {
-            if isUserLoggedIn {
-                logOut()
-            }
-            else {
-                logIn()
-            }
-        }
-    }
-    
-    
-    func saveScannedContact() {
-        let saveContact = SaveContactToAddressBook()
-        saveContact.addContact()
-        removeAddContactVC()
-        addQRCodeScannerVC()
-        isScanningComplete = false
-    }
-    
-    func logOut() {
-        userAccessToken = nil
-        userTokenType = nil
-        addToLocalData()
-        isUserLoggedIn = false
         refresh()
     }
     
+    func refresh() {
+        if isUserLoggedIn {
+            addViewControllerToContainerView(savedContactsListVC)
+        }
+        else {
+            addLogInScreen()
+        }
+        setButtonForPage()
+    }
+    
+    private func setButtonForPage() {
+        button.layer.cornerRadius = 0.5 * button.bounds.size.width
+        if isUserLoggedIn {
+            if isShowingSavedContactList {
+                button.setImage(UIImage(named: "scanQR"), forState: UIControlState.Normal)
+            }
+            else {
+                button.setImage(UIImage(named: "hasGeek"), forState: UIControlState.Normal)
+            }
+        }
+        else {
+            button.setImage(UIImage(named: "Login"), forState: UIControlState.Normal)
+        }
+    }
+    
+    private func addViewControllerToContainerView(viewController: UIViewController) {
+        addChildViewController(viewController)
+        viewController.view.frame = containerView.bounds
+        containerView.addSubview(viewController.view)
+        viewController.didMoveToParentViewController(self)
+    }
+    
+    private func removeViewControllerFromContainerView(viewController: UIViewController) {
+        viewController.willMoveToParentViewController(nil)
+        viewController.view.removeFromSuperview()
+        viewController.removeFromParentViewController()
+    }
+    
+    private func addLogInScreen() {
+        let logInScreenView = UIView()
+        logInScreenView.frame = containerView.bounds
+        containerView.addSubview(logInScreenView)
+        logInScreenView.addSubview(getMessageLabel(logInScreenView))
+        
+    }
+    
+    private func getMessageLabel(logInScreenView: UIView) -> UILabel {
+        let messageLabel = UILabel()
+        messageLabel.frame = logInScreenView.frame
+        messageLabel.textAlignment = .Center
+        messageLabel.text = "Please Log In to view or scan contacts"
+        messageLabel.numberOfLines = 0
+        messageLabel.backgroundColor = UIColor.whiteColor()
+        return messageLabel
+    }
+    
+    @IBAction func buttonClicked(sender: UIButton) {
+        if isUserLoggedIn {
+            if isShowingSavedContactList {
+                removeViewControllerFromContainerView(savedContactsListVC)
+                addViewControllerToContainerView(scanContactsVC)
+                isShowingSavedContactList = false
+            }
+            else {
+                removeViewControllerFromContainerView(scanContactsVC)
+                addViewControllerToContainerView(savedContactsListVC)
+                isShowingSavedContactList = true
+            }
+        }
+        else {
+            logIn()
+        }
+    }
     
     func logIn() {
         if let url = NSURL(string:"http://auth.hasgeek.com/auth?client_id=eDnmYKApSSOCXonBXtyoDQ&scope=id+email+phone+organizations+teams+com.talkfunnel:*&response_type=token") {
@@ -130,13 +108,4 @@ class ContactsViewController: UIViewController, qrCodeScannerViewControllerDeleg
             }
         }
     }
-   
-    
-    //qrCodeScannerViewControllerDelegateMethod
-    func doneScanningContactInfo() {
-        removeQRCodeSCannerVC()
-        addAddContactVC()
-        isScanningComplete = true
-    }
-    
 }

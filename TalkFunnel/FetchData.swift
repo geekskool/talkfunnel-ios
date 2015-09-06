@@ -7,6 +7,11 @@
 //
 
 import Foundation
+import UIKit
+import CoreData
+
+//Contacts 
+var savedContacts = [NSManagedObject]()
 
 var eventList = [EventList]()
 var currentEvent: EventList?
@@ -198,6 +203,28 @@ func getLocalData() {
     userTokenType = defaults.valueForKey(defaultsKeys.userTokenType) as? String
     if userAccessToken != nil && userTokenType != nil {
         isUserLoggedIn = true
+    }
+    getSavedContacts()
+}
+
+private func getSavedContacts() {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"Contacts")
+    
+    let fetchedResults: [NSManagedObject]?
+    do {
+        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        if let results = fetchedResults {
+            savedContacts = results
+        }
+        else {
+            print("empty")
+        }
+    }
+    catch {
+        print("error: \(error)")
     }
 }
 
