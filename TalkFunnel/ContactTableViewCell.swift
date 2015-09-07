@@ -11,6 +11,7 @@ import CoreData
 
 class ContactTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var contactCellBackground: UIView!
     @IBOutlet weak var contactName: UILabel!
     @IBOutlet weak var contactCompanyName: UILabel!
@@ -25,11 +26,11 @@ class ContactTableViewCell: UITableViewCell {
 
     override func setSelected(selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
         // Configure the view for the selected state
     }
     
     func setData(contact: NSManagedObject) {
+        
         contactCellBackground.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 255/255, alpha: 1)
         contactCellBackground.layer.cornerRadius = 8
         contactName.text = contact.valueForKey("name") as? String

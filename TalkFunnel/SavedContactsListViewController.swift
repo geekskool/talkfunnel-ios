@@ -38,5 +38,12 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
         cell.setData(contact)
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        let cell = tableView.cellForRowAtIndexPath(indexPath) as! ContactTableViewCell
+        cell.contactCellBackground.frame = CGRectMake(10, 10, cell.frame.width, cell.frame.height)
+        
+    }
 
 }

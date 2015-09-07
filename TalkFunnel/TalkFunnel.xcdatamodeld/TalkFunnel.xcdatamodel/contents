@@ -7,7 +7,49 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="twitterHandle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="EventInformation" syncable="YES">
+        <relationship name="rooms" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Rooms" syncable="YES"/>
+        <relationship name="schedules" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Schedule" inverseName="eventInformation" inverseEntity="Schedule" syncable="YES"/>
+        <relationship name="venues" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Venues" syncable="YES"/>
+    </entity>
+    <entity name="EventList" syncable="YES">
+        <attribute name="dateLocation" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="Rooms" syncable="YES"/>
+    <entity name="Schedule" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventInformation" inverseName="schedules" inverseEntity="EventInformation" syncable="YES"/>
+        <relationship name="slots" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slots" inverseName="schedule" inverseEntity="Slots" syncable="YES"/>
+    </entity>
+    <entity name="Session" syncable="YES">
+        <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isBreak" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="jsonUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roomName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sectionType" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="speakerBio" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="speakerName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startTime" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="talkDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="technicalLevel" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="slot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slots" inverseName="sessions" inverseEntity="Slots" syncable="YES"/>
+    </entity>
+    <entity name="Slots" syncable="YES">
+        <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="schedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Schedule" inverseName="slots" inverseEntity="Schedule" syncable="YES"/>
+        <relationship name="sessions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="slot" inverseEntity="Session" syncable="YES"/>
+    </entity>
+    <entity name="Venues" syncable="YES"/>
     <elements>
-        <element name="Contacts" positionX="-54" positionY="-9" width="128" height="120"/>
+        <element name="Contacts" positionX="-324" positionY="-324" width="128" height="120"/>
+        <element name="EventList" positionX="-81" positionY="-279" width="128" height="73"/>
+        <element name="EventInformation" positionX="-189" positionY="-279" width="128" height="90"/>
+        <element name="Schedule" positionX="-180" positionY="-270" width="128" height="90"/>
+        <element name="Slots" positionX="-171" positionY="-261" width="128" height="90"/>
+        <element name="Session" positionX="-162" positionY="-252" width="128" height="225"/>
+        <element name="Rooms" positionX="-153" positionY="-243" width="128" height="45"/>
+        <element name="Venues" positionX="-144" positionY="-225" width="128" height="45"/>
     </elements>
 </model>
