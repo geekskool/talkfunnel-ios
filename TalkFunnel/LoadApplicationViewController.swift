@@ -44,6 +44,7 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
             if doneFetching {
                 theEvent = currentEvent
                 theEventInformation = currentEventInformation
+                saveFetchedEventData()
                 self.setUpPageView()
             }
             else {
@@ -75,7 +76,6 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
         pageController?.view.frame = self.view.frame
         view.addSubview(pageController!.view)
         pageController?.delegate = self
-        
         talksVC.resetTalksScroll()
     }
     
@@ -92,16 +92,35 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     private func showNavigationBar() {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
+    
+    private func loadAppFromCache() {
+        fetchSavedEventData { (doneFetching) -> Void in
+            if doneFetching {
+                theEvent = currentEvent
+                theEventInformation = currentEventInformation
+                self.setUpPageView()
+            }
+            else {
+                //error
+            }
+        }
+    }
 
     func noInternetConnection() {
         loadingIcon.stopAnimating()
-        let noInternetConnectionAlert = UIAlertController(title: "Connection Error", message: "Unable to connect with server.Check your internet connection and try again", preferredStyle: UIAlertControllerStyle.Alert)
+        let noInternetConnectionAlert = UIAlertController(title: "Connection Error", message: "Unable to connect to the internet.Data may not be up to date.", preferredStyle: UIAlertControllerStyle.Alert)
         let tryAgainAction = UIAlertAction(title: "Try Again", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
             self.setUpApp()
         })
+        let continueAction = UIAlertAction(title: "Continue Anyway", style: UIAlertActionStyle.Default, handler: { (action) -> Void in
+            self.loadAppFromCache()
+        })
         noInternetConnectionAlert.addAction(tryAgainAction)
+        noInternetConnectionAlert.addAction(continueAction)
         self.presentViewController(noInternetConnectionAlert, animated: true, completion: nil)
     }
+    
+    
     
     @IBAction func onBackPressed(sender: UIBarButtonItem) {
         switch currentPageNumber {
@@ -248,8 +267,10 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     }
     
     private func getLabelSize(lbl: UILabel) -> CGSize{
-        let txt = lbl.text!
-        return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
+        if let txt = lbl.text {
+            return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
+        }
+        return CGSizeMake(0, 0)
     }
     
     private func setPageTitleAlpha(alpha: CGFloat) {

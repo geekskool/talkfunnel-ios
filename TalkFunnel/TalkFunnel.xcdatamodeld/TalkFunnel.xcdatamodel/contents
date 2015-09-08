@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="8118.17" systemVersion="14F27" minimumToolsVersion="Xcode 7.0">
-    <entity name="Contacts" syncable="YES">
+    <entity name="Contacts" representedClassName=".Contacts" syncable="YES">
         <attribute name="company" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="emailAddress" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="mobileNumber" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="twitterHandle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="EventInformation" syncable="YES">
-        <relationship name="rooms" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Rooms" syncable="YES"/>
-        <relationship name="schedules" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Schedule" inverseName="eventInformation" inverseEntity="Schedule" syncable="YES"/>
-        <relationship name="venues" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Venues" syncable="YES"/>
+    <entity name="EventInformationData" representedClassName="EventInformationData" syncable="YES">
+        <relationship name="rooms" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="RoomsData" inverseName="eventInformation" inverseEntity="RoomsData" syncable="YES"/>
+        <relationship name="schedules" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ScheduleData" inverseName="eventInformation" inverseEntity="ScheduleData" syncable="YES"/>
+        <relationship name="venues" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VenuesData" inverseName="eventInformation" inverseEntity="VenuesData" syncable="YES"/>
     </entity>
-    <entity name="EventList" syncable="YES">
+    <entity name="EventListData" representedClassName="EventListData" syncable="YES">
         <attribute name="dateLocation" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="endDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="jsonUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="startDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="website" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
-    <entity name="Rooms" syncable="YES"/>
-    <entity name="Schedule" syncable="YES">
+    <entity name="RoomsData" representedClassName="RoomsData" syncable="YES">
+        <attribute name="roomName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="roomTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventInformationData" inverseName="rooms" inverseEntity="EventInformationData" syncable="YES"/>
+    </entity>
+    <entity name="ScheduleData" representedClassName="ScheduleData" syncable="YES">
         <attribute name="date" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="eventInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventInformation" inverseName="schedules" inverseEntity="EventInformation" syncable="YES"/>
-        <relationship name="slots" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slots" inverseName="schedule" inverseEntity="Slots" syncable="YES"/>
+        <relationship name="eventInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventInformationData" inverseName="schedules" inverseEntity="EventInformationData" syncable="YES"/>
+        <relationship name="slots" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SlotsData" inverseName="schedule" inverseEntity="SlotsData" syncable="YES"/>
     </entity>
-    <entity name="Session" syncable="YES">
+    <entity name="SessionData" representedClassName="SessionData" syncable="YES">
         <attribute name="endTime" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isBreak" optional="YES" attributeType="Boolean" syncable="YES"/>
         <attribute name="jsonUrl" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,22 +44,25 @@
         <attribute name="talkDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="technicalLevel" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="slot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Slots" inverseName="sessions" inverseEntity="Slots" syncable="YES"/>
+        <relationship name="slot" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SlotsData" inverseName="sessions" inverseEntity="SlotsData" syncable="YES"/>
     </entity>
-    <entity name="Slots" syncable="YES">
+    <entity name="SlotsData" representedClassName="SlotsData" syncable="YES">
         <attribute name="time" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="schedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Schedule" inverseName="slots" inverseEntity="Schedule" syncable="YES"/>
-        <relationship name="sessions" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Session" inverseName="slot" inverseEntity="Session" syncable="YES"/>
+        <relationship name="schedule" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="ScheduleData" inverseName="slots" inverseEntity="ScheduleData" syncable="YES"/>
+        <relationship name="sessions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="SessionData" inverseName="slot" inverseEntity="SessionData" syncable="YES"/>
     </entity>
-    <entity name="Venues" syncable="YES"/>
+    <entity name="VenuesData" representedClassName="VenuesData" syncable="YES">
+        <attribute name="venueName" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="eventInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventInformationData" inverseName="venues" inverseEntity="EventInformationData" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Contacts" positionX="-324" positionY="-324" width="128" height="120"/>
-        <element name="EventList" positionX="-81" positionY="-279" width="128" height="73"/>
-        <element name="EventInformation" positionX="-189" positionY="-279" width="128" height="90"/>
-        <element name="Schedule" positionX="-180" positionY="-270" width="128" height="90"/>
-        <element name="Slots" positionX="-171" positionY="-261" width="128" height="90"/>
-        <element name="Session" positionX="-162" positionY="-252" width="128" height="225"/>
-        <element name="Rooms" positionX="-153" positionY="-243" width="128" height="45"/>
-        <element name="Venues" positionX="-144" positionY="-225" width="128" height="45"/>
+        <element name="Contacts" positionX="-452" positionY="-441" width="128" height="120"/>
+        <element name="EventInformationData" positionX="-450" positionY="-198" width="128" height="90"/>
+        <element name="EventListData" positionX="-450" positionY="-300" width="128" height="165"/>
+        <element name="RoomsData" positionX="-288" positionY="-282" width="128" height="90"/>
+        <element name="ScheduleData" positionX="-288" positionY="-198" width="128" height="90"/>
+        <element name="SessionData" positionX="43" positionY="-324" width="128" height="225"/>
+        <element name="SlotsData" positionX="-119" positionY="-189" width="128" height="90"/>
+        <element name="VenuesData" positionX="-288" positionY="-99" width="128" height="75"/>
     </elements>
 </model>

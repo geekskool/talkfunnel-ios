@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class Rooms {
     let name: String?
@@ -15,5 +16,10 @@ class Rooms {
     init(data: NSDictionary) {
         self.name = data["name"] as? String
         self.title = data["title"] as? String
+    }
+    
+    init(data: RoomsData) {
+        self.name = data.roomName
+        self.title = data.roomTitle
     }
 }

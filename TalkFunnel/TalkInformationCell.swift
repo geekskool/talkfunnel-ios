@@ -22,7 +22,6 @@ class TalkInformationCell: UITableViewCell {
     var talk: Session!
     
     func setUpCell(talkInfo: Session) {
-        
         talk = talkInfo
         resetTextColorForAll()
         setTalkTitle()

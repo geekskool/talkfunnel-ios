@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class Session {
     
@@ -34,5 +35,24 @@ class Session {
         self.sectionType = data["section_title"] as? String
         self.startTime = data["start"] as? String
         self.endTime = data["end"] as? String
+    }
+    
+    init(data: SessionData) {
+        self.title = data.title
+        self.description = data.talkDescription
+        if data.isBreak!.isEqualToValue(NSNumber(bool: true)) {
+            self.isBreak = true
+        }
+        else {
+            self.isBreak = false
+        }
+        self.jsonUrl = data.jsonUrl
+        self.roomName = data.roomName
+        self.speakerName = data.speakerName
+        self.speakerBio = data.speakerBio
+        self.technicalLevel = data.technicalLevel
+        self.sectionType = data.sectionType
+        self.startTime = data.startTime
+        self.endTime = data.endTime
     }
 }

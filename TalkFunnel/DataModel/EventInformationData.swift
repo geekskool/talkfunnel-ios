@@ -12,6 +12,19 @@ import CoreData
 @objc(EventInformationData)
 class EventInformationData: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-
+    @NSManaged var rooms: NSSet?
+    @NSManaged var schedules: NSSet?
+    @NSManaged var venues: NSSet?
+    
+    func addRooms(rooms: RoomsData) {
+        self.mutableSetValueForKey("rooms").addObject(rooms)
+    }
+    
+    func addVenues(venues: VenuesData) {
+        self.mutableSetValueForKey("venues").addObject(venues)
+    }
+    
+    func addSchedules(schedules: ScheduleData) {
+        self.mutableSetValueForKey("schedules").addObject(schedules)
+    }
 }

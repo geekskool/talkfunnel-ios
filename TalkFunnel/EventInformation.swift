@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class EventInformation {
     
@@ -42,7 +43,29 @@ class EventInformation {
         
     }
     
-    
-    
+    init(data : EventInformationData) {
+        
+        if let rooms = data.rooms?.allObjects as? [RoomsData] {
+            for room in rooms {
+                let data = Rooms(data: room)
+                roomNames.append(data)
+            }
+        }
+        
+        if let venues = data.venues?.allObjects as? [VenuesData] {
+            for venue in venues {
+                if let data = venue.valueForKey("venueName") as? String {
+                    venueNames.append(data)
+                }
+            }
+        }
+        
+        if let completeSchedule = data.schedules?.allObjects as? [ScheduleData] {
+            for dailySchedule in completeSchedule {
+                let data = Schedule(data: dailySchedule)
+                schedule.append(data)
+            }
+        }
+    }
     
 }

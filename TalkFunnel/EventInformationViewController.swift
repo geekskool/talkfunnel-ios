@@ -33,6 +33,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
         //To make the row height dynamic
         tableViewForSchedule.estimatedRowHeight = tableViewForSchedule.rowHeight
         tableViewForSchedule.rowHeight = UITableViewAutomaticDimension
+        print("done")
     }
     
     func refresh() {
@@ -63,15 +64,6 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
         header.contentView.backgroundColor = UIColor.whiteColor()
         //UIColor(red: 0/255, green: 181/255, blue: 229/255, alpha: 1.0) //make the background color light blue
         header.textLabel!.textColor = UIColor.lightGrayColor() //make the text white
-    }
-    
-    private func colorGradient(initColor: UIColor, mixColor: UIColor, t: CGFloat) -> UIColor {
-        let cgInit = CGColorGetComponents(initColor.CGColor)
-        let cgMix = CGColorGetComponents(mixColor.CGColor)
-        let r = cgInit[0] + CGFloat(t) * (cgMix[0] - cgInit[0])
-        let g = cgInit[1] + CGFloat(t) * (cgMix[1] - cgInit[1])
-        let b = cgInit[2] + CGFloat(t) * (cgMix[2] - cgInit[2])
-        return UIColor(red: r, green: g, blue: b, alpha: 0.5)
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {

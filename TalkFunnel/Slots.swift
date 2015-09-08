@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class Slots {
     let time: String?
@@ -21,6 +22,18 @@ class Slots {
                     let data = Session(data: dict)
                     sessions.append(data)
                 }
+            }
+        }
+    }
+    
+    
+    init(data: SlotsData) {
+        self.time = data.valueForKey("time") as? String
+        
+        if let sessionList = data.sessions?.allObjects as? [SessionData] {
+            for session in sessionList {
+                let data = Session(data: session)
+                sessions.append(data)
             }
         }
     }

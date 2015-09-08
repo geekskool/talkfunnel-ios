@@ -25,16 +25,13 @@ class ChatViewController: UIViewController, UIWebViewDelegate {
         let request = NSURLRequest(URL: requestURL!)
         webView.loadRequest(request)
     }
-    
-    func webViewDidStartLoad(webView: UIWebView) {
-    }
-    
+
     func webViewDidFinishLoad(webView: UIWebView) {
         finishedLoadingWebView()
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        print("WebView error is \(error)")
+        //print("WebView error is \(error)")
         if finishedLoadingPage == false {
             loadPage()
         }

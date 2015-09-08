@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class Schedule {
     
@@ -22,6 +23,17 @@ class Schedule {
                     let data = Slots(data: dict)
                     slots.append(data)
                 }
+            }
+        }
+    }
+    
+    init(data: ScheduleData) {
+        self.date = data.valueForKey("date") as? String
+        
+        if let dailySlot = data.slots?.allObjects as? [SlotsData] {
+            for hourlySlot in dailySlot {
+                let data = Slots(data: hourlySlot)
+                slots.append(data)
             }
         }
     }

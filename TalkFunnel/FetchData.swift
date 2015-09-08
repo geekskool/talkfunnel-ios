@@ -17,6 +17,7 @@ var eventList = [EventList]()
 var currentEvent: EventList?
 var currentEventInformation: EventInformation?
 
+
 //The following two are is the info for the event that is happening at present or the very next event going to happen , for the scan contact url
 var theEvent: EventList?
 var theEventInformation: EventInformation?
@@ -207,6 +208,7 @@ func getLocalData() {
     getSavedContacts()
 }
 
+//CoreData
 private func getSavedContacts() {
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
@@ -228,6 +230,7 @@ private func getSavedContacts() {
     }
 }
 
+//NSUserDefaults
 func addToLocalData() {
     let defaults = NSUserDefaults.standardUserDefaults()
     defaults.setValue(userAccessToken, forKey: defaultsKeys.userAccessToken)
@@ -251,6 +254,231 @@ func retrieveUserData() {
 }
 
 
+
+
+//Core data 
+
+
+//Fetch
+func fetchSavedEventData(callback: Bool -> Void) {
+    fetchSavedEventList { (doneFetching,error) -> Void in
+        if doneFetching {
+            fetchSavedEventInformation({ (doneFetchingEventInfo, errorFetchingEventInfo) -> Void in
+                if doneFetchingEventInfo {
+                    callback(true)
+                }
+                else {
+                    callback(false)
+                }
+            })
+        }
+        else {
+            //do something to notify use about the error
+            print(error)
+            callback(false)
+        }
+    }
+}
+
+func fetchSavedEventList(callback: (Bool,String?) -> Void) {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"EventListData")
+    
+    let fetchedResults: [NSManagedObject]?
+    do {
+        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        if let results = fetchedResults {
+            for event in results {
+                let data = EventList(data: event)
+                eventList.append(data)
+            }
+        getCurrentEvent()
+            callback(true,nil)
+        }
+        else {
+            callback(false,"Empty")
+        }
+    }
+    catch {
+        callback(false,error as? String)
+    }
+}
+
+func fetchSavedEventInformation(callback: (Bool,String?) -> Void) {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"EventInformationData")
+    
+    do {
+        let fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [EventInformationData]
+        if let results = fetchedResults {
+            for event in results {
+                currentEventInformation = EventInformation(data: event)
+            }
+            getScheduleForCurrentEvent()
+            callback(true,nil)
+        }
+        else {
+            callback(false,"empty")
+        }
+    }
+    catch {
+        callback(false,error as? String)
+    }
+}
+
+
+
+//Save
+func saveFetchedEventData() {
+    saveFetchedEventList()
+    saveFetchedEventInformation()
+}
+
+func saveFetchedEventList() {
+    deleteSavedEventList()
+    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    
+    for event in eventList {
+        let entity =  NSEntityDescription.entityForName("EventListData",
+            inManagedObjectContext:
+            managedContext)
+        
+        let eventEntry = NSManagedObject(entity: entity!,
+            insertIntoManagedObjectContext:managedContext)
+        
+        eventEntry.setValue(event.title, forKey: "title")
+        eventEntry.setValue(event.year, forKey: "year")
+        eventEntry.setValue(event.dateLocation, forKey: "dateLocation")
+        eventEntry.setValue(event.startDate, forKey: "startDate")
+        eventEntry.setValue(event.endDate, forKey: "endDate")
+        eventEntry.setValue(event.url, forKey: "url")
+        eventEntry.setValue(event.website, forKey: "website")
+        eventEntry.setValue(event.jsonUrl, forKey: "jsonUrl")
+        
+        do {
+            try managedContext.save()
+        }
+        catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+}
+
+func deleteSavedEventList() {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"EventListData")
+    
+    let fetchedResults: [NSManagedObject]?
+    do {
+        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        if let results = fetchedResults {
+            for event in results {
+                managedContext.deleteObject(event)
+            }
+        }
+    }
+    catch {
+        print("error: \(error)")
+    }
+}
+
+func saveFetchedEventInformation() {
+    deleteSavedEventInformation()
+    
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    
+    let eventInformationEntry = NSEntityDescription.insertNewObjectForEntityForName("EventInformationData", inManagedObjectContext: managedContext) as! EventInformationData
+    
+    //Adding Rooms
+    if let rooms = currentEventInformation?.roomNames {
+        for room in rooms {
+            let roomEntry = NSEntityDescription.insertNewObjectForEntityForName("RoomsData", inManagedObjectContext: managedContext) as! RoomsData
+            roomEntry.roomName = room.name
+            roomEntry.roomTitle = room.title
+            eventInformationEntry.addRooms(roomEntry)
+        }
+    }
+    //Adding venues
+    if let venues = currentEventInformation?.venueNames {
+        for venue in venues {
+            let venueEntry = NSEntityDescription.insertNewObjectForEntityForName("VenuesData", inManagedObjectContext: managedContext) as! VenuesData
+            venueEntry.venueName = venue
+            eventInformationEntry.addVenues(venueEntry)
+        }
+    }
+    //Adding schedules
+    if let scheduleForCurrentEvent = currentEventInformation?.schedule {
+        for schedulePerDay in scheduleForCurrentEvent {
+            let scheduleEntry = NSEntityDescription.insertNewObjectForEntityForName("ScheduleData", inManagedObjectContext: managedContext) as! ScheduleData
+            scheduleEntry.date = schedulePerDay.date
+            
+            let slotsForDay = schedulePerDay.slots
+            for slots in slotsForDay {
+                let slotEntry = NSEntityDescription.insertNewObjectForEntityForName("SlotsData", inManagedObjectContext: managedContext) as! SlotsData
+                slotEntry.time = slots.time
+                
+                let sessions = slots.sessions
+                for session in sessions {
+                    let sessionEntry = NSEntityDescription.insertNewObjectForEntityForName("SessionData", inManagedObjectContext: managedContext) as! SessionData
+                    sessionEntry.title = session.title
+                    sessionEntry.speakerName = session.speakerName
+                    sessionEntry.startTime = session.startTime
+                    sessionEntry.endTime = session.endTime
+                    sessionEntry.roomName = session.roomName
+                    sessionEntry.sectionType = session.sectionType
+                    sessionEntry.technicalLevel = session.technicalLevel
+                    sessionEntry.isBreak = session.isBreak
+                    sessionEntry.talkDescription = session.description
+                    sessionEntry.speakerBio = session.speakerBio
+                    sessionEntry.jsonUrl = session.jsonUrl
+                    
+                    slotEntry.addSessions(sessionEntry)
+                }
+                scheduleEntry.addSlots(slotEntry)
+            }
+            eventInformationEntry.addSchedules(scheduleEntry)
+        }
+    }
+    
+    do {
+        try managedContext.save()
+    }
+    catch {
+        print("error is \(error)")
+    }
+}
+
+func deleteSavedEventInformation() {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"EventInformationData")
+    
+    let fetchedResults: [NSManagedObject]?
+    do {
+        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        if let results = fetchedResults {
+            for event in results {
+                managedContext.deleteObject(event)
+            }
+        }
+    }
+    catch {
+        print("error: \(error)")
+    }
+}
 
 
 

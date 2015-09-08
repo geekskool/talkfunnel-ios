@@ -12,6 +12,7 @@ import CoreData
 @objc(RoomsData)
 class RoomsData: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-
+    @NSManaged var roomName: String?
+    @NSManaged var roomTitle: String?
+    @NSManaged var eventInformation: EventInformationData?
 }

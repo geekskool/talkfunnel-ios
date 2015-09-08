@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreData
 
 class EventList {
     let title: String?
@@ -28,4 +29,16 @@ class EventList {
         self.url = (data["url"] as? String)
         self.jsonUrl = (data["json_url"] as? String)
     }
+    
+    init(data: NSManagedObject) {
+        self.title = data.valueForKey("title") as? String
+        self.year = data.valueForKey("year") as? String
+        self.startDate = data.valueForKey("startDate") as? String
+        self.endDate = data.valueForKey("endDate") as? String
+        self.dateLocation = data.valueForKey("dateLocation") as? String
+        self.website = data.valueForKey("website") as? String
+        self.url = data.valueForKey("url") as? String
+        self.jsonUrl = data.valueForKey("jsonUrl") as? String
+    }
+    
 }

@@ -11,7 +11,12 @@ import CoreData
 
 @objc(EventListData)
 class EventListData: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
-
+    @NSManaged var dateLocation: String?
+    @NSManaged var endDate: String?
+    @NSManaged var jsonUrl: String?
+    @NSManaged var startDate: String?
+    @NSManaged var title: String?
+    @NSManaged var url: String?
+    @NSManaged var website: String?
+    @NSManaged var year: String?
 }

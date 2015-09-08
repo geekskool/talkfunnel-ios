@@ -12,6 +12,11 @@ import CoreData
 @objc(ScheduleData)
 class ScheduleData: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-
+    @NSManaged var date: String?
+    @NSManaged var eventInformation: EventInformationData?
+    @NSManaged var slots: NSSet?
+    
+    func addSlots(slot: SlotsData) {
+        self.mutableSetValueForKey("slots").addObject(slot)
+    }
 }

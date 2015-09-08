@@ -11,7 +11,9 @@ import CoreData
 
 @objc(Contacts)
 class Contacts: NSManagedObject {
-
-// Insert code here to add functionality to your managed object subclass
-
+    @NSManaged var company: String?
+    @NSManaged var emailAddress: String?
+    @NSManaged var mobileNumber: String?
+    @NSManaged var name: String?
+    @NSManaged var twitterHandle: String?
 }
