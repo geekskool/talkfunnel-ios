@@ -118,6 +118,17 @@ func getDateFromString(dateString: String?) -> NSDate? {
     return nil
 }
 
+func getTimeFromString(timeString: String?) -> NSDate? {
+    let dateFormatter = NSDateFormatter()
+    dateFormatter.dateFormat = "HH:mm" //iso 8601
+    if let talkTime = timeString {
+        if let time = dateFormatter.dateFromString(talkTime){
+            return time
+        }
+    }
+    return nil
+}
+
 
 //Working with the Current Event
 func getScheduleForCurrentEvent() {
@@ -142,18 +153,18 @@ func addTalksPerSection(scheduleForDay: Schedule?) {
     }
 }
 
-func fetchDataForEvent(callback: Bool -> Void) {
+func fetchDataForEvent(callback: (Bool,String?) -> Void) {
     HttpRequest(url: (currentEvent?.jsonUrl)!) {
         (data, error) -> Void in
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if error != nil {
                 print("EventInfo error is \(error)")
-                callback(false)
+                callback(false,error)
             }
             else {
                 currentEventInformation = EventInformation(data: data)
                 getScheduleForCurrentEvent()
-                callback(true)
+                callback(true,nil)
             }
         }
     }
@@ -182,12 +193,12 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                         }
                     }
                     getCurrentEvent()
-                    fetchDataForEvent({ (doneFetching) -> Void in
+                    fetchDataForEvent({ (doneFetching,error) -> Void in
                         if doneFetching {
                             callback(true,nil)
                         }
                         else {
-                            callback(false,nil)
+                            callback(false,error)
                         }
                     })
                 }
@@ -294,6 +305,7 @@ func fetchSavedEventList(callback: (Bool,String?) -> Void) {
                 let data = EventList(data: event)
                 eventList.append(data)
             }
+        sortFetchedEventList()
         getCurrentEvent()
             callback(true,nil)
         }
@@ -318,6 +330,7 @@ func fetchSavedEventInformation(callback: (Bool,String?) -> Void) {
             for event in results {
                 currentEventInformation = EventInformation(data: event)
             }
+            sortFetchedEventInformation()
             getScheduleForCurrentEvent()
             callback(true,nil)
         }
@@ -330,7 +343,60 @@ func fetchSavedEventInformation(callback: (Bool,String?) -> Void) {
     }
 }
 
+func sortFetchedEventList() {
+    for (var i = 0;i < eventList.count;i++) {
+        var date1 = getDateFromString(eventList[i].startDate)!
+        for (var j = 0;j < eventList.count;j++) {
+            let date2 = getDateFromString(eventList[j].startDate)!
+            if date1.compare(date2) == .OrderedAscending {
+                let temp = eventList[i]
+                eventList[i] = eventList[j]
+                eventList[j] = temp
+                date1 = date2
+            }
+        }
+    }
+}
 
+func sortFetchedEventInformation() {
+    //sorted Schedule
+    if var tempSchedule = currentEventInformation?.schedule {
+        for var i = 0;i < tempSchedule.count; i++ {
+            var date1 = getDateFromString(tempSchedule[i].date)!
+            for var j = 0;j < tempSchedule.count; j++ {
+                let date2 = getDateFromString(tempSchedule[j].date)!
+                if date1.compare(date2) == .OrderedAscending {
+                    let temp = tempSchedule[i]
+                    tempSchedule[i] = tempSchedule[j]
+                    tempSchedule[j] = temp
+                    date1 = date2
+                }
+            }
+        }
+        currentEventInformation?.schedule = tempSchedule
+        
+        for var k = 0;k < tempSchedule.count;k++ {
+            let schedulePerDay = tempSchedule[k]
+            for var i = 0;i < schedulePerDay.slots.count;i++ {
+                var date1 = getTimeFromString(schedulePerDay.slots[i].time)!
+                for var j = 0;j < schedulePerDay.slots.count; j++ {
+                    let date2 = getTimeFromString(schedulePerDay.slots[j].time)!
+                    if date1.compare(date2) == .OrderedAscending {
+                        let temp = schedulePerDay.slots[i]
+                        schedulePerDay.slots[i] = schedulePerDay.slots[j]
+                        schedulePerDay.slots[j] = temp
+                        date1 = date2
+                    }
+                }
+            }
+            currentEventInformation?.schedule[k] = schedulePerDay
+        }
+    }
+    
+    //Sort Slots
+    
+    
+}
 
 //Save
 func saveFetchedEventData() {

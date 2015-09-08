@@ -34,7 +34,7 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
         let cell = tableView.dequeueReusableCellWithIdentifier("Events", forIndexPath: indexPath) as UITableViewCell
         
         let event = eventList
-        let e = event[(event.count - 1) - indexPath.row]
+        let e = event[indexPath.row]
         cell.textLabel?.text = e.title
         cell.textLabel?.textColor = UIColor.purpleColor()
         cell.textLabel?.font = UIFont(name: "Helvetica", size: 30)
@@ -44,14 +44,23 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        currentEvent = eventList[(eventList.count - 1) - indexPath.row]
-        eventInfoVC.addLoadingDataView()
-        talksVC.addLoadingDataView()
-        pageController!.currentPage = 2
-        fetchDataForEvent { (doneFetching) -> Void in
-            if doneFetching {
-                eventInfoVC.refresh()
-                talksVC.refresh()
+        pageController?.moveToPage(2)
+        
+        if let currentEventDetail = currentEvent {
+            if currentEventDetail.title! == eventList[indexPath.row].title && currentEventDetail.jsonUrl! == eventList[indexPath.row].jsonUrl {
+            }
+            else {
+                eventInfoVC.addLoadingDataView()
+                talksVC.addLoadingDataView()
+                fetchDataForEvent { (doneFetching,error) -> Void in
+                    if doneFetching {
+                        eventInfoVC.refresh()
+                        talksVC.refresh()
+                    }
+                    else {
+                        
+                    }
+                }
             }
         }
     }
