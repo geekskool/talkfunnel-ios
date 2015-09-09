@@ -45,11 +45,13 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         pageController?.moveToPage(2)
-        
         if let currentEventDetail = currentEvent {
             if currentEventDetail.title! == eventList[indexPath.row].title && currentEventDetail.jsonUrl! == eventList[indexPath.row].jsonUrl {
             }
             else {
+                currentEvent = eventList[indexPath.row]
+                currentEventTitle = currentEvent?.title
+                addToLocalData()
                 eventInfoVC.addLoadingDataView()
                 talksVC.addLoadingDataView()
                 fetchDataForEvent { (doneFetching,error) -> Void in

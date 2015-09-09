@@ -15,6 +15,7 @@ var savedContacts = [NSManagedObject]()
 
 var eventList = [EventList]()
 var currentEvent: EventList?
+var currentEventTitle: String?
 var currentEventInformation: EventInformation?
 
 
@@ -53,6 +54,7 @@ private struct defaultsKeys {
     static let userTokenType = "Token Type"
     static let contactPublicKey = "Public Key"
     static let contactPrivateKey = "Private Key"
+    static let currentEventTitle = "Current Event Title"
 }
 
 
@@ -164,6 +166,7 @@ func fetchDataForEvent(callback: (Bool,String?) -> Void) {
             else {
                 currentEventInformation = EventInformation(data: data)
                 getScheduleForCurrentEvent()
+                saveFetchedEventInformation()
                 callback(true,nil)
             }
         }
@@ -193,6 +196,7 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                         }
                     }
                     getCurrentEvent()
+                    saveFetchedEventList()
                     fetchDataForEvent({ (doneFetching,error) -> Void in
                         if doneFetching {
                             callback(true,nil)
@@ -207,45 +211,23 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
     }
 }
 
-//shared pref
-
+//MARK: NSUserDefaults
 func getLocalData() {
     let defaults = NSUserDefaults.standardUserDefaults()
     userAccessToken = defaults.valueForKey(defaultsKeys.userAccessToken) as? String
     userTokenType = defaults.valueForKey(defaultsKeys.userTokenType) as? String
+    currentEventTitle = defaults.valueForKey(defaultsKeys.currentEventTitle) as? String
     if userAccessToken != nil && userTokenType != nil {
         isUserLoggedIn = true
     }
     getSavedContacts()
 }
 
-//CoreData
-private func getSavedContacts() {
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
-    let managedContext = appDelegate.managedObjectContext
-    let fetchRequest = NSFetchRequest(entityName:"Contacts")
-    
-    let fetchedResults: [NSManagedObject]?
-    do {
-        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
-        if let results = fetchedResults {
-            savedContacts = results
-        }
-        else {
-            print("empty")
-        }
-    }
-    catch {
-        print("error: \(error)")
-    }
-}
-
-//NSUserDefaults
 func addToLocalData() {
     let defaults = NSUserDefaults.standardUserDefaults()
     defaults.setValue(userAccessToken, forKey: defaultsKeys.userAccessToken)
     defaults.setValue(userTokenType, forKey: defaultsKeys.userTokenType)
+    defaults.setValue(currentEvent?.title, forKey: defaultsKeys.currentEventTitle)
     defaults.synchronize()
 }
 
@@ -267,8 +249,27 @@ func retrieveUserData() {
 
 
 
-//Core data 
-
+//MARK: Core data 
+private func getSavedContacts() {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"Contacts")
+    
+    let fetchedResults: [NSManagedObject]?
+    do {
+        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
+        if let results = fetchedResults {
+            savedContacts = results
+        }
+        else {
+            print("empty")
+        }
+    }
+    catch {
+        print("error: \(error)")
+    }
+}
 
 //Fetch
 func fetchSavedEventData(callback: Bool -> Void) {
@@ -399,10 +400,7 @@ func sortFetchedEventInformation() {
 }
 
 //Save
-func saveFetchedEventData() {
-    saveFetchedEventList()
-    saveFetchedEventInformation()
-}
+
 
 func saveFetchedEventList() {
     deleteSavedEventList()

@@ -44,7 +44,6 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
             if doneFetching {
                 theEvent = currentEvent
                 theEventInformation = currentEventInformation
-                saveFetchedEventData()
                 self.setUpPageView()
             }
             else {
@@ -96,12 +95,23 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
     private func loadAppFromCache() {
         fetchSavedEventData { (doneFetching) -> Void in
             if doneFetching {
+                self.getSelectedEventFromEventList()
                 theEvent = currentEvent
                 theEventInformation = currentEventInformation
                 self.setUpPageView()
             }
             else {
                 //error
+            }
+        }
+    }
+    
+    private func getSelectedEventFromEventList() {
+        for event in eventList {
+            if let eventTitle = currentEventTitle {
+                if event.title == eventTitle {
+                    currentEvent = event
+                }
             }
         }
     }
@@ -234,6 +244,8 @@ class LoadApplicationViewController: UIViewController,DMDynamicPageViewControlle
         
 
     }
+    
+    
     
     private func setPageTitle(pageNumber: CGFloat) {
         switch floor(pageNumber) {
