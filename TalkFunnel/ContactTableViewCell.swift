@@ -29,15 +29,15 @@ class ContactTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func setData(contact: NSManagedObject) {
+    func setData(contact: ParticipantsInformation) {
         
         contactCellBackground.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 255/255, alpha: 1)
         contactCellBackground.layer.cornerRadius = 8
-        contactName.text = contact.valueForKey("name") as? String
-        contactCompanyName.text = contact.valueForKey("company") as? String
-        contactPhoneNumber.text = contact.valueForKey("mobileNumber") as? String
-        contactEmail.text = contact.valueForKey("emailAddress") as? String
-        contactTwitterHandle.text = contact.valueForKey("twitterHandle") as? String
+        contactName.text = contact.fullName
+        contactCompanyName.text = contact.company
+        contactPhoneNumber.text = contact.phoneNumber
+        contactEmail.text = contact.email
+        contactTwitterHandle.text = contact.twitter
     }
 
 }

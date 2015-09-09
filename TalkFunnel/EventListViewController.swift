@@ -47,20 +47,31 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
         pageController?.moveToPage(2)
         if let currentEventDetail = currentEvent {
             if currentEventDetail.title! == eventList[indexPath.row].title && currentEventDetail.jsonUrl! == eventList[indexPath.row].jsonUrl {
+                eventInfoVC.refresh()
+                talksVC.refresh()
             }
             else {
+                let tempEvent = currentEvent
                 currentEvent = eventList[indexPath.row]
-                currentEventTitle = currentEvent?.title
-                addToLocalData()
                 eventInfoVC.addLoadingDataView()
                 talksVC.addLoadingDataView()
                 fetchDataForEvent { (doneFetching,error) -> Void in
                     if doneFetching {
+                        currentEventTitle = currentEvent?.title
+                        addToLocalData()
                         eventInfoVC.refresh()
                         talksVC.refresh()
+                        fetchParticipantRelatedData("participants/json", callback: { (done, error) -> Void in
+                            if done {
+                                
+                            }
+                            else {
+                                
+                            }
+                        })
                     }
                     else {
-                        
+                        currentEvent = tempEvent
                     }
                 }
             }

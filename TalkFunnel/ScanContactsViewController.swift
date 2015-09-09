@@ -93,10 +93,8 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
     
     private func checkIfContactAlreadyExists() -> Bool {
         for contact in savedContacts {
-            if scannedParticipantInfo?.fullName == (contact.valueForKey("name") as? String) {
-                if scannedParticipantInfo?.company == (contact.valueForKey("company")as? String) {
-                    return true
-                }
+            if contact.privateKey == scannedParticipantInfo?.privateKey {
+                return true
             }
         }
         return false
@@ -107,27 +105,30 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
         UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
-        let entity =  NSEntityDescription.entityForName("Contacts",
-            inManagedObjectContext:
-            managedContext)
+        let fetchRequest = NSFetchRequest(entityName: "Contacts")
+        fetchRequest.predicate = NSPredicate(format: "publicKey = %@", (scannedParticipantInfo?.publicKey)!)
         
-        let person = NSManagedObject(entity: entity!,
-            insertIntoManagedObjectContext:managedContext)
-        
-        person.setValue(scannedParticipantInfo?.fullName, forKey: "name")
-        person.setValue(scannedParticipantInfo?.company, forKey: "company")
-        person.setValue(scannedParticipantInfo?.phoneNumber, forKey: "mobileNumber")
-        person.setValue(scannedParticipantInfo?.email, forKey: "emailAddress")
-        person.setValue(scannedParticipantInfo?.twitter, forKey: "twitterHandle")
-        
+        let fetchedResults: [ParticipantData]?
         do {
-            try managedContext.save()
+            fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [ParticipantData]
+            if let results = fetchedResults {
+                for contact in results {
+                    contact.privateKey = scannedParticipantInfo?.privateKey
+                    let data  = ParticipantsInformation(participant: contact)
+                    savedContacts.append(data)
+                }
+                do {
+                    try managedContext.save()
+                }
+                catch {
+                    let nserror = error as NSError
+                    NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                }
+            }
         }
         catch {
-            let nserror = error as NSError
-            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            //error
         }
-        savedContacts.append(person)
         removeAddContactVC()
         addQRCodeScannerVC()
         isScanningComplete = false

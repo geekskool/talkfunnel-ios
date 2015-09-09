@@ -389,11 +389,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </containerView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5P-s4-jt2">
-                                <rect key="frame" x="135" y="510" width="50" height="50"/>
+                                <rect key="frame" x="123" y="473" width="75" height="75"/>
                                 <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="50" id="Xec-YF-GTP"/>
-                                    <constraint firstAttribute="height" constant="50" id="pKG-dS-i89"/>
+                                    <constraint firstAttribute="width" constant="75" id="JTJ-k1-XOR"/>
+                                    <constraint firstAttribute="height" constant="75" id="arx-Nd-TFr"/>
                                 </constraints>
                                 <state key="normal" image="Login">
                                     <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -405,12 +405,12 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="top" secondItem="bfz-aB-v5A" secondAttribute="top" id="AmG-2Q-9nq"/>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="centerX" secondItem="n5P-s4-jt2" secondAttribute="centerX" id="Irb-Uj-ux9"/>
-                            <constraint firstAttribute="bottom" secondItem="n5P-s4-jt2" secondAttribute="bottom" constant="8" symbolic="YES" id="K1w-SR-kI9"/>
-                            <constraint firstAttribute="trailing" secondItem="ejS-gd-bQ5" secondAttribute="trailing" id="cxF-CQ-EkB"/>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="bottom" secondItem="KD5-Zc-Q18" secondAttribute="top" id="mTj-Iv-Wxp"/>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="leading" secondItem="bfz-aB-v5A" secondAttribute="leading" id="rJR-vk-Edt"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="bottom" secondItem="KD5-Zc-Q18" secondAttribute="top" id="2oB-NE-h32"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="leading" secondItem="bfz-aB-v5A" secondAttribute="leading" id="4GI-iN-0yN"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="centerX" secondItem="n5P-s4-jt2" secondAttribute="centerX" id="89u-TN-QNZ"/>
+                            <constraint firstAttribute="bottom" secondItem="n5P-s4-jt2" secondAttribute="bottom" constant="20" id="PaG-el-UX9"/>
+                            <constraint firstAttribute="trailing" secondItem="ejS-gd-bQ5" secondAttribute="trailing" id="UuC-xD-miy"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="top" secondItem="bfz-aB-v5A" secondAttribute="top" id="cOT-kb-RiP"/>
                         </constraints>
                     </view>
                     <connections>

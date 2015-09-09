@@ -101,30 +101,22 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
         }
     }
     
+    //MARK: After QRCode Scan
     func saveContact(qrCodeString: String) {
+//        let string = "participant?puk=" + scannedContactPublicKey! + "&key=" + scannedContactPrivateKey!
         if isUserLoggedIn {
             retrieveScannedContactKeys(qrCodeString)
-            fetchScannedParticipantData({ (doneFetching) -> Void in
-                if doneFetching {
-                    if let delegate = self.delegate {
-                        delegate.doneScanningContactInfo()
-                    }
+            if let scannedParticipantInformation = fetchScannedParticipantDataFromDB() {
+                scannedParticipantInformation.privateKey = scannedContactPrivateKey
+                scannedParticipantInfo = scannedParticipantInformation
+                if let delegate = self.delegate {
+                    delegate.doneScanningContactInfo()
                 }
-                else {
-                    print("something went wrong with the scan")
-                    self.alertUserThatScanFailed()
-                }
-            })
+            }
+            else {
+                self.alertUserThatContactIsNotInDB()
+            }
         }
-    }
-    
-    private func alertUserThatScanFailed() {
-        let scanFailedAlert = UIAlertController(title: "Contact Scan Failed", message: "The scanned contact is not present in the database", preferredStyle: UIAlertControllerStyle.Alert)
-        let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel) { (action) -> Void in
-            self.startRunning()
-        }
-        scanFailedAlert.addAction(dismissAction)
-        self.presentViewController(scanFailedAlert, animated: true, completion: nil)
     }
     
     //function to break down the qr string and store the value
@@ -136,52 +128,22 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
         scannedContactPrivateKey = decodedUrl[midIndex..<endIndex]
     }
     
-    func fetchScannedParticipantData(callback: (Bool) -> Void) {
-        let string = "participant?puk=" + scannedContactPublicKey! + "&key=" + scannedContactPrivateKey!
-        fetchParticipantRelatedData(string) {(doneFetching) -> Void in
-            if doneFetching {
-                callback(true)
-            }
-            else {
-                callback(false)
+    func fetchScannedParticipantDataFromDB() -> ParticipantsInformation? {
+        for participant in allParticipantsInfo {
+            if scannedContactPublicKey == participant.publicKey {
+                return participant
             }
         }
+        return nil
     }
     
-    func fetchParticipantRelatedData(urlAddition: String, callback: (Bool) -> Void) {
-        if let currentEventURL = theEvent?.url {
-            let participantListURL = currentEventURL + urlAddition
-            let participantListRequestValue = "Bearer" + " " + userAccessToken!
-            let participantListRequestHeader = "Authorization"
-            HttpRequest(url: participantListURL, requestValue: participantListRequestValue, requestHeader: participantListRequestHeader, callback: { (data, error) -> Void in
-                
-                dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    if error != nil {
-                        print("error fetching participants data: \(error)")
-                    }
-                    else {
-                        if let allParticipants = data["participants"] as? NSArray {
-                            for participants in allParticipants {
-                                if let dict = participants as? NSDictionary {
-                                    let data = ParticipantsInformation(participant: dict)
-                                    allParticipantsInfo.append(data)
-                                    callback(true)
-                                }
-                            }
-                        }
-                        else {
-                            if let allParticipants = data["participant"] as? NSDictionary {
-                                scannedParticipantInfo = ParticipantsInformation(participant: allParticipants)
-                                callback(true)
-                            }
-                            else {
-                                callback(false)
-                            }
-                        }
-                    }
-                })
-            })
+    private func alertUserThatContactIsNotInDB() {
+        let scanFailedAlert = UIAlertController(title: "Contact Scan Failed", message: "The scanned contact is not present in the database.Maybe you have selected the wrong event", preferredStyle: UIAlertControllerStyle.Alert)
+        let dismissAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            self.startRunning()
         }
+        scanFailedAlert.addAction(dismissAction)
+        self.presentViewController(scanFailedAlert, animated: true, completion: nil)
     }
     
     func stopRunning() {

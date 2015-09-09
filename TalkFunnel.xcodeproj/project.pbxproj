@@ -10,6 +10,7 @@
 		DA4D28A31B96C89B002C4E2A /* SaveContactToAddressBook.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */; };
 		DA4D28A51B98250B002C4E2A /* TalkInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D28A41B98250B002C4E2A /* TalkInformationViewController.swift */; };
 		DA4D28A81B9825F2002C4E2A /* TalkInformationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA4D28A71B9825F2002C4E2A /* TalkInformationCell.swift */; };
+		DA873A1C1BA020E60022B1E7 /* ParticipantData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA873A1A1BA020E60022B1E7 /* ParticipantData.swift */; };
 		DA9038B01B83628300D6EA7C /* ParticipantsInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9038AF1B83628300D6EA7C /* ParticipantsInformation.swift */; };
 		DA90C3441B9BDAB000F8B7E1 /* TalkFunnel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = DA90C3421B9BDAB000F8B7E1 /* TalkFunnel.xcdatamodeld */; };
 		DA90C3461B9BDCAF00F8B7E1 /* ContactsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C3451B9BDCAF00F8B7E1 /* ContactsViewController.swift */; };
@@ -17,7 +18,6 @@
 		DA90C34A1B9BE0FD00F8B7E1 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */; };
 		DA90C34C1B9C41D300F8B7E1 /* EventInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C34B1B9C41D300F8B7E1 /* EventInformationViewController.swift */; };
 		DA90C34E1B9C41DC00F8B7E1 /* LoadApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C34D1B9C41DC00F8B7E1 /* LoadApplicationViewController.swift */; };
-		DA9D2F021B9EA7E900830946 /* Contacts.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F001B9EA7E900830946 /* Contacts.swift */; };
 		DA9D2F061B9EA7E900830946 /* EventListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F041B9EA7E900830946 /* EventListData.swift */; };
 		DA9D2F281B9EF20800830946 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F261B9EF20800830946 /* ScheduleData.swift */; };
 		DA9D2F2C1B9EF20900830946 /* SlotsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F2A1B9EF20900830946 /* SlotsData.swift */; };
@@ -69,6 +69,7 @@
 		DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveContactToAddressBook.swift; sourceTree = "<group>"; };
 		DA4D28A41B98250B002C4E2A /* TalkInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkInformationViewController.swift; sourceTree = "<group>"; };
 		DA4D28A71B9825F2002C4E2A /* TalkInformationCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkInformationCell.swift; sourceTree = "<group>"; };
+		DA873A1A1BA020E60022B1E7 /* ParticipantData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ParticipantData.swift; path = TalkFunnel/DataModel/ParticipantData.swift; sourceTree = "<group>"; };
 		DA9038AF1B83628300D6EA7C /* ParticipantsInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParticipantsInformation.swift; sourceTree = "<group>"; };
 		DA90C3431B9BDAB000F8B7E1 /* TalkFunnel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TalkFunnel.xcdatamodel; sourceTree = "<group>"; };
 		DA90C3451B9BDCAF00F8B7E1 /* ContactsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsViewController.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		DA90C34B1B9C41D300F8B7E1 /* EventInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventInformationViewController.swift; sourceTree = "<group>"; };
 		DA90C34D1B9C41DC00F8B7E1 /* LoadApplicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadApplicationViewController.swift; sourceTree = "<group>"; };
-		DA9D2F001B9EA7E900830946 /* Contacts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Contacts.swift; path = TalkFunnel/DataModel/Contacts.swift; sourceTree = "<group>"; };
 		DA9D2F041B9EA7E900830946 /* EventListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventListData.swift; path = TalkFunnel/DataModel/EventListData.swift; sourceTree = "<group>"; };
 		DA9D2F261B9EF20800830946 /* ScheduleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleData.swift; path = TalkFunnel/DataModel/ScheduleData.swift; sourceTree = "<group>"; };
 		DA9D2F2A1B9EF20900830946 /* SlotsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlotsData.swift; path = TalkFunnel/DataModel/SlotsData.swift; sourceTree = "<group>"; };
@@ -141,8 +141,8 @@
 		DA9D2F1B1B9EA85900830946 /* Data Model */ = {
 			isa = PBXGroup;
 			children = (
-				DA9D2F001B9EA7E900830946 /* Contacts.swift */,
 				DA9D2F041B9EA7E900830946 /* EventListData.swift */,
+				DA873A1A1BA020E60022B1E7 /* ParticipantData.swift */,
 				DA9D2F3D1B9EF22000830946 /* Event Data */,
 			);
 			name = "Data Model";
@@ -463,11 +463,11 @@
 				DAF1E0D41B79C05B00649222 /* HttpRequest.swift in Sources */,
 				DA4D28A81B9825F2002C4E2A /* TalkInformationCell.swift in Sources */,
 				DA90C3461B9BDCAF00F8B7E1 /* ContactsViewController.swift in Sources */,
-				DA9D2F021B9EA7E900830946 /* Contacts.swift in Sources */,
 				DA4D28A31B96C89B002C4E2A /* SaveContactToAddressBook.swift in Sources */,
 				DAF1E0B61B79B98100649222 /* ChatViewController.swift in Sources */,
 				DA9D2F381B9EF20900830946 /* RoomsData.swift in Sources */,
 				DA90C3481B9BE05400F8B7E1 /* SavedContactsListViewController.swift in Sources */,
+				DA873A1C1BA020E60022B1E7 /* ParticipantData.swift in Sources */,
 				DAF1E0BA1B79B9E100649222 /* DynamicPageViewController.swift in Sources */,
 				DAF1E0D01B79BFB800649222 /* Session.swift in Sources */,
 				DAFC159B1B79F63900E5573F /* ScheduleTableViewCell.swift in Sources */,

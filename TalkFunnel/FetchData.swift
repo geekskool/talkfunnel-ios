@@ -10,21 +10,16 @@ import Foundation
 import UIKit
 import CoreData
 
-//Contacts 
-var savedContacts = [NSManagedObject]()
 
+//MARK: Global variables
 var eventList = [EventList]()
 var currentEvent: EventList?
 var currentEventTitle: String?
 var currentEventInformation: EventInformation?
 
-
-//The following two are is the info for the event that is happening at present or the very next event going to happen , for the scan contact url
-var theEvent: EventList?
-var theEventInformation: EventInformation?
-
 var schedule = [[Session]]()
 
+var savedContacts = [ParticipantsInformation]()
 var allParticipantsInfo = [ParticipantsInformation]()
 var scannedParticipantInfo: ParticipantsInformation?
 
@@ -33,17 +28,19 @@ var scannedContactPrivateKey: String?
 var userLogInString: String?
 var userAccessToken: String?
 var userTokenType: String?
+var hasAppRunBefore: Bool?
 
 var isScanComplete = false
 var isUserLoggedIn = false {
 willSet(newValue) {
     if newValue {
         retrieveUserData()
+        fetchParticipantData()
     }
 }
 }
 
-
+//Mark: Constants
 private struct constants {
     static let EventListUrl = "https://talkfunnel.com/json"
     static let UserLoginUrl = "http://auth.hasgeek.com/auth?client_id=eDnmYKApSSOCXonBXtyoDQ&scope=id+email+phone+organizations+teams+com.talkfunnel:*&response_type=token"
@@ -55,6 +52,7 @@ private struct defaultsKeys {
     static let contactPublicKey = "Public Key"
     static let contactPrivateKey = "Private Key"
     static let currentEventTitle = "Current Event Title"
+    static let hasAppRunBefore = "Has App Run Before"
 }
 
 
@@ -155,12 +153,80 @@ func addTalksPerSection(scheduleForDay: Schedule?) {
     }
 }
 
+
+//MARK: Initial Data Fetch
+func fetchAllData(callback: (Bool,String?) -> Void) {
+    fetchDataForEventList { (doneFetchingEventList, errorFetchingEventList) -> Void in
+        if doneFetchingEventList {
+            fetchDataForEvent({ (doneFetchingEventInformation, errorFetchingEventInformation) -> Void in
+                if doneFetchingEventInformation {
+                    callback(true,nil)
+                }
+                else {
+                    callback(false,errorFetchingEventInformation)
+                }
+            })
+        }
+        else {
+            callback(false,errorFetchingEventList)
+        }
+    }
+}
+
+func fetchParticipantData() {
+    fetchParticipantRelatedData("participants/json", callback: { (doneFetchingParticipantData,errorFetchingParticipantData) -> Void in
+        if doneFetchingParticipantData {
+            print("fetchedPdata")
+        }
+        else {
+        }
+    })
+}
+
+func fetchParticipantRelatedData(urlAddition: String, callback: (Bool,String?) -> Void) {
+    if isUserLoggedIn {
+        if let currentEventURL = currentEvent?.url {
+            let participantListURL = currentEventURL + urlAddition
+            let participantListRequestValue = "Bearer " + userAccessToken!
+            let participantListRequestHeader = "Authorization"
+            HttpRequest(url: participantListURL, requestValue: participantListRequestValue, requestHeader: participantListRequestHeader, callback: { (data, error) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if error != nil {
+                        callback(false,error)
+                    }
+                    else {
+                        if let allParticipants = data["participants"] as? NSArray {
+                            for participants in allParticipants {
+                                if let dict = participants as? NSDictionary {
+                                    let data = ParticipantsInformation(participant: dict)
+                                    allParticipantsInfo.append(data)
+                                }
+                            }
+                            getSavedContacts()
+                            saveFetchedParticipantData()
+                            callback(true,nil)
+                        }
+                        else {
+                            if let allParticipants = data["participant"] as? NSDictionary {
+                                scannedParticipantInfo = ParticipantsInformation(participant: allParticipants)
+                                callback(true,nil)
+                            }
+                            else {
+                                callback(false,nil)
+                            }
+                        }
+                    }
+                })
+            })
+        }
+    }
+}
+
 func fetchDataForEvent(callback: (Bool,String?) -> Void) {
     HttpRequest(url: (currentEvent?.jsonUrl)!) {
         (data, error) -> Void in
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if error != nil {
-                print("EventInfo error is \(error)")
                 callback(false,error)
             }
             else {
@@ -173,16 +239,11 @@ func fetchDataForEvent(callback: (Bool,String?) -> Void) {
     }
 }
 
-
-//Working with The List of Events
 func fetchDataForEventList(callback: (Bool,String?) -> Void) {
     HttpRequest(url: constants.EventListUrl) {
         (data, error) -> Void in
-        
-        //this implementation happens in another queue but we need to get it back in to our main queue cause its UI related stuff
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
             if error != nil {
-                print("EventListError: \(error)")
                 callback(false,error)
             }
             else {
@@ -197,14 +258,10 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                     }
                     getCurrentEvent()
                     saveFetchedEventList()
-                    fetchDataForEvent({ (doneFetching,error) -> Void in
-                        if doneFetching {
-                            callback(true,nil)
-                        }
-                        else {
-                            callback(false,error)
-                        }
-                    })
+                    callback(true,nil)
+                }
+                else {
+                    callback(false,nil)
                 }
             }
         }
@@ -217,6 +274,7 @@ func getLocalData() {
     userAccessToken = defaults.valueForKey(defaultsKeys.userAccessToken) as? String
     userTokenType = defaults.valueForKey(defaultsKeys.userTokenType) as? String
     currentEventTitle = defaults.valueForKey(defaultsKeys.currentEventTitle) as? String
+    hasAppRunBefore = defaults.valueForKey(defaultsKeys.hasAppRunBefore) as? Bool
     if userAccessToken != nil && userTokenType != nil {
         isUserLoggedIn = true
     }
@@ -228,6 +286,7 @@ func addToLocalData() {
     defaults.setValue(userAccessToken, forKey: defaultsKeys.userAccessToken)
     defaults.setValue(userTokenType, forKey: defaultsKeys.userTokenType)
     defaults.setValue(currentEvent?.title, forKey: defaultsKeys.currentEventTitle)
+    defaults.setValue(true, forKey: defaultsKeys.hasAppRunBefore)
     defaults.synchronize()
 }
 
@@ -246,48 +305,40 @@ func retrieveUserData() {
     }
 }
 
+//MARK: Core data
 
-
-
-//MARK: Core data 
+//MARK: CoreData - Fetch
 private func getSavedContacts() {
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
-    let managedContext = appDelegate.managedObjectContext
-    let fetchRequest = NSFetchRequest(entityName:"Contacts")
-    
-    let fetchedResults: [NSManagedObject]?
-    do {
-        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
-        if let results = fetchedResults {
-            savedContacts = results
+    savedContacts.removeAll()
+    for participant in allParticipantsInfo {
+        if participant.privateKey != nil {
+            savedContacts.append(participant)
         }
-        else {
-            print("empty")
-        }
-    }
-    catch {
-        print("error: \(error)")
     }
 }
 
-//Fetch
-func fetchSavedEventData(callback: Bool -> Void) {
+func fetchAllSavedData(callback: (Bool,String?) -> Void) {
     fetchSavedEventList { (doneFetching,error) -> Void in
         if doneFetching {
             fetchSavedEventInformation({ (doneFetchingEventInfo, errorFetchingEventInfo) -> Void in
                 if doneFetchingEventInfo {
-                    callback(true)
+                    fetchSavedParticipantData({ (doneFetchingParticipantData, errorFetchingParticipantData) -> Void in
+                        if doneFetchingParticipantData {
+                            callback(true,nil)
+                        }
+                        else {
+                            callback(false,errorFetchingParticipantData)
+                        }
+                    })
                 }
                 else {
-                    callback(false)
+                    callback(false,errorFetchingEventInfo)
                 }
             })
         }
         else {
             //do something to notify use about the error
-            print(error)
-            callback(false)
+            callback(false,error)
         }
     }
 }
@@ -344,6 +395,34 @@ func fetchSavedEventInformation(callback: (Bool,String?) -> Void) {
     }
 }
 
+func fetchSavedParticipantData(callback: (Bool,String?) -> Void) {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:"ParticipantData")
+    
+    do {
+        let fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [ParticipantData]
+        if let results = fetchedResults {
+            for participant in results {
+                let data = ParticipantsInformation(participant: participant)
+                allParticipantsInfo.append(data)
+            }
+            getSavedContacts()
+            callback(true,nil)
+        }
+        else {
+            callback(false,"empty")
+        }
+    }
+    catch {
+        callback(false,error as? String)
+    }
+}
+
+
+
+//MARK: CoreData - Sort
 func sortFetchedEventList() {
     for (var i = 0;i < eventList.count;i++) {
         var date1 = getDateFromString(eventList[i].startDate)!
@@ -393,15 +472,9 @@ func sortFetchedEventInformation() {
             currentEventInformation?.schedule[k] = schedulePerDay
         }
     }
-    
-    //Sort Slots
-    
-    
 }
 
-//Save
-
-
+//MARK: CoreData - Save
 func saveFetchedEventList() {
     deleteSavedEventList()
     
@@ -436,25 +509,6 @@ func saveFetchedEventList() {
     }
 }
 
-func deleteSavedEventList() {
-    let appDelegate =
-    UIApplication.sharedApplication().delegate as! AppDelegate
-    let managedContext = appDelegate.managedObjectContext
-    let fetchRequest = NSFetchRequest(entityName:"EventListData")
-    
-    let fetchedResults: [NSManagedObject]?
-    do {
-        fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [NSManagedObject]
-        if let results = fetchedResults {
-            for event in results {
-                managedContext.deleteObject(event)
-            }
-        }
-    }
-    catch {
-        print("error: \(error)")
-    }
-}
 
 func saveFetchedEventInformation() {
     deleteSavedEventInformation()
@@ -524,11 +578,46 @@ func saveFetchedEventInformation() {
     }
 }
 
-func deleteSavedEventInformation() {
+func saveFetchedParticipantData() {
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
     let managedContext = appDelegate.managedObjectContext
-    let fetchRequest = NSFetchRequest(entityName:"EventInformationData")
+    
+    for participant in allParticipantsInfo {
+        let participantEntry = NSEntityDescription.insertNewObjectForEntityForName("ParticipantData", inManagedObjectContext: managedContext) as! ParticipantData
+        participantEntry.privateKey = ""
+        participantEntry.publicKey = participant.publicKey
+        participantEntry.name = participant.fullName
+        participantEntry.company = participant.company
+        participantEntry.emailAddress = participant.email
+        participantEntry.twitterHandle = participant.twitter
+        participantEntry.mobileNumber = participant.phoneNumber
+        participantEntry.jobTitle = participant.jobTitle
+        participantEntry.participantDataUrl = participant.participantDataUrl
+        do {
+            try managedContext.save()
+        }
+        catch {
+            let nserror = error as NSError
+            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
+    }
+}
+
+//MARK: CoreData - Delete
+func deleteSavedEventList() {
+    deleteSavedData("EventListData")
+}
+
+func deleteSavedEventInformation() {
+   deleteSavedData("EventInformationData")
+}
+
+func deleteSavedData(entityName: String) {
+    let appDelegate =
+    UIApplication.sharedApplication().delegate as! AppDelegate
+    let managedContext = appDelegate.managedObjectContext
+    let fetchRequest = NSFetchRequest(entityName:entityName)
     
     let fetchedResults: [NSManagedObject]?
     do {
