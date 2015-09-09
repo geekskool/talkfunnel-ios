@@ -14,8 +14,8 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var instructionText: UILabel!
     
-    let addContactVC = storyBoard.instantiateViewControllerWithIdentifier("addContact") as! addContactViewController
-    var qrCodeScannerVC = storyBoard.instantiateViewControllerWithIdentifier("qrCodeScanner") as! qrCodeScannerViewController
+    let addContactVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("addContact") as! addContactViewController
+    var qrCodeScannerVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("qrCodeScanner") as! qrCodeScannerViewController
     
     var isScanningComplete = false {
         willSet(newValue) {

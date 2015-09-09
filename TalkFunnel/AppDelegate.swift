@@ -15,6 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        UITabBar.appearance().tintColor = UIColor.orangeColor()
         return true
     }
     
@@ -42,9 +43,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         userLogInString = url.description
         isUserLoggedIn = true
-        loadAppVC.makeLogOutButtonVisible()
-        contactsVC.refresh()
-        pageController?.currentPage = 0
         return true
     }
     

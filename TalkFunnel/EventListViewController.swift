@@ -8,10 +8,14 @@
 
 import UIKit
 
+protocol EventListViewControllerDelegate {
+    func didSelectEvent(event: EventList)
+}
 class EventListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var requiredEventList = [EventList]()
+    var delegate: EventListViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,38 +48,11 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        pageController?.moveToPage(2)
-        if let currentEventDetail = currentEvent {
-            if currentEventDetail.title! == eventList[indexPath.row].title && currentEventDetail.jsonUrl! == eventList[indexPath.row].jsonUrl {
-                eventInfoVC.refresh()
-                talksVC.refresh()
-            }
-            else {
-                let tempEvent = currentEvent
-                currentEvent = eventList[indexPath.row]
-                eventInfoVC.addLoadingDataView()
-                talksVC.addLoadingDataView()
-                fetchDataForEvent { (doneFetching,error) -> Void in
-                    if doneFetching {
-                        currentEventTitle = currentEvent?.title
-                        addToLocalData()
-                        eventInfoVC.refresh()
-                        talksVC.refresh()
-                        fetchParticipantRelatedData("participants/json", callback: { (done, error) -> Void in
-                            if done {
-                                
-                            }
-                            else {
-                                
-                            }
-                        })
-                    }
-                    else {
-                        currentEvent = tempEvent
-                    }
-                }
-            }
+        
+        if let delegate = self.delegate {
+            delegate.didSelectEvent(eventList[indexPath.row])
         }
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
+    
 }

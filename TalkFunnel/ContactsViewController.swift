@@ -13,8 +13,8 @@ class ContactsViewController: UIViewController {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var button: UIButton!
     
-    let savedContactsListVC = storyBoard.instantiateViewControllerWithIdentifier("SavedContactsList") as! SavedContactsListViewController
-    let scanContactsVC = storyBoard.instantiateViewControllerWithIdentifier("ScanContact") as! ScanContactsViewController
+    let savedContactsListVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("SavedContactsList") as! SavedContactsListViewController
+    let scanContactsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("ScanContact") as! ScanContactsViewController
     
     var isShowingSavedContactList = true
     

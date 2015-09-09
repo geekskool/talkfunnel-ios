@@ -8,6 +8,9 @@
 
 import UIKit
 
+protocol EventInformationViewControllerDelegate {
+    func didSelectTalk(talk: Session)
+}
 class EventInformationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var tableViewForSchedule: UITableView!
@@ -16,6 +19,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     var breakColors = UIColor(red: 220/255, green: 220/255, blue: 220/255, alpha: 1)
     let messageLabel = UILabel()
     let loadingView = UIView()
+    var delegate: EventInformationViewControllerDelegate?
 
     private struct constants {
         static let breakCellReuseIdentifier = "Break"
@@ -128,8 +132,9 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedTalk = schedule[indexPath.section][indexPath.row]
-        talksVC.scrollToSelectedTalk(selectedTalk)
-        pageController?.currentPage = 3
+        if let delegate = self.delegate {
+            delegate.didSelectTalk(selectedTalk)
+        }
     }
     
     

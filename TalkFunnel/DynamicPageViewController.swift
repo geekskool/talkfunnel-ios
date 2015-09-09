@@ -23,7 +23,7 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
             self.layoutPages()
         }
     }
-    var currentPage:Int = 2 {
+    var currentPage:Int = 1 {
         didSet {
             if (currentPage >= self.viewControllers?.count)
             {
@@ -31,7 +31,7 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
             }
             
             containerScrollView.delegate = nil
-        containerScrollView.setContentOffset(CGPointMake(CGFloat(self.currentPage) * self.view.bounds.size.width, 0.0), animated: true)
+        containerScrollView.setContentOffset(CGPointMake(CGFloat(self.currentPage) * self.view.bounds.size.width, 0.0), animated: false)
             containerScrollView.delegate = self
             // Set the fully switched page in order to notify the delegates about it if needed.
             self.fullySwitchedPage = self.currentPage;
@@ -180,13 +180,6 @@ class DMDynamicViewController: UIViewController, UIScrollViewDelegate {
         // Check whether the current view controller is fully presented.
         if (Int(containerScrollView.contentOffset.x) % Int(self.pageWidth) == 0)
         {
-            //Turn off video capture when the user isnt on the contacts page
-            if page != 0.0 {
-                contactsVC.scanContactsVC.qrCodeScannerVC.stopRunning()
-            }
-            else {
-                contactsVC.scanContactsVC.qrCodeScannerVC.startRunning()
-            }
             self.fullySwitchedPage = self.currentPage;
         }
         
