@@ -10,19 +10,42 @@ import UIKit
 
 protocol EventListViewControllerDelegate {
     func didSelectEvent(event: EventList)
+    func triedToRefreshEventList(done: Bool)
 }
 class EventListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     var requiredEventList = [EventList]()
     var delegate: EventListViewControllerDelegate?
+    var refreshControl: UIRefreshControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        addRefreshControl()
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = self.view.frame.height/4
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+    }
+    
+    func refresh() {
+        tableView.reloadData()
+    }
+
+    private func addRefreshControl() {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.backgroundColor = UIColor.orangeColor()
+        self.refreshControl.tintColor = UIColor.whiteColor()
+        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView.addSubview(refreshControl)
+    }
+    
+    func refreshData(sender: AnyObject) {
+        fetchAllData { (done, error) -> Void in
+            if let delegate = self.delegate {
+                delegate.triedToRefreshEventList(done)
+            }
+        }
     }
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {

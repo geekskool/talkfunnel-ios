@@ -10,6 +10,7 @@ import UIKit
 
 protocol EventInformationViewControllerDelegate {
     func didSelectTalk(talk: Session)
+    func triedToRefreshEventInfo(done: Bool)
 }
 class EventInformationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -20,7 +21,8 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     let messageLabel = UILabel()
     let loadingView = UIView()
     var delegate: EventInformationViewControllerDelegate?
-
+    var refreshControl: UIRefreshControl!
+    
     private struct constants {
         static let breakCellReuseIdentifier = "Break"
         static let scheduleCellReuseIdentifier = "Schedule"
@@ -29,15 +31,30 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
  
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //set the delegate and the datasource of the table view to be the instance of this class (UI View controller)
+        addRefreshControl()
         tableViewForSchedule.delegate = self
         tableViewForSchedule.dataSource = self
-        
-        //To make the row height dynamic
         tableViewForSchedule.estimatedRowHeight = tableViewForSchedule.rowHeight
         tableViewForSchedule.rowHeight = UITableViewAutomaticDimension
-        print("done")
+        
+        tableViewForSchedule.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+
+    }
+    
+    private func addRefreshControl() {
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.backgroundColor = UIColor.orangeColor()
+        self.refreshControl.tintColor = UIColor.whiteColor()
+        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.tableViewForSchedule.addSubview(refreshControl)
+    }
+    
+    func refreshData(sender: AnyObject) {
+        fetchDataForEvent({ (done, error) -> Void in
+            if let delegate = self.delegate {
+                delegate.triedToRefreshEventInfo(done)
+            }
+        })
     }
     
     func refresh() {
@@ -47,7 +64,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     }
     
     func addLoadingDataView() {
-        loadingView.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)
+        loadingView.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.height)
         loadingView.backgroundColor = UIColor.whiteColor()
         
         let loadingIcon = UIActivityIndicatorView()
@@ -95,7 +112,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     }
     
     private func addMessageLabel() {
-        messageLabel.frame = CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height)
+        messageLabel.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)
         messageLabel.textAlignment = NSTextAlignment.Center
         messageLabel.text = "Schedule for this Event has not been decided yet"
         messageLabel.textColor = UIColor.grayColor()

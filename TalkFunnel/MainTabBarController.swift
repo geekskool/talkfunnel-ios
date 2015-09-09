@@ -12,7 +12,9 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
 
     let contactsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("Contacts") as! ContactsViewController
     let chatVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("Chat") as! ChatViewController
-    let eventsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("MainEvents") as! EventsViewController
+    let eventsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("MainEventsNav") as! UINavigationController
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,6 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         image2 = image2?.imageWithRenderingMode(.AlwaysTemplate)
         chatVC.tabBarItem = UITabBarItem(title: "Chat", image: image2, tag: 0)
         self.viewControllers = [contactsVC,eventsVC,chatVC]
-        selectTab(2)
         selectTab(1)
         
     }

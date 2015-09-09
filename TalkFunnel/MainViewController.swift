@@ -8,6 +8,7 @@
 
 import UIKit
 
+var mainTabVC:MainTabBarController!
 class MainViewController: UIViewController {
 
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -73,9 +74,8 @@ class MainViewController: UIViewController {
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let tabVC = segue.destinationViewController as? MainTabBarController {
-            tabVC.setUpVC()
-        }
+        mainTabVC = segue.destinationViewController as? MainTabBarController 
+        mainTabVC.setUpVC()
     }
     
     //MARK: Alert

@@ -28,8 +28,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="183" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="OgL-P8-tq1">
-                                <rect key="frame" x="0.0" y="66" width="320" height="504"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="183" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="OgL-P8-tq1">
+                                <rect key="frame" x="0.0" y="20" width="320" height="550"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Break" textLabel="dcG-db-jj6" detailTextLabel="hz3-sV-rnv" rowHeight="183" style="IBUITableViewCellStyleValue2" id="bRx-XA-eE4" customClass="ScheduleTableViewCell" customModule="TalkFunnel" customModuleProvider="target">
@@ -125,7 +125,7 @@
                         <constraints>
                             <constraint firstItem="OgL-P8-tq1" firstAttribute="bottom" secondItem="PAP-Nf-EAJ" secondAttribute="top" constant="2" id="Cme-Ay-2Ud"/>
                             <constraint firstItem="OgL-P8-tq1" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="JzQ-fs-a1z"/>
-                            <constraint firstItem="OgL-P8-tq1" firstAttribute="top" secondItem="rlN-zK-rnJ" secondAttribute="bottom" constant="46" id="KHz-xh-cfI"/>
+                            <constraint firstItem="OgL-P8-tq1" firstAttribute="top" secondItem="rlN-zK-rnJ" secondAttribute="bottom" id="KHz-xh-cfI"/>
                             <constraint firstAttribute="trailing" secondItem="OgL-P8-tq1" secondAttribute="trailing" id="b0L-5U-O5y"/>
                         </constraints>
                     </view>
@@ -135,7 +135,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="845" y="-1327"/>
+            <point key="canvasLocation" x="1377" y="-1327"/>
         </scene>
         <!--Talk Information View Controller-->
         <scene sceneID="KKh-jD-WNs">
@@ -149,8 +149,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="349" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5vN-Aq-VS4">
-                                <rect key="frame" x="0.0" y="68" width="320" height="502"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="349" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5vN-Aq-VS4">
+                                <rect key="frame" x="0.0" y="20" width="320" height="540"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="talkInformation" rowHeight="349" id="Kgg-Dp-Gnt" customClass="TalkInformationCell" customModule="TalkFunnel" customModuleProvider="target">
@@ -305,9 +305,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="5vN-Aq-VS4" secondAttribute="trailing" id="I1S-aJ-46X"/>
-                            <constraint firstItem="5vN-Aq-VS4" firstAttribute="bottom" secondItem="t7r-ZS-Uy3" secondAttribute="top" constant="2" id="LEh-Cc-ZyC"/>
+                            <constraint firstItem="5vN-Aq-VS4" firstAttribute="bottom" secondItem="t7r-ZS-Uy3" secondAttribute="top" constant="-8" id="LEh-Cc-ZyC"/>
                             <constraint firstItem="5vN-Aq-VS4" firstAttribute="leading" secondItem="2D0-ic-FeP" secondAttribute="leading" id="Mb4-dE-ooQ"/>
-                            <constraint firstItem="5vN-Aq-VS4" firstAttribute="top" secondItem="C5f-5Y-5bI" secondAttribute="bottom" constant="48" id="sxc-rI-N6r"/>
+                            <constraint firstItem="5vN-Aq-VS4" firstAttribute="top" secondItem="C5f-5Y-5bI" secondAttribute="bottom" id="sxc-rI-N6r"/>
                         </constraints>
                     </view>
                     <connections>
@@ -316,12 +316,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w0m-2r-pKx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1223" y="-1327"/>
+            <point key="canvasLocation" x="1755" y="-1327"/>
         </scene>
         <!--Events View Controller-->
         <scene sceneID="Zxx-ar-nGU">
             <objects>
-                <viewController storyboardIdentifier="MainEvents" hidesBottomBarWhenPushed="YES" id="SU0-SD-AHN" customClass="EventsViewController" customModule="TalkFunnel" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MainEvents" id="SU0-SD-AHN" customClass="EventsViewController" customModule="TalkFunnel" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="rRV-XO-gLG"/>
                         <viewControllerLayoutGuide type="bottom" id="HTU-Py-zuE"/>
@@ -329,30 +329,30 @@
                     <view key="view" contentMode="scaleToFill" id="Pac-1s-pMi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="sTs-jw-xiS">
                         <barButtonItem key="leftBarButtonItem" image="Back" id="rUr-ca-wQd">
                             <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="onBackPressed:" destination="SU0-SD-AHN" id="AKb-1I-r2z"/>
+                                <action selector="backButtonClicked:" destination="SU0-SD-AHN" id="1Qb-pD-Ga8"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Forward" id="L1b-lT-8sq">
                             <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <action selector="onNextPressed:" destination="SU0-SD-AHN" id="a3l-19-Uqa"/>
+                                <action selector="nextButtonClicked:" destination="SU0-SD-AHN" id="ppk-ax-5xL"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="backArrowButton" destination="rUr-ca-wQd" id="iwq-uV-Ijg"/>
+                        <outlet property="navigationItem" destination="sTs-jw-xiS" id="S2Z-GU-Rtv"/>
                         <outlet property="nextArrowButton" destination="L1b-lT-8sq" id="IuC-4t-na6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uaL-X5-oeS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61" y="-1327"/>
+            <point key="canvasLocation" x="593" y="-1327"/>
         </scene>
         <!--Contacts View Controller-->
         <scene sceneID="Ihs-V1-XbL">
@@ -367,42 +367,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejS-gd-bQ5">
-                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                             </containerView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n5P-s4-jt2">
-                                <rect key="frame" x="123" y="436" width="75" height="75"/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="DIv-eU-EM7"/>
-                                    <constraint firstAttribute="width" constant="75" id="JiJ-Aj-v4i"/>
-                                </constraints>
-                                <state key="normal" image="Login">
-                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="buttonClicked:" destination="GaM-Dt-NtJ" eventType="touchUpInside" id="GlJ-NK-8xM"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="ejS-gd-bQ5" firstAttribute="leading" secondItem="bfz-aB-v5A" secondAttribute="leading" id="Bcs-au-MBR"/>
                             <constraint firstItem="ejS-gd-bQ5" firstAttribute="bottom" secondItem="KD5-Zc-Q18" secondAttribute="top" id="PdI-yt-rne"/>
-                            <constraint firstItem="KD5-Zc-Q18" firstAttribute="top" secondItem="n5P-s4-jt2" secondAttribute="bottom" constant="8" id="WeZ-zP-5am"/>
                             <constraint firstAttribute="trailing" secondItem="ejS-gd-bQ5" secondAttribute="trailing" id="gY6-tY-3dK"/>
                             <constraint firstItem="ejS-gd-bQ5" firstAttribute="top" secondItem="bfz-aB-v5A" secondAttribute="top" constant="20" id="hB3-xK-41N"/>
-                            <constraint firstItem="n5P-s4-jt2" firstAttribute="centerX" secondItem="ejS-gd-bQ5" secondAttribute="centerX" id="xpV-md-W6o"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="contacts" id="Gqy-QM-eiL"/>
+                    <navigationItem key="navigationItem" id="Qns-6o-qt8"/>
                     <connections>
-                        <outlet property="button" destination="n5P-s4-jt2" id="KEu-zW-hnz"/>
                         <outlet property="containerView" destination="ejS-gd-bQ5" id="KAo-ub-8LG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6WY-nF-Lzl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="61" y="-569"/>
+            <point key="canvasLocation" x="61" y="-585"/>
         </scene>
         <!--Event List View Controller-->
         <scene sceneID="l74-tj-vVZ">
@@ -416,8 +399,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Eve-Dq-vRx">
-                                <rect key="frame" x="0.0" y="65" width="320" height="503"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Eve-Dq-vRx">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Events" textLabel="7St-8C-lxK" detailTextLabel="g8i-yk-oXe" style="IBUITableViewCellStyleSubtitle" id="XtN-4f-vOr">
@@ -453,7 +436,7 @@
                             <constraint firstAttribute="trailing" secondItem="Eve-Dq-vRx" secondAttribute="trailing" id="Xao-Xd-iV0"/>
                             <constraint firstItem="Eve-Dq-vRx" firstAttribute="leading" secondItem="hsU-3K-qgh" secondAttribute="leading" id="lNr-Ih-HeM"/>
                             <constraint firstItem="Eve-Dq-vRx" firstAttribute="bottom" secondItem="pWb-Ak-zey" secondAttribute="top" id="mSv-gN-X5J"/>
-                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="top" secondItem="bdy-99-DEF" secondAttribute="bottom" constant="45" id="toT-uK-pwg"/>
+                            <constraint firstItem="Eve-Dq-vRx" firstAttribute="top" secondItem="bdy-99-DEF" secondAttribute="bottom" id="toT-uK-pwg"/>
                         </constraints>
                     </view>
                     <connections>
@@ -462,7 +445,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LA9-v4-lPE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="500" y="-1327"/>
+            <point key="canvasLocation" x="1032" y="-1327"/>
         </scene>
         <!--Chat-->
         <scene sceneID="sbS-Xw-bh4">
@@ -477,14 +460,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTF-l5-Tu3">
-                                <rect key="frame" x="0.0" y="20" width="320" height="499"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="553"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </webView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="iTF-l5-Tu3" firstAttribute="top" secondItem="TVL-jq-3Ja" secondAttribute="bottom" id="7Qi-wv-Ew8"/>
-                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="bottom" secondItem="0ha-wm-3oF" secondAttribute="top" id="HfZ-hI-Kgu"/>
+                            <constraint firstItem="iTF-l5-Tu3" firstAttribute="bottom" secondItem="0ha-wm-3oF" secondAttribute="top" constant="5" id="HfZ-hI-Kgu"/>
                             <constraint firstItem="iTF-l5-Tu3" firstAttribute="leading" secondItem="3Vc-Or-8Nc" secondAttribute="leading" id="Lsy-Tk-Zpf"/>
                             <constraint firstAttribute="trailing" secondItem="iTF-l5-Tu3" secondAttribute="trailing" id="oU1-UF-NzM"/>
                         </constraints>
@@ -686,7 +669,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-bx-fhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="936" y="-569"/>
+            <point key="canvasLocation" x="936" y="-585"/>
         </scene>
         <!--Qr Code Scanner View Controller-->
         <scene sceneID="qFi-2j-clE">
@@ -752,7 +735,7 @@
         <!--Main Tab Bar Controller-->
         <scene sceneID="PQ1-xd-W0G">
             <objects>
-                <tabBarController id="lIV-AC-0d2" customClass="MainTabBarController" customModule="TalkFunnel" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabController" id="lIV-AC-0d2" customClass="MainTabBarController" customModule="TalkFunnel" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="szj-Q2-ixv"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="wL0-fr-EXu">
@@ -777,7 +760,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="215" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="kCV-Fd-XLS">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="215" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="kCV-Fd-XLS">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactInformationCell" rowHeight="215" id="8aC-J0-b1d" customClass="ContactTableViewCell" customModule="TalkFunnel" customModuleProvider="target">
@@ -916,14 +899,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nz5-De-hts" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="510" y="-569"/>
+            <point key="canvasLocation" x="510" y="-585"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="UUC-iI-2iW">
+            <objects>
+                <navigationController storyboardIdentifier="MainEventsNav" automaticallyAdjustsScrollViewInsets="NO" id="tQT-k5-s36" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="xyk-XP-4py">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="SU0-SD-AHN" kind="relationship" relationship="rootViewController" id="APP-MG-q2d"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2IJ-s7-INt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="61" y="-1327"/>
         </scene>
     </scenes>
     <resources>
         <image name="Back" width="22" height="22"/>
         <image name="Chat" width="25" height="25"/>
         <image name="Forward" width="22" height="22"/>
-        <image name="Login" width="25" height="25"/>
         <image name="hasGeekLogo" width="291" height="291"/>
     </resources>
     <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

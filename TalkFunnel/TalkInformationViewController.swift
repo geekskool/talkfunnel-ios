@@ -27,6 +27,9 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         //To make the row height dynamic
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
+        
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
+
     }
     
     func refresh() {

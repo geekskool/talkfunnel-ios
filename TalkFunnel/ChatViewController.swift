@@ -19,7 +19,6 @@ class ChatViewController: UIViewController, UIWebViewDelegate {
     }
     
     func loadPage() {
-        print("here")
         webView.delegate = self
         let requestURL = NSURL(string: "https://scrollback.io/hasgeek")
         let request = NSURLRequest(URL: requestURL!)

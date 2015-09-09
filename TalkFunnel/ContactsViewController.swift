@@ -11,7 +11,6 @@ import UIKit
 class ContactsViewController: UIViewController {
 
     @IBOutlet weak var containerView: UIView!
-    @IBOutlet weak var button: UIButton!
     
     let savedContactsListVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("SavedContactsList") as! SavedContactsListViewController
     let scanContactsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("ScanContact") as! ScanContactsViewController
@@ -34,22 +33,6 @@ class ContactsViewController: UIViewController {
         else {
             addLogInScreen()
         }
-        setButtonForPage()
-    }
-    
-    private func setButtonForPage() {
-        button.layer.cornerRadius = 0.5 * button.bounds.size.width
-        if isUserLoggedIn {
-            if isShowingSavedContactList {
-                button.setImage(UIImage(named: "scanQR"), forState: UIControlState.Normal)
-            }
-            else {
-                button.setImage(UIImage(named: "hasGeek"), forState: UIControlState.Normal)
-            }
-        }
-        else {
-            button.setImage(UIImage(named: "Login"), forState: UIControlState.Normal)
-        }
     }
     
     private func addViewControllerToContainerView(viewController: UIViewController) {
@@ -70,17 +53,34 @@ class ContactsViewController: UIViewController {
         logInScreenView.frame = containerView.bounds
         containerView.addSubview(logInScreenView)
         logInScreenView.addSubview(getMessageLabel(logInScreenView))
+        logInScreenView.addSubview(addLogInButton(logInScreenView))
         
     }
     
     private func getMessageLabel(logInScreenView: UIView) -> UILabel {
         let messageLabel = UILabel()
-        messageLabel.frame = logInScreenView.frame
+        messageLabel.frame = CGRectMake(10, 10, logInScreenView.frame.width - 20, logInScreenView.frame.height * 0.5)
         messageLabel.textAlignment = .Center
         messageLabel.text = "Please Log In to view or scan contacts"
         messageLabel.numberOfLines = 0
         messageLabel.backgroundColor = UIColor.whiteColor()
+        messageLabel.textColor = UIColor.lightGrayColor()
         return messageLabel
+    }
+    
+    private func addLogInButton(logInScreenView: UIView) -> UIButton {
+        let logInButton = UIButton()
+        logInButton.frame = CGRectMake(10, logInScreenView.frame.height * 0.5, logInScreenView.frame.width - 20, logInScreenView.frame.height * 0.1)
+        logInButton.layer.cornerRadius = 10
+        logInButton.layer.borderColor = UIColor.orangeColor().CGColor
+        logInButton.setTitle("Log In", forState: UIControlState.Normal)
+        logInButton.backgroundColor = UIColor.orangeColor()
+        logInButton.addTarget(self, action: "logInButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
+        return logInButton
+    }
+    
+    func logInButtonClicked(sender: UIButton) {
+        logIn()
     }
     
     @IBAction func buttonClicked(sender: UIButton) {
@@ -100,6 +100,7 @@ class ContactsViewController: UIViewController {
             logIn()
         }
     }
+    
     
     func logIn() {
         if let url = NSURL(string:"http://auth.hasgeek.com/auth?client_id=eDnmYKApSSOCXonBXtyoDQ&scope=id+email+phone+organizations+teams+com.talkfunnel:*&response_type=token") {

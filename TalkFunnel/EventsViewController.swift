@@ -31,9 +31,10 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
     }
     
     func setUpVC() {
-        setUpDelegates()
         setUpPageController()
         setUpNavigationBar()
+        setUpDelegates()
+
     }
     private func setUpDelegates() {
         eventListVC.delegate = self
@@ -45,47 +46,53 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
         let viewControllers = [eventListVC,eventInfoVC,talksVC]
         pageController = DMDynamicViewController(viewControllers: viewControllers)
         pageController?.view.frame = self.view.frame
-        view.addSubview(pageController!.view)
         talksVC.resetTalksScroll()
+        view.addSubview((pageController?.view)!)
     }
+    
     
     private func setUpNavigationBar() {
-        // Create the navigation bar
-        let navigationBar = UINavigationBar(frame: CGRectMake(0, 0, self.view.frame.size.width, 66)) // Offset by 20 pixels vertically to take the status bar into account
-        
-        navigationBar.translucent = true
-        navigationBar.delegate = self
-        
-        // Create left and right button for navigation item
-        var image = UIImage(named: "Back")
-        image = image?.imageWithRenderingMode(.AlwaysTemplate)
-        let leftButton =  UIBarButtonItem(image: image, style: UIBarButtonItemStyle.Plain, target: self, action: "backButtonClicked:")
-        var image2 = UIImage(named: "Back")
-        image2 = image2?.imageWithRenderingMode(.AlwaysTemplate)
-        let rightButton = UIBarButtonItem(image: image2, style: UIBarButtonItemStyle.Plain, target: self, action: "nextButtonClicked:")
-        
-        // Create two buttons for the navigation item
-        navigationItem.leftBarButtonItem = leftButton
-        navigationItem.rightBarButtonItem = rightButton
-        
-        // Assign the navigation item to the navigation bar
-        navigationBar.items = [navigationItem]
-        navigationBar.addSubview(pageTitleLabel)
-        // Make the navigation bar a subview of the current view controller
-        self.view.addSubview(navigationBar)
+        navigationController?.navigationBar.translucent = false
+        navigationController?.navigationBar.addSubview(pageTitleLabel)
     }
     
+    @IBAction func backButtonClicked(sender: UIBarButtonItem) {
+        if currentPageNumber != 0 {
+            if currentPageNumber == 1 {
+                sender.tintColor = UIColor.clearColor()
+            }
+            if currentPageNumber == 2 {
+                nextArrowButton.tintColor = UIColor.orangeColor()
+            }
+            currentPageNumber--
+        }
+        pageController?.moveToPage(currentPageNumber)
+    }
+    @IBAction func nextButtonClicked(sender: UIBarButtonItem) {
+        if currentPageNumber != 2 {
+            if currentPageNumber == 1 {
+                sender.tintColor = UIColor.clearColor()
+            }
+            if currentPageNumber == 0 {
+                backArrowButton.tintColor = UIColor.orangeColor()
+            }
+            currentPageNumber++
+        }
+        pageController?.moveToPage(currentPageNumber)
+    }
+
     //MARK: EventListViewControllerDelegate Method
     func didSelectEvent(event: EventList) {
-        pageController?.moveToPage(1)
         if let currentEventDetail = currentEvent {
+            let tempEvent = currentEvent
+            currentEvent = event
+            pageController?.moveToPage(1)
+            currentPageNumber = 1
             if currentEventDetail.title! == event.title && currentEventDetail.jsonUrl! == event.jsonUrl {
                 eventInfoVC.refresh()
                 talksVC.refresh()
             }
             else {
-                let tempEvent = currentEvent
-                currentEvent = event
                 eventInfoVC.addLoadingDataView()
                 talksVC.addLoadingDataView()
                 fetchDataForEvent { (doneFetching,error) -> Void in
@@ -104,17 +111,47 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                         })
                     }
                     else {
-                        currentEvent = tempEvent
+                        self.noInternetAlert({ (dismiss) -> Void in
+                            if dismiss {
+                                self.pageController?.moveToPage(0)
+                                self.currentPageNumber = 0
+                                currentEvent = tempEvent
+                                self.eventInfoVC.refresh()
+                                self.talksVC.refresh()
+                            }
+                        })
+                        
                     }
                 }
             }
         }
     }
     
-    //Mark: EventInformationViewControllerDelegate Method
+    func triedToRefreshEventList(done: Bool) {
+        eventListVC.refreshControl.endRefreshing()
+        reactToRefresh(done)
+    }
+    
+    //MARK: Alert
+    func noInternetAlert(callBack: Bool -> Void) {
+        let alert = UIAlertController(title: "No Internet", message: "Please connect to the internet and retry", preferredStyle: UIAlertControllerStyle.Alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+            callBack(true)
+        })
+        alert.addAction(dismiss)
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+    
+    //MARK: EventInformationViewControllerDelegate Method
     func didSelectTalk(talk: Session) {
         pageController?.moveToPage(2)
+        currentPageNumber = 2
         talksVC.scrollToSelectedTalk(talk)
+    }
+    
+    func triedToRefreshEventInfo(done: Bool) {
+        eventInfoVC.refreshControl.endRefreshing()
+        reactToRefresh(done)
     }
     
     //MARK: DMDynamicPageViewControllerDelegate Methods
@@ -179,26 +216,44 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
         pageTitleLabel.alpha = alpha
     }
     private func setBarButtonAlpha(pageNumber: CGFloat) {
-        if pageNumber < 1.5 {
-            backArrowButton.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: 2 - pageNumber)
+        if pageNumber < 1 {
             nextArrowButton.tintColor = UIColor.orangeColor()
+            backArrowButton.tintColor = UIColor.clearColor()
         }
-        else if pageNumber > 1.5 {
-            nextArrowButton.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0/255, alpha: pageNumber - 1)
+        else if pageNumber > 1 && pageNumber < 1.5 {
+            nextArrowButton.tintColor = UIColor.orangeColor()
+            backArrowButton.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0, alpha: 0.5)
+        }
+        else if pageNumber > 2.0 {
+            nextArrowButton.tintColor = UIColor.clearColor()
             backArrowButton.tintColor = UIColor.orangeColor()
+        }
+        else if pageNumber > 1.5 && pageNumber < 2.0 {
+            backArrowButton.tintColor = UIColor.orangeColor()
+            nextArrowButton.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0, alpha: 0.5)
         }
         else {
             nextArrowButton.tintColor = UIColor.orangeColor()
             backArrowButton.tintColor = UIColor.orangeColor()
         }
-        
-        if pageNumber == 1 {
-            nextArrowButton.tintColor = UIColor.orangeColor()
-            backArrowButton.tintColor = UIColor.clearColor()
+    }
+    
+    
+    //MARK: After pull to refresh
+    private func reactToRefresh(done: Bool) {
+        if done {
+            eventListVC.refresh()
+            eventInfoVC.refresh()
+            talksVC.refresh()
         }
-        if pageNumber == 2 {
-            nextArrowButton.tintColor = UIColor.clearColor()
-            backArrowButton.tintColor = UIColor.orangeColor()
+        else {
+            noInternetAlert({ (dismiss) -> Void in
+                if dismiss {
+                    self.eventListVC.refresh()
+                    self.eventInfoVC.refresh()
+                    self.talksVC.refresh()
+                }
+            })
         }
     }
     

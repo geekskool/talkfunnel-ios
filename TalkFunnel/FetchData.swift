@@ -107,6 +107,14 @@ func getCurrentEvent() {
     }
 }
 
+func getCurrentEventFromSavedData() {
+    for event in eventList {
+        if currentEventTitle == event.title {
+            currentEvent = event
+        }
+    }
+}
+
 func getDateFromString(dateString: String?) -> NSDate? {
     let dateFormatter = NSDateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd" //iso 8601
@@ -240,6 +248,8 @@ func fetchDataForEvent(callback: (Bool,String?) -> Void) {
 }
 
 func fetchDataForEventList(callback: (Bool,String?) -> Void) {
+    var tempEventList = eventList
+    tempEventList.removeAll()
     HttpRequest(url: constants.EventListUrl) {
         (data, error) -> Void in
         dispatch_async(dispatch_get_main_queue()) { () -> Void in
@@ -252,12 +262,14 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                         if let eventInfo = events as? NSDictionary {
                             let dict = EventList(data: eventInfo)
                             if isEventAfterToday(dict) {
-                                eventList.append(dict)
+                                tempEventList.append(dict)
                             }
                         }
                     }
+                    eventList = tempEventList
                     getCurrentEvent()
                     saveFetchedEventList()
+                    sortFetchedEventList()
                     callback(true,nil)
                 }
                 else {
@@ -358,7 +370,7 @@ func fetchSavedEventList(callback: (Bool,String?) -> Void) {
                 eventList.append(data)
             }
         sortFetchedEventList()
-        getCurrentEvent()
+            getCurrentEventFromSavedData()
             callback(true,nil)
         }
         else {
