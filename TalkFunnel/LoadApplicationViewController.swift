@@ -169,16 +169,7 @@
 //        pageController?.moveToPage(currentPageNumber)
 //    }
 //    
-//    //MARK: LogOut
-//    private func logOut() {
-//        userAccessToken = nil
-//        userTokenType = nil
-//        addToLocalData()
-//        isUserLoggedIn = false
-//        backArrow.tintColor = UIColor.clearColor()
-//        contactsVC.refresh()
-//    }
-//    
+//
 //
 //    //MARK: Method called after user logs in and after AUTH
 //    func makeLogOutButtonVisible() {

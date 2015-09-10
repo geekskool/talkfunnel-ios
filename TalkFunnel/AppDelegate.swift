@@ -43,7 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
         userLogInString = url.description
         isUserLoggedIn = true
-        mainTabVC.contactsVC.refresh()
+        mainTabVC.afterLogIn()
         return true
     }
     

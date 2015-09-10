@@ -35,6 +35,10 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         
     }
     
+    func afterLogIn() {
+        contactsVC.afterLogIn()
+    }
+    
     private func selectTab(tabNumber: Int) {
         self.selectedIndex = tabNumber
     }

@@ -60,9 +60,9 @@
         <relationship name="eventInformation" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="EventInformationData" inverseName="venues" inverseEntity="EventInformationData" syncable="YES"/>
     </entity>
     <elements>
-        <element name="ParticipantData" positionX="-452" positionY="-441" width="128" height="180"/>
         <element name="EventInformationData" positionX="-450" positionY="-198" width="128" height="90"/>
         <element name="EventListData" positionX="-450" positionY="-300" width="128" height="165"/>
+        <element name="ParticipantData" positionX="-452" positionY="-441" width="128" height="180"/>
         <element name="RoomsData" positionX="-288" positionY="-282" width="128" height="90"/>
         <element name="ScheduleData" positionX="-288" positionY="-198" width="128" height="90"/>
         <element name="SessionData" positionX="43" positionY="-324" width="128" height="225"/>

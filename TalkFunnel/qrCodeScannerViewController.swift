@@ -103,7 +103,6 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
     
     //MARK: After QRCode Scan
     func saveContact(qrCodeString: String) {
-//        let string = "participant?puk=" + scannedContactPublicKey! + "&key=" + scannedContactPrivateKey!
         if isUserLoggedIn {
             retrieveScannedContactKeys(qrCodeString)
             if let scannedParticipantInformation = fetchScannedParticipantDataFromDB() {

@@ -35,7 +35,6 @@ var isUserLoggedIn = false {
 willSet(newValue) {
     if newValue {
         retrieveUserData()
-        fetchParticipantData()
     }
 }
 }
@@ -181,12 +180,13 @@ func fetchAllData(callback: (Bool,String?) -> Void) {
     }
 }
 
-func fetchParticipantData() {
+func fetchParticipantData(callback: Bool -> Void) {
     fetchParticipantRelatedData("participants/json", callback: { (doneFetchingParticipantData,errorFetchingParticipantData) -> Void in
         if doneFetchingParticipantData {
-            print("fetchedPdata")
+            callback(true)
         }
         else {
+            callback(false)
         }
     })
 }
@@ -204,28 +204,54 @@ func fetchParticipantRelatedData(urlAddition: String, callback: (Bool,String?) -
                     }
                     else {
                         if let allParticipants = data["participants"] as? NSArray {
+                            allParticipantsInfo.removeAll()
                             for participants in allParticipants {
                                 if let dict = participants as? NSDictionary {
                                     let data = ParticipantsInformation(participant: dict)
                                     allParticipantsInfo.append(data)
                                 }
                             }
-                            getSavedContacts()
                             saveFetchedParticipantData()
                             callback(true,nil)
                         }
                         else {
-                            if let allParticipants = data["participant"] as? NSDictionary {
-                                scannedParticipantInfo = ParticipantsInformation(participant: allParticipants)
-                                callback(true,nil)
-                            }
-                            else {
-                                callback(false,nil)
-                            }
+                            callback(false,nil)
                         }
                     }
                 })
             })
+        }
+    }
+}
+
+func fetchSavedContactData(url: String, callback: (Bool,String?) -> Void) {
+    if isUserLoggedIn {
+        let contactRequestValue = "Bearer " + userAccessToken!
+        let contactRequestHeader = "Authorization"
+        HttpRequest(url: url, requestValue: contactRequestValue, requestHeader: contactRequestHeader, callback: { (data, error) -> Void in
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if error != nil {
+                    callback(false,error)
+                }
+                else {
+                    if let allParticipants = data["participant"] as? NSDictionary {
+                        scannedParticipantInfo = ParticipantsInformation(participant: allParticipants)
+                        callback(true,nil)
+                    }
+                    else {
+                        callback(false,nil)
+                    }
+                }
+            })
+        })
+    }
+}
+
+private func getSavedContacts() {
+    savedContacts.removeAll()
+    for participant in allParticipantsInfo {
+        if participant.privateKey != "" {
+            savedContacts.append(participant)
         }
     }
 }
@@ -320,14 +346,6 @@ func retrieveUserData() {
 //MARK: Core data
 
 //MARK: CoreData - Fetch
-private func getSavedContacts() {
-    savedContacts.removeAll()
-    for participant in allParticipantsInfo {
-        if participant.privateKey != nil {
-            savedContacts.append(participant)
-        }
-    }
-}
 
 func fetchAllSavedData(callback: (Bool,String?) -> Void) {
     fetchSavedEventList { (doneFetching,error) -> Void in
@@ -591,21 +609,22 @@ func saveFetchedEventInformation() {
 }
 
 func saveFetchedParticipantData() {
+    deleteSavedParticipantData()
     let appDelegate =
     UIApplication.sharedApplication().delegate as! AppDelegate
     let managedContext = appDelegate.managedObjectContext
     
-    for participant in allParticipantsInfo {
+    for contact in savedContacts {
         let participantEntry = NSEntityDescription.insertNewObjectForEntityForName("ParticipantData", inManagedObjectContext: managedContext) as! ParticipantData
-        participantEntry.privateKey = ""
-        participantEntry.publicKey = participant.publicKey
-        participantEntry.name = participant.fullName
-        participantEntry.company = participant.company
-        participantEntry.emailAddress = participant.email
-        participantEntry.twitterHandle = participant.twitter
-        participantEntry.mobileNumber = participant.phoneNumber
-        participantEntry.jobTitle = participant.jobTitle
-        participantEntry.participantDataUrl = participant.participantDataUrl
+        participantEntry.privateKey = contact.privateKey
+        participantEntry.publicKey = contact.publicKey
+        participantEntry.name = contact.fullName
+        participantEntry.company = contact.company
+        participantEntry.emailAddress = contact.email
+        participantEntry.twitterHandle = contact.twitter
+        participantEntry.mobileNumber = contact.phoneNumber
+        participantEntry.jobTitle = contact.jobTitle
+        participantEntry.participantDataUrl = contact.participantDataUrl
         do {
             try managedContext.save()
         }
@@ -614,6 +633,40 @@ func saveFetchedParticipantData() {
             NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
         }
     }
+    
+    for participant in allParticipantsInfo {
+        if checkIfParticipantExistsInSavedContacts(participant) {
+            //do nothing
+        }
+        else {
+            let participantEntry = NSEntityDescription.insertNewObjectForEntityForName("ParticipantData", inManagedObjectContext: managedContext) as! ParticipantData
+            participantEntry.privateKey = ""
+            participantEntry.publicKey = participant.publicKey
+            participantEntry.name = participant.fullName
+            participantEntry.company = participant.company
+            participantEntry.emailAddress = participant.email
+            participantEntry.twitterHandle = participant.twitter
+            participantEntry.mobileNumber = participant.phoneNumber
+            participantEntry.jobTitle = participant.jobTitle
+            participantEntry.participantDataUrl = participant.participantDataUrl
+            do {
+                try managedContext.save()
+            }
+            catch {
+                let nserror = error as NSError
+                NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
+        }
+    }
+}
+
+func checkIfParticipantExistsInSavedContacts(participant: ParticipantsInformation) -> Bool {
+    for contact in savedContacts {
+        if participant.publicKey == contact.publicKey {
+            return true
+        }
+    }
+    return false
 }
 
 //MARK: CoreData - Delete
@@ -623,6 +676,10 @@ func deleteSavedEventList() {
 
 func deleteSavedEventInformation() {
    deleteSavedData("EventInformationData")
+}
+
+func deleteSavedParticipantData() {
+    deleteSavedData("ParticipantData")
 }
 
 func deleteSavedData(entityName: String) {

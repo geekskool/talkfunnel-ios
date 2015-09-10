@@ -8,17 +8,23 @@
 
 import UIKit
 
-class ContactsViewController: UIViewController {
+class ContactsViewController: UIViewController,SavedContactsListViewControllerDelegate,ProfileViewControllerDelegate {
 
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
     
     let savedContactsListVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("SavedContactsList") as! SavedContactsListViewController
     let scanContactsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("ScanContact") as! ScanContactsViewController
-    
-    var isShowingSavedContactList = true
+    let profileVC = ProfileViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpDelegates()
+    }
+    
+    private func setUpDelegates() {
+        savedContactsListVC.delegate = self
+        profileVC.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -26,13 +32,40 @@ class ContactsViewController: UIViewController {
         refresh()
     }
     
+    @IBAction func indexChanged(sender: UISegmentedControl) {
+        if isUserLoggedIn {
+            switch segmentedControl.selectedSegmentIndex {
+            case 0:
+                removeViewControllerFromContainerView(scanContactsVC)
+                addViewControllerToContainerView(savedContactsListVC)
+            case 1:
+                removeViewControllerFromContainerView(savedContactsListVC)
+                addViewControllerToContainerView(scanContactsVC)
+            case 2:
+                removeViewControllerFromContainerView(savedContactsListVC)
+                removeViewControllerFromContainerView(scanContactsVC)
+                addViewControllerToContainerView(profileVC)
+            default:
+                break
+                
+            }
+        }
+    }
+    
+    
     func refresh() {
         if isUserLoggedIn {
+            segmentedControl.selectedSegmentIndex = 0
             addViewControllerToContainerView(savedContactsListVC)
         }
         else {
             addLogInScreen()
         }
+    }
+    
+    func afterLogIn() {
+        refresh()
+        savedContactsListVC.fetchParticipantListFromServer()
     }
     
     private func addViewControllerToContainerView(viewController: UIViewController) {
@@ -83,30 +116,56 @@ class ContactsViewController: UIViewController {
         logIn()
     }
     
-    @IBAction func buttonClicked(sender: UIButton) {
-        if isUserLoggedIn {
-            if isShowingSavedContactList {
-                removeViewControllerFromContainerView(savedContactsListVC)
-                addViewControllerToContainerView(scanContactsVC)
-                isShowingSavedContactList = false
-            }
-            else {
-                removeViewControllerFromContainerView(scanContactsVC)
-                addViewControllerToContainerView(savedContactsListVC)
-                isShowingSavedContactList = true
-            }
-        }
-        else {
-            logIn()
-        }
-    }
-    
-    
     func logIn() {
         if let url = NSURL(string:"http://auth.hasgeek.com/auth?client_id=eDnmYKApSSOCXonBXtyoDQ&scope=id+email+phone+organizations+teams+com.talkfunnel:*&response_type=token") {
             if UIApplication.sharedApplication().canOpenURL(url) {
                 UIApplication.sharedApplication().openURL(url)
             }
         }
+    }
+    
+    
+    //ProfileViewControllerDelegate Method
+    func logOutButtonClicked() {
+        logOut()
+    }
+    
+    //MARK: LogOut
+    private func logOut() {
+        userAccessToken = nil
+        userTokenType = nil
+        addToLocalData()
+        isUserLoggedIn = false
+        self.refresh()
+    }
+
+    
+    
+    //MARK: SavedContactsListViewControllerDelegate Method
+    func triedToRefreshContactList(done: Bool) {
+        if done {
+            doneRefreshingSavedContactList()
+        }
+        else {
+            noInternetAlert({ (dismiss) -> Void in
+                self.doneRefreshingSavedContactList()
+            })
+        }
+    }
+    
+    private func doneRefreshingSavedContactList() {
+        savedContactsListVC.refreshControl.endRefreshing()
+        savedContactsListVC.refresh()
+    }
+    
+    
+    //MARK: Alert
+    func noInternetAlert(callBack: Bool -> Void) {
+        let alert = UIAlertController(title: "No Internet", message: "Please connect to the internet and retry", preferredStyle: UIAlertControllerStyle.Alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+            callBack(true)
+        })
+        alert.addAction(dismiss)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

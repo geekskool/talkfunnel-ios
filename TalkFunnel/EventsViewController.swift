@@ -97,16 +97,23 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                 talksVC.addLoadingDataView()
                 fetchDataForEvent { (doneFetching,error) -> Void in
                     if doneFetching {
-                        currentEventTitle = currentEvent?.title
-                        addToLocalData()
-                        self.eventInfoVC.refresh()
-                        self.talksVC.refresh()
                         fetchParticipantRelatedData("participants/json", callback: { (done, error) -> Void in
                             if done {
-                                
+                                currentEventTitle = currentEvent?.title
+                                addToLocalData()
+                                self.eventInfoVC.refresh()
+                                self.talksVC.refresh()
                             }
                             else {
-                                
+                                self.noInternetAlert({ (dismiss) -> Void in
+                                    if dismiss {
+                                        self.pageController?.moveToPage(0)
+                                        self.currentPageNumber = 0
+                                        currentEvent = tempEvent
+                                        self.eventInfoVC.refresh()
+                                        self.talksVC.refresh()
+                                    }
+                                })
                             }
                         })
                     }

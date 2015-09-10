@@ -367,20 +367,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ejS-gd-bQ5">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                             </containerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TY5-az-r2y">
+                                <rect key="frame" x="20" y="28" width="280" height="29"/>
+                                <segments>
+                                    <segment title="Contacts"/>
+                                    <segment title="Scan Badge"/>
+                                    <segment title="Profile"/>
+                                </segments>
+                                <connections>
+                                    <action selector="indexChanged:" destination="GaM-Dt-NtJ" eventType="valueChanged" id="Th6-mc-hQM"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="leading" secondItem="bfz-aB-v5A" secondAttribute="leading" id="Bcs-au-MBR"/>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="bottom" secondItem="KD5-Zc-Q18" secondAttribute="top" id="PdI-yt-rne"/>
-                            <constraint firstAttribute="trailing" secondItem="ejS-gd-bQ5" secondAttribute="trailing" id="gY6-tY-3dK"/>
-                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="top" secondItem="bfz-aB-v5A" secondAttribute="top" constant="20" id="hB3-xK-41N"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="leading" secondItem="bfz-aB-v5A" secondAttribute="leading" id="NeX-7E-hZn"/>
+                            <constraint firstItem="TY5-az-r2y" firstAttribute="top" secondItem="CPn-Jz-0AY" secondAttribute="bottom" constant="8" symbolic="YES" id="PKE-ap-3Fe"/>
+                            <constraint firstAttribute="trailing" secondItem="ejS-gd-bQ5" secondAttribute="trailing" id="VWO-iM-Z6U"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="centerX" secondItem="TY5-az-r2y" secondAttribute="centerX" id="epx-M8-ZNb"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="top" secondItem="TY5-az-r2y" secondAttribute="bottom" constant="8" symbolic="YES" id="qeG-ul-usQ"/>
+                            <constraint firstItem="ejS-gd-bQ5" firstAttribute="bottom" secondItem="KD5-Zc-Q18" secondAttribute="top" id="so5-4Z-chK"/>
+                            <constraint firstItem="TY5-az-r2y" firstAttribute="leading" secondItem="bfz-aB-v5A" secondAttribute="leadingMargin" constant="4" id="uvr-JX-yc3"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Qns-6o-qt8"/>
                     <connections>
                         <outlet property="containerView" destination="ejS-gd-bQ5" id="KAo-ub-8LG"/>
+                        <outlet property="segmentedControl" destination="TY5-az-r2y" id="RdX-fY-akB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6WY-nF-Lzl" userLabel="First Responder" sceneMemberID="firstResponder"/>

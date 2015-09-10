@@ -21,6 +21,7 @@
 		DA90C34A1B9BE0FD00F8B7E1 /* ContactTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */; };
 		DA90C34C1B9C41D300F8B7E1 /* EventInformationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C34B1B9C41D300F8B7E1 /* EventInformationViewController.swift */; };
 		DA90C34E1B9C41DC00F8B7E1 /* LoadApplicationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA90C34D1B9C41DC00F8B7E1 /* LoadApplicationViewController.swift */; };
+		DA9885D11BA16D3C00A4FDEE /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9885D01BA16D3C00A4FDEE /* ProfileViewController.swift */; };
 		DA9D2F061B9EA7E900830946 /* EventListData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F041B9EA7E900830946 /* EventListData.swift */; };
 		DA9D2F281B9EF20800830946 /* ScheduleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F261B9EF20800830946 /* ScheduleData.swift */; };
 		DA9D2F2C1B9EF20900830946 /* SlotsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F2A1B9EF20900830946 /* SlotsData.swift */; };
@@ -83,6 +84,7 @@
 		DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactTableViewCell.swift; sourceTree = "<group>"; };
 		DA90C34B1B9C41D300F8B7E1 /* EventInformationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventInformationViewController.swift; sourceTree = "<group>"; };
 		DA90C34D1B9C41DC00F8B7E1 /* LoadApplicationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadApplicationViewController.swift; sourceTree = "<group>"; };
+		DA9885D01BA16D3C00A4FDEE /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		DA9D2F041B9EA7E900830946 /* EventListData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventListData.swift; path = TalkFunnel/DataModel/EventListData.swift; sourceTree = "<group>"; };
 		DA9D2F261B9EF20800830946 /* ScheduleData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ScheduleData.swift; path = TalkFunnel/DataModel/ScheduleData.swift; sourceTree = "<group>"; };
 		DA9D2F2A1B9EF20900830946 /* SlotsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SlotsData.swift; path = TalkFunnel/DataModel/SlotsData.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */,
 				DAA748D11B96130000A05ED3 /* addContactViewController.swift */,
 				DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */,
+				DA9885D01BA16D3C00A4FDEE /* ProfileViewController.swift */,
 			);
 			name = Contacts;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 				DA9D2F3C1B9EF20900830946 /* SessionData.swift in Sources */,
 				DAF1E0B81B79B9A700649222 /* ScanContactsViewController.swift in Sources */,
 				DA9D2F281B9EF20800830946 /* ScheduleData.swift in Sources */,
+				DA9885D11BA16D3C00A4FDEE /* ProfileViewController.swift in Sources */,
 				DAF1E0CF1B79BFB800649222 /* Schedule.swift in Sources */,
 				DA9D2F341B9EF20900830946 /* EventInformationData.swift in Sources */,
 				DA9D2F2C1B9EF20900830946 /* SlotsData.swift in Sources */,
