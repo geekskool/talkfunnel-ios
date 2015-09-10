@@ -636,7 +636,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZqG-5C-mSa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="593" y="182"/>
+            <point key="canvasLocation" x="1105" y="194"/>
         </scene>
         <!--Scan Contacts View Controller-->
         <scene sceneID="IZX-c6-Mr4">
@@ -684,7 +684,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="M4V-bx-fhM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="936" y="-585"/>
+            <point key="canvasLocation" x="1448" y="-573"/>
         </scene>
         <!--Qr Code Scanner View Controller-->
         <scene sceneID="qFi-2j-clE">
@@ -703,7 +703,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xMM-mJ-B6l" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="936" y="76.5"/>
+            <point key="canvasLocation" x="1448" y="88.5"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Gze-xC-nib">
@@ -762,6 +762,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eCJ-6O-4OC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-362" y="-1332"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="kxd-FW-o5T">
+            <objects>
+                <viewController id="Dhr-rv-6NG" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="49c-QB-5SL"/>
+                        <viewControllerLayoutGuide type="bottom" id="nMa-nu-icA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="TIX-Am-mDb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xr3-xg-gG5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="594" y="-559"/>
         </scene>
         <!--Saved Contacts List View Controller-->
         <scene sceneID="8ay-pk-3Ko">
@@ -914,7 +932,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Nz5-De-hts" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="510" y="-585"/>
+            <point key="canvasLocation" x="1022" y="-573"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UUC-iI-2iW">
