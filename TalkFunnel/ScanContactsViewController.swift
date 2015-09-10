@@ -105,24 +105,24 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
         UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
-        let fetchRequest = NSFetchRequest(entityName: "Contacts")
-        fetchRequest.predicate = NSPredicate(format: "publicKey = %@", (scannedParticipantInfo?.publicKey)!)
-        
+        let fetchRequest = NSFetchRequest(entityName: "ParticipantData")
         let fetchedResults: [ParticipantData]?
         do {
             fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [ParticipantData]
             if let results = fetchedResults {
                 for contact in results {
-                    contact.privateKey = scannedParticipantInfo?.privateKey
-                    let data  = ParticipantsInformation(participant: contact)
-                    savedContacts.append(data)
-                }
-                do {
-                    try managedContext.save()
-                }
-                catch {
-                    let nserror = error as NSError
-                    NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                    if contact.publicKey == scannedContactPublicKey {
+                        contact.privateKey = scannedParticipantInfo?.privateKey
+                        let data  = ParticipantsInformation(participant: contact)
+                        savedContacts.append(data)
+                        do {
+                            try managedContext.save()
+                        }
+                        catch {
+                            let nserror = error as NSError
+                            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                        }
+                    }
                 }
             }
         }

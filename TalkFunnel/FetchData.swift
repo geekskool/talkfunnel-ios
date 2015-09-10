@@ -231,6 +231,7 @@ func fetchSavedContactData(url: String, callback: (Bool,String?) -> Void) {
         HttpRequest(url: url, requestValue: contactRequestValue, requestHeader: contactRequestHeader, callback: { (data, error) -> Void in
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                 if error != nil {
+                    print(error)
                     callback(false,error)
                 }
                 else {
@@ -287,9 +288,10 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                     for events in spaces {
                         if let eventInfo = events as? NSDictionary {
                             let dict = EventList(data: eventInfo)
-                            if isEventAfterToday(dict) {
-                                tempEventList.append(dict)
-                            }
+                            tempEventList.append(dict)
+//                            if isEventAfterToday(dict) {
+//                                tempEventList.append(dict)
+//                            }
                         }
                     }
                     eventList = tempEventList

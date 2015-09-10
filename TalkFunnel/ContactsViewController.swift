@@ -145,6 +145,7 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
     func triedToRefreshContactList(done: Bool) {
         if done {
             doneRefreshingSavedContactList()
+            saveFetchedParticipantData()
         }
         else {
             noInternetAlert({ (dismiss) -> Void in

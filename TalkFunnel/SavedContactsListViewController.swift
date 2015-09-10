@@ -41,15 +41,30 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
             refreshControl.endRefreshing()
         }
         else {
-            for contact in savedContacts {
-                let string = contact.participantDataUrl! + "participant?puk=" + scannedContactPublicKey! + "&key=" + scannedContactPrivateKey!
-                fetchSavedContactData(string, callback: { (done, error) -> Void in
-                    if let delegate = self.delegate {
-                        delegate.triedToRefreshContactList(done)
-                    }
-                })
+            for var i = 0; i < savedContacts.count; i++ {
+                if savedContacts[i].phoneNumber == nil {
+                    let string = savedContacts[i].participantDataUrl! + "participant?puk=" + savedContacts[i].publicKey! + "&key=" + savedContacts[i].privateKey!
+                    fetchSavedContactData(string, callback: { (done, error) -> Void in
+                        if let delegate = self.delegate {
+                                if let updatedContactInfo = scannedParticipantInfo {
+                                    for var j = 0; j < savedContacts.count ;j++ {
+                                        if savedContacts[j].publicKey == updatedContactInfo.publicKey {
+                                            let temp = savedContacts[j].privateKey
+                                            savedContacts[j] = updatedContactInfo
+                                            savedContacts[j].privateKey = temp
+                                        }
+                                    }
+                                }
+                                delegate.triedToRefreshContactList(done)
+                        }
+                    })
+                }
+                else {
+                    delegate?.triedToRefreshContactList(false)
+                }
             }
         }
+                
     }
     
     func refresh() {
