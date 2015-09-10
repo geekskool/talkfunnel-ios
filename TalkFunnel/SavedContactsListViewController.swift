@@ -25,7 +25,6 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
         addRefreshControl()
         tableView.dataSource = self
         tableView.delegate = self
-        // Do any additional setup after loading the view.
     }
     
     override func viewDidDisappear(animated: Bool) {
@@ -64,7 +63,6 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
                                         }
                                     }
                                 }
-                                print(num)
                                 if num == 0 {
                                     delegate.triedToRefreshContactList(done)
                                 }
@@ -102,6 +100,21 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
             addMessageLabel()
         }
         return count
+    }
+    
+    func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
+        header.contentView.backgroundColor = UIColor.whiteColor()
+        header.textLabel!.textColor = UIColor.lightGrayColor()
+        header.textLabel?.textAlignment = .Center
+    }
+    
+    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return "Pull down to refresh"
+    }
+    
+    func tableView(tableView: UITableView, estimatedHeightForHeaderInSection section: Int) -> CGFloat {
+        return 20.0
     }
     
     private func addMessageLabel() {

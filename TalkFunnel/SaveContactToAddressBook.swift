@@ -27,61 +27,8 @@ class SaveContactToAddressBook {
         }
     }
     
-    func createGroup(groupName: String) -> ABRecordRef {
-        let groupRecord: ABRecordRef = ABGroupCreate().takeRetainedValue()
-        let allGroups = ABAddressBookCopyArrayOfAllGroups(addressBookRef).takeRetainedValue() as Array
-        for group in allGroups {
-            let currentGroup: ABRecordRef = group
-            let currentGroupName = ABRecordCopyValue(currentGroup, kABGroupNameProperty).takeRetainedValue() as! String
-            if (currentGroupName == groupName) {
-                print("Group exists")
-                return currentGroup
-            }
-        }
-        ABRecordSetValue(groupRecord, kABGroupNameProperty, groupName, nil)
-        ABAddressBookAddRecord(addressBookRef, groupRecord, nil)
-        saveAddressBookChanges()
-        print("Made group")
-        return groupRecord
-    }
-    
-    func addContactToGroup(contact:ABRecordRef) {
-        let groupName = "HasGeek Event"
-        let group: ABRecordRef = createGroup(groupName)
-        // 1. Check if the member is already a part of the group.
-        // 1a. Check if there are any members.
-        if let groupMembersArray = ABGroupCopyArrayOfAllMembers(group) {
-            let groupMembers = groupMembersArray.takeRetainedValue() as Array
-            // 1b. Check if any of the members match the current contact.
-            for member in groupMembers {
-                let currentMember: ABRecordRef = member
-                if currentMember === contact {
-                    print("Already in it.")
-                    return
-                }
-            }
-        }
-        
-        // 2. Add the member to the group
-        let addedToGroup = ABGroupAddMember(group, contact, nil)
-        if !addedToGroup {
-            print("Couldn't add contact to group.")
-        }
-        
-        // 3. Save the changes
-        saveAddressBookChanges()
-    }
-    
     func addContact() {
-        
-//        if let _: ABRecordRef = getContactRecord() {
-//            print("contact Exists")
-//            return
-//        }
-        
-        let contactRecord: ABRecordRef = makeAndAddContactRecord()
-        print("contact added")
-        self.addContactToGroup(contactRecord)
+        makeAndAddContactRecord()
     }
     
     func getContactRecord() -> ABRecordRef? {
@@ -104,7 +51,6 @@ class SaveContactToAddressBook {
         let contactRecord: ABRecordRef = ABPersonCreate().takeRetainedValue()
         
         ABRecordSetValue(contactRecord, kABPersonFirstNameProperty, scannedParticipantInfo?.fullName, nil)
-//        ABRecordSetValue(contactRecord, kABPersonEmailProperty, scannedParticipantInfo?.email, nil)
         ABRecordSetValue(contactRecord, kABPersonOrganizationProperty, scannedParticipantInfo?.company, nil)
         let phoneNumbers: ABMutableMultiValue = ABMultiValueCreateMutable(ABPropertyType(kABMultiStringPropertyType)).takeRetainedValue()
         ABMultiValueAddValueAndLabel(phoneNumbers, scannedParticipantInfo?.phoneNumber, kABPersonPhoneMainLabel, nil)

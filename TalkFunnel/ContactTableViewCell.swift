@@ -30,14 +30,21 @@ class ContactTableViewCell: UITableViewCell {
     }
     
     func setData(contact: ParticipantsInformation) {
-        
-        contactCellBackground.backgroundColor = UIColor(red: 248/255, green: 248/255, blue: 255/255, alpha: 1)
-        contactCellBackground.layer.cornerRadius = 8
+        messageLabel.layer.cornerRadius = 8
         contactName.text = contact.fullName
         contactCompanyName.text = contact.company
         contactPhoneNumber.text = contact.phoneNumber
         contactEmail.text = contact.email
         contactTwitterHandle.text = contact.twitter
+        
+        if contact.phoneNumber == nil {
+            contactPhoneNumber.textColor = UIColor.lightGrayColor()
+            contactPhoneNumber.text = "No mobile number , pull down to fetch"
+        }
+        if contact.twitter == "" {
+            contactTwitterHandle.textColor = UIColor.lightGrayColor()
+            contactTwitterHandle.text = "No twitter handle"
+        }
     }
 
 }

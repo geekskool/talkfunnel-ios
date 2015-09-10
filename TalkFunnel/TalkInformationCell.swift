@@ -10,6 +10,7 @@ import UIKit
 
 class TalkInformationCell: UITableViewCell {
     
+    @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var talkTitle: UILabel!
     @IBOutlet weak var speakerName: UILabel!
     @IBOutlet weak var talkTimings: UILabel!
@@ -23,6 +24,7 @@ class TalkInformationCell: UITableViewCell {
     
     func setUpCell(talkInfo: Session) {
         talk = talkInfo
+        setCardView()
         resetTextColorForAll()
         setTalkTitle()
         setSpeakerName()
@@ -34,8 +36,11 @@ class TalkInformationCell: UITableViewCell {
         setSpeakerBio()
     }
     
+    private func setCardView() {
+        cardView.layer.cornerRadius = 10
+    }
+    
     private func resetTextColorForAll() {
-        talkTitle.textColor = UIColor.orangeColor()
         speakerName.textColor = UIColor.blackColor()
         talkTimings.textColor = UIColor.blackColor()
         talkRoomName.textColor = UIColor.blackColor()

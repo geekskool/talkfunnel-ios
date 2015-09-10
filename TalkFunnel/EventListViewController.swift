@@ -24,8 +24,6 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
         addRefreshControl()
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.rowHeight = self.view.frame.height/4
-        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
     }
     
     func refresh() {
@@ -60,15 +58,11 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell...
-        let cell = tableView.dequeueReusableCellWithIdentifier("Events", forIndexPath: indexPath) as UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("Events", forIndexPath: indexPath) as! EventListTableViewCell
         
         let event = eventList
         let e = event[indexPath.row]
-        cell.textLabel?.text = e.title
-        cell.textLabel?.textColor = UIColor.purpleColor()
-        cell.textLabel?.font = UIFont(name: "Helvetica", size: 30)
-        cell.detailTextLabel?.text = e.dateLocation
-        
+        cell.setCell(e)
         return cell
     }
     

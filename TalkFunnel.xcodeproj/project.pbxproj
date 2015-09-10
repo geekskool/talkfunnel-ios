@@ -31,6 +31,7 @@
 		DA9D2F3C1B9EF20900830946 /* SessionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA9D2F3A1B9EF20900830946 /* SessionData.swift */; };
 		DAA748CC1B95876300A05ED3 /* qrCodeScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */; };
 		DAA748D31B96130000A05ED3 /* addContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAA748D11B96130000A05ED3 /* addContactViewController.swift */; };
+		DAB8A3E81BA1F0BE0078BEE5 /* EventListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB8A3E71BA1F0BE0078BEE5 /* EventListTableViewCell.swift */; };
 		DAF1E0821B79B80800649222 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAF1E0811B79B80800649222 /* AppDelegate.swift */; };
 		DAF1E0871B79B80800649222 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E0851B79B80800649222 /* Main.storyboard */; };
 		DAF1E0891B79B80800649222 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DAF1E0881B79B80800649222 /* Assets.xcassets */; };
@@ -94,6 +95,7 @@
 		DA9D2F3A1B9EF20900830946 /* SessionData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SessionData.swift; path = TalkFunnel/DataModel/SessionData.swift; sourceTree = "<group>"; };
 		DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = qrCodeScannerViewController.swift; sourceTree = "<group>"; };
 		DAA748D11B96130000A05ED3 /* addContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = addContactViewController.swift; sourceTree = "<group>"; };
+		DAB8A3E71BA1F0BE0078BEE5 /* EventListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventListTableViewCell.swift; sourceTree = "<group>"; };
 		DAF1E07E1B79B80800649222 /* TalkFunnel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TalkFunnel.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DAF1E0811B79B80800649222 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DAF1E0861B79B80800649222 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -190,6 +192,16 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		DAB8A3E61BA1DFCD0078BEE5 /* ScanContact */ = {
+			isa = PBXGroup;
+			children = (
+				DAF1E0B71B79B9A700649222 /* ScanContactsViewController.swift */,
+				DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */,
+				DAA748D11B96130000A05ED3 /* addContactViewController.swift */,
+			);
+			name = ScanContact;
+			sourceTree = "<group>";
+		};
 		DAC209B21B80DBB800003209 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -235,6 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				DAF1E0B11B79B90400649222 /* EventListViewController.swift */,
+				DAB8A3E71BA1F0BE0078BEE5 /* EventListTableViewCell.swift */,
 			);
 			name = "Event List";
 			sourceTree = "<group>";
@@ -264,9 +277,7 @@
 				DA9885D21BA18B1500A4FDEE /* ContactsContainerViewController.swift */,
 				DA90C3471B9BE05400F8B7E1 /* SavedContactsListViewController.swift */,
 				DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */,
-				DAF1E0B71B79B9A700649222 /* ScanContactsViewController.swift */,
-				DAA748CB1B95876300A05ED3 /* qrCodeScannerViewController.swift */,
-				DAA748D11B96130000A05ED3 /* addContactViewController.swift */,
+				DAB8A3E61BA1DFCD0078BEE5 /* ScanContact */,
 				DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */,
 				DA9885D01BA16D3C00A4FDEE /* ProfileViewController.swift */,
 			);
@@ -477,6 +488,7 @@
 				DA9D2F061B9EA7E900830946 /* EventListData.swift in Sources */,
 				DA9D2F301B9EF20900830946 /* VenuesData.swift in Sources */,
 				DA4D28A51B98250B002C4E2A /* TalkInformationViewController.swift in Sources */,
+				DAB8A3E81BA1F0BE0078BEE5 /* EventListTableViewCell.swift in Sources */,
 				DAF1E0821B79B80800649222 /* AppDelegate.swift in Sources */,
 				DAFC15991B79E3F100E5573F /* Slots.swift in Sources */,
 				DA873A621BA076800022B1E7 /* MainTabBarController.swift in Sources */,

@@ -81,13 +81,10 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     }
     
     // MARK: - Table view data source
-    
-    //make changes to the section header
     func tableView(tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
-        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView //recast your view as a UITableViewHeaderFooterView
+        let header: UITableViewHeaderFooterView = view as! UITableViewHeaderFooterView
         header.contentView.backgroundColor = UIColor.whiteColor()
-        //UIColor(red: 0/255, green: 181/255, blue: 229/255, alpha: 1.0) //make the background color light blue
-        header.textLabel!.textColor = UIColor.lightGrayColor() //make the text white
+        header.textLabel!.textColor = UIColor.lightGrayColor()
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
@@ -150,6 +147,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
         let selectedTalk = schedule[indexPath.section][indexPath.row]
         if let delegate = self.delegate {
             delegate.didSelectTalk(selectedTalk)

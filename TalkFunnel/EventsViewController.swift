@@ -206,7 +206,7 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
         }
     }
     private func setPageTitleFrame() {
-        pageTitleLabel.font = UIFont.boldSystemFontOfSize(25)
+        pageTitleLabel.font = UIFont(name: "Helvetica Neue", size: 25)
         pageTitleLabel.textColor = UIColor.orangeColor()
         pageTitleLabel.textAlignment = .Center
         let vSize: CGSize = getLabelSize(pageTitleLabel)

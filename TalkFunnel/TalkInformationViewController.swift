@@ -116,7 +116,7 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         messageLabel.text = "Talks for this Event has not been decided yet"
         messageLabel.textColor = UIColor.grayColor()
         messageLabel.numberOfLines = 0
-        messageLabel.backgroundColor = UIColor.whiteColor()
+        messageLabel.backgroundColor = UIColor.clearColor()
         messageLabel.font = UIFont(name: "Helvetica", size: 25)
         view.addSubview(messageLabel)
     }

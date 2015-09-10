@@ -23,7 +23,7 @@ class ProfileViewController: UIViewController {
     
     private func addLogOutScreen() {
         let logOutButton = UIButton()
-        logOutButton.frame = CGRectMake(10, self.view.frame.height * 0.4, self.view.frame.width - 20, self.view.frame.height * 0.1)
+        logOutButton.frame = CGRectMake(10, self.view.bounds.height * 0.4, self.view.bounds.width - 20, (self.view.bounds.height - 20) * 0.1)
         logOutButton.layer.cornerRadius = 10
         logOutButton.layer.borderColor = UIColor.orangeColor().CGColor
         logOutButton.setTitle("Log Out", forState: UIControlState.Normal)
