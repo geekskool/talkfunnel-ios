@@ -50,11 +50,14 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     }
     
     func refreshData(sender: AnyObject) {
-        fetchDataForEvent({ (done, error) -> Void in
-            if let delegate = self.delegate {
-                delegate.triedToRefreshEventInfo(done)
-            }
-        })
+        dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            fetchDataForEvent({ (done, error) -> Void in
+                if let delegate = self.delegate {
+                    delegate.triedToRefreshEventInfo(done)
+                }
+            })
+        }
+
     }
     
     func refresh() {
@@ -116,7 +119,6 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
         messageLabel.textAlignment = NSTextAlignment.Center
         messageLabel.text = "Schedule for this Event has not been decided yet"
         messageLabel.textColor = UIColor.grayColor()
-        messageLabel.backgroundColor = UIColor.whiteColor()
         messageLabel.font = UIFont(name: "Helvetica", size: 25)
         messageLabel.numberOfLines = 0
         view.addSubview(messageLabel)

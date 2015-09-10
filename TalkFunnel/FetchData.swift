@@ -288,10 +288,9 @@ func fetchDataForEventList(callback: (Bool,String?) -> Void) {
                     for events in spaces {
                         if let eventInfo = events as? NSDictionary {
                             let dict = EventList(data: eventInfo)
-                            tempEventList.append(dict)
-//                            if isEventAfterToday(dict) {
-//                                tempEventList.append(dict)
-//                            }
+                            if isEventAfterToday(dict) {
+                                tempEventList.append(dict)
+                            }
                         }
                     }
                     eventList = tempEventList

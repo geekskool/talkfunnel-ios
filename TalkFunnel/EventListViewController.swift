@@ -42,9 +42,11 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     
     func refreshData(sender: AnyObject) {
         fetchAllData { (done, error) -> Void in
-            if let delegate = self.delegate {
-                delegate.triedToRefreshEventList(done)
-            }
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                if let delegate = self.delegate {
+                    delegate.triedToRefreshEventList(done)
+                }
+            })
         }
     }
 

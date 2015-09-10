@@ -40,8 +40,8 @@ class MainViewController: UIViewController {
     private func fetchDataFromMemory() {
         fetchAllSavedData({ (doneFetching, error) -> Void in
             if doneFetching {
-                self.activityIndicator.stopAnimating()
                 self.performSegueWithIdentifier("switchesToTabBarVC", sender: nil)
+                self.activityIndicator.stopAnimating()
             }
             else {
                 self.fetchDataFromServer()
@@ -53,8 +53,8 @@ class MainViewController: UIViewController {
         fetchAllData { (doneFetching, error) -> Void in
             if doneFetching {
                 self.getSelectedEventFromEventList()
-                self.activityIndicator.stopAnimating()
                 self.performSegueWithIdentifier("switchesToTabBarVC", sender: nil)
+                self.activityIndicator.stopAnimating()
             }
             else {
                 self.showAlert("Connection Error", message: "Please ensure you are connected to the internet")

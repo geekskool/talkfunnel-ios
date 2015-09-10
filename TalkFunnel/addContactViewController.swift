@@ -26,6 +26,11 @@ class addContactViewController: UITableViewController {
         setUpPage()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        setUpPage()
+    }
+    
     func setUpPage() {
         contactName.text = scannedParticipantInfo?.fullName
         contactCompanyName.text = scannedParticipantInfo?.company

@@ -42,4 +42,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     private func selectTab(tabNumber: Int) {
         self.selectedIndex = tabNumber
     }
+    
+    override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
+        if item.title != nil {
+        }
+        else {
+            contactsVC.contactsContainerVC.scanContactsVC.qrCodeScannerVC.startRunning()
+        }
+    }
 }

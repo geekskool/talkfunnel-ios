@@ -8,14 +8,12 @@
 
 import UIKit
 
-class ContactsViewController: UIViewController,SavedContactsListViewControllerDelegate,ProfileViewControllerDelegate {
+class ContactsViewController: UIViewController,ContactsContainerViewControllerDelegate {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet weak var containerView: UIView!
     
-    let savedContactsListVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("SavedContactsList") as! SavedContactsListViewController
-    let scanContactsVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("ScanContact") as! ScanContactsViewController
-    let profileVC = ProfileViewController()
+    let contactsContainerVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("ContactsContainer") as! ContactsContainerViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +21,7 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
     }
     
     private func setUpDelegates() {
-        savedContactsListVC.delegate = self
-        profileVC.delegate = self
+        contactsContainerVC.delegate = self
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -33,39 +30,51 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
     }
     
     @IBAction func indexChanged(sender: UISegmentedControl) {
-        if isUserLoggedIn {
-            switch segmentedControl.selectedSegmentIndex {
-            case 0:
-                removeViewControllerFromContainerView(scanContactsVC)
-                addViewControllerToContainerView(savedContactsListVC)
-            case 1:
-                removeViewControllerFromContainerView(savedContactsListVC)
-                addViewControllerToContainerView(scanContactsVC)
-            case 2:
-                removeViewControllerFromContainerView(savedContactsListVC)
-                removeViewControllerFromContainerView(scanContactsVC)
-                addViewControllerToContainerView(profileVC)
-            default:
-                break
-                
-            }
+        switch segmentedControl.selectedSegmentIndex
+        {
+        case 0:
+            contactsContainerVC.pageController?.moveToPage(0)
+        case 1:
+            contactsContainerVC.pageController?.moveToPage(1)
+        case 2:
+            contactsContainerVC.pageController?.moveToPage(2)
+        default:
+            break; 
         }
     }
     
-    
     func refresh() {
         if isUserLoggedIn {
-            segmentedControl.selectedSegmentIndex = 0
-            addViewControllerToContainerView(savedContactsListVC)
+            addViewControllerToContainerView(contactsContainerVC)
         }
         else {
+            removeViewControllerFromContainerView(contactsContainerVC)
             addLogInScreen()
         }
     }
     
+    func refreshAfterLogIn() {
+        let spinner = UIActivityIndicatorView()
+        spinner.frame = CGRectMake(0, 0, containerView.bounds.width, containerView.bounds.height)
+        spinner.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.Gray
+        spinner.backgroundColor = UIColor.whiteColor()
+        containerView.addSubview(spinner)
+        
+        let messageView = UIView()
+        messageView.frame = CGRectMake(0, 0, containerView.bounds.width, containerView.bounds.height/3)
+        containerView.addSubview(getMessageLabel(messageView, message: "Please Wait"))
+        spinner.startAnimating()
+        
+    }
+    
     func afterLogIn() {
-        refresh()
-        savedContactsListVC.fetchParticipantListFromServer()
+        refreshAfterLogIn()
+        segmentedControl.selectedSegmentIndex = 0
+        contactsContainerVC.pageController?.moveToPage(0)
+        contactsContainerVC.savedContactsListVC.fetchParticipantListFromServer { (done) -> Void in
+            self.refresh()
+            
+        }
     }
     
     private func addViewControllerToContainerView(viewController: UIViewController) {
@@ -74,7 +83,6 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
         containerView.addSubview(viewController.view)
         viewController.didMoveToParentViewController(self)
     }
-    
     private func removeViewControllerFromContainerView(viewController: UIViewController) {
         viewController.willMoveToParentViewController(nil)
         viewController.view.removeFromSuperview()
@@ -85,16 +93,16 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
         let logInScreenView = UIView()
         logInScreenView.frame = containerView.bounds
         containerView.addSubview(logInScreenView)
-        logInScreenView.addSubview(getMessageLabel(logInScreenView))
+        logInScreenView.addSubview(getMessageLabel(logInScreenView,message: "Log in to view or scan contacts"))
         logInScreenView.addSubview(addLogInButton(logInScreenView))
         
     }
     
-    private func getMessageLabel(logInScreenView: UIView) -> UILabel {
+    private func getMessageLabel(logInScreenView: UIView,message: String) -> UILabel {
         let messageLabel = UILabel()
-        messageLabel.frame = CGRectMake(10, 10, logInScreenView.frame.width - 20, logInScreenView.frame.height * 0.5)
+        messageLabel.frame = CGRectMake(10, 10, logInScreenView.bounds.width - 20, logInScreenView.bounds.height * 0.5)
         messageLabel.textAlignment = .Center
-        messageLabel.text = "Please Log In to view or scan contacts"
+        messageLabel.text = message
         messageLabel.numberOfLines = 0
         messageLabel.backgroundColor = UIColor.whiteColor()
         messageLabel.textColor = UIColor.lightGrayColor()
@@ -103,7 +111,7 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
     
     private func addLogInButton(logInScreenView: UIView) -> UIButton {
         let logInButton = UIButton()
-        logInButton.frame = CGRectMake(10, logInScreenView.frame.height * 0.5, logInScreenView.frame.width - 20, logInScreenView.frame.height * 0.1)
+        logInButton.frame = CGRectMake(10, logInScreenView.bounds.height * 0.5, logInScreenView.bounds.width - 20, logInScreenView.frame.height * 0.1)
         logInButton.layer.cornerRadius = 10
         logInButton.layer.borderColor = UIColor.orangeColor().CGColor
         logInButton.setTitle("Log In", forState: UIControlState.Normal)
@@ -124,49 +132,24 @@ class ContactsViewController: UIViewController,SavedContactsListViewControllerDe
         }
     }
     
-    
-    //ProfileViewControllerDelegate Method
-    func logOutButtonClicked() {
-        logOut()
+    //MARK: ContactsContainerViewControllerDelegate Method 
+    func pageChanged(pageNumber: CGFloat) {
+        if pageNumber < 1.0 {
+            segmentedControl.selectedSegmentIndex = 0
+        }
+        if pageNumber < 2.0 && pageNumber > 1.0 {
+            segmentedControl.selectedSegmentIndex = 1
+
+        }
+        if pageNumber < 3.0 && pageNumber > 2.0 {
+            segmentedControl.selectedSegmentIndex = 2
+
+        }
     }
     
-    //MARK: LogOut
-    private func logOut() {
-        userAccessToken = nil
-        userTokenType = nil
-        addToLocalData()
-        isUserLoggedIn = false
+    func loggedOut() {
         self.refresh()
     }
-
     
     
-    //MARK: SavedContactsListViewControllerDelegate Method
-    func triedToRefreshContactList(done: Bool) {
-        if done {
-            doneRefreshingSavedContactList()
-            saveFetchedParticipantData()
-        }
-        else {
-            noInternetAlert({ (dismiss) -> Void in
-                self.doneRefreshingSavedContactList()
-            })
-        }
-    }
-    
-    private func doneRefreshingSavedContactList() {
-        savedContactsListVC.refreshControl.endRefreshing()
-        savedContactsListVC.refresh()
-    }
-    
-    
-    //MARK: Alert
-    func noInternetAlert(callBack: Bool -> Void) {
-        let alert = UIAlertController(title: "No Internet", message: "Please connect to the internet and retry", preferredStyle: UIAlertControllerStyle.Alert)
-        let dismiss = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-            callBack(true)
-        })
-        alert.addAction(dismiss)
-        self.presentViewController(alert, animated: true, completion: nil)
-    }
 }

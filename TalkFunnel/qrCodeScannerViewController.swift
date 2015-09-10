@@ -23,6 +23,12 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
     // Added to support different barcodes
     let supportedBarCodes = [AVMetadataObjectTypeQRCode, AVMetadataObjectTypeCode128Code, AVMetadataObjectTypeCode39Code, AVMetadataObjectTypeCode93Code, AVMetadataObjectTypeUPCECode, AVMetadataObjectTypePDF417Code, AVMetadataObjectTypeEAN13Code, AVMetadataObjectTypeAztecCode]
     
+    
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        stopRunning()
+    }
+    
     func startReadingQRCode() {
         // Get an instance of the AVCaptureDevice class to initialize a device object and provide the video
         // as the media type parameter.

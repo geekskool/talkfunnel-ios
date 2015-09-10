@@ -763,10 +763,10 @@
             </objects>
             <point key="canvasLocation" x="-362" y="-1332"/>
         </scene>
-        <!--View Controller-->
+        <!--Contacts Container View Controller-->
         <scene sceneID="kxd-FW-o5T">
             <objects>
-                <viewController id="Dhr-rv-6NG" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsContainer" id="Dhr-rv-6NG" customClass="ContactsContainerViewController" customModule="TalkFunnel" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="49c-QB-5SL"/>
                         <viewControllerLayoutGuide type="bottom" id="nMa-nu-icA"/>

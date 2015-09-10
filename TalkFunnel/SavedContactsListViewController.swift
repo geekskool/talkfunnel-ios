@@ -28,6 +28,11 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
         // Do any additional setup after loading the view.
     }
     
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        refreshControl.endRefreshing()
+    }
+    
     private func addRefreshControl() {
         self.refreshControl = UIRefreshControl()
         self.refreshControl.backgroundColor = UIColor.orangeColor()
@@ -41,11 +46,15 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
             refreshControl.endRefreshing()
         }
         else {
+            var num = 0
             for var i = 0; i < savedContacts.count; i++ {
                 if savedContacts[i].phoneNumber == nil {
                     let string = savedContacts[i].participantDataUrl! + "participant?puk=" + savedContacts[i].publicKey! + "&key=" + savedContacts[i].privateKey!
+                    num++
                     fetchSavedContactData(string, callback: { (done, error) -> Void in
-                        if let delegate = self.delegate {
+                        num--
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            if let delegate = self.delegate {
                                 if let updatedContactInfo = scannedParticipantInfo {
                                     for var j = 0; j < savedContacts.count ;j++ {
                                         if savedContacts[j].publicKey == updatedContactInfo.publicKey {
@@ -55,28 +64,34 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
                                         }
                                     }
                                 }
-                                delegate.triedToRefreshContactList(done)
-                        }
+                                print(num)
+                                if num == 0 {
+                                    delegate.triedToRefreshContactList(done)
+                                }
+                            }
+                            
+                        })
                     })
                 }
-                else {
-                    delegate?.triedToRefreshContactList(false)
-                }
             }
+            
+            if num == 0 {
+                delegate?.triedToRefreshContactList(false)
+            }
+            
+            
         }
                 
     }
     
     func refresh() {
+        messageLabel.removeFromSuperview()
         tableView.reloadData()
     }
     
-    func fetchParticipantListFromServer() {
-        self.refreshControl.beginRefreshing()
+    func fetchParticipantListFromServer(callback: Bool -> Void) {
         fetchParticipantData({ done -> Void in
-            if let delegate = self.delegate {
-                delegate.triedToRefreshContactList(done)
-            }
+            callback(done)
         })
     }
     
