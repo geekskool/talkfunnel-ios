@@ -105,17 +105,17 @@ class ContactsViewController: UIViewController,ContactsContainerViewControllerDe
         messageLabel.text = message
         messageLabel.numberOfLines = 0
         messageLabel.backgroundColor = UIColor.whiteColor()
-        messageLabel.textColor = UIColor.lightGrayColor()
+        messageLabel.textColor = UIColor(red: 148/255, green: 120/255, blue: 158/255, alpha: 1)
         return messageLabel
     }
     
     private func addLogInButton(logInScreenView: UIView) -> UIButton {
         let logInButton = UIButton()
-        logInButton.frame = CGRectMake(10, logInScreenView.bounds.height * 0.5, logInScreenView.bounds.width - 20, logInScreenView.frame.height * 0.1)
+        logInButton.frame = CGRectMake(10, logInScreenView.bounds.height * 0.5, logInScreenView.bounds.width - 20, 40)
         logInButton.layer.cornerRadius = 10
         logInButton.layer.borderColor = UIColor.orangeColor().CGColor
         logInButton.setTitle("Log In", forState: UIControlState.Normal)
-        logInButton.backgroundColor = UIColor.orangeColor()
+        logInButton.backgroundColor = UIColor(red: 148/255, green: 120/255, blue: 158/255, alpha: 1)
         logInButton.addTarget(self, action: "logInButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
         return logInButton
     }

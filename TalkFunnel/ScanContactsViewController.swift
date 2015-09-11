@@ -9,10 +9,17 @@
 import UIKit
 import CoreData
 
+protocol ScanContactsViewControllerDelegate {
+    func showContactExistsAlert(callBack: Bool -> Void)
+    func noAccessToCamera()
+    func justScannedAndSavedNewContact()
+}
 class ScanContactsViewController: UIViewController, addContactViewControllerDelegate, qrCodeScannerViewControllerDelegate {
 
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var instructionText: UILabel!
+    
+    var delegate: ScanContactsViewControllerDelegate?
     
     let addContactVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("addContact") as! addContactViewController
     var qrCodeScannerVC = UIStoryboard(name: "Main",bundle: nil).instantiateViewControllerWithIdentifier("qrCodeScanner") as! qrCodeScannerViewController
@@ -72,25 +79,19 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
     //MARK: addcontactViewcontrollerDelegate Method
     func saveScannedContact() {
         if checkIfContactAlreadyExists() {
-            showContactExistsAlert()
+            if let delegate = self.delegate {
+                delegate.showContactExistsAlert({ (done) -> Void in
+                    self.removeAddContactVC()
+                    self.addQRCodeScannerVC()
+                    self.isScanningComplete = false
+                })
+            }
         }
         else {
             saveDataToDevice()
         }
     }
-    
-    private func showContactExistsAlert() {
-        let contactExistsAlert = UIAlertController(title: "Contact Exists", message: "", preferredStyle: UIAlertControllerStyle.Alert)
-        let cancelAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
-            self.removeAddContactVC()
-            self.addQRCodeScannerVC()
-            self.isScanningComplete = false
-        })
-        contactExistsAlert.addAction(cancelAction)
-        self.presentViewController(contactExistsAlert, animated: true, completion: nil)
         
-    }
-    
     private func checkIfContactAlreadyExists() -> Bool {
         for contact in savedContacts {
             if contact.privateKey == scannedParticipantInfo?.privateKey {
@@ -132,6 +133,9 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
         removeAddContactVC()
         addQRCodeScannerVC()
         isScanningComplete = false
+        if let delegate = self.delegate {
+            delegate.justScannedAndSavedNewContact()
+        }
     }
     
     
@@ -154,6 +158,12 @@ class ScanContactsViewController: UIViewController, addContactViewControllerDele
         removeQRCodeScannerVC()
         addAddContactVC()
         isScanningComplete = true
+    }
+    
+    func noAccessToCamera() {
+        if let delegate = self.delegate {
+            delegate.noAccessToCamera()
+        }
     }
     
 }

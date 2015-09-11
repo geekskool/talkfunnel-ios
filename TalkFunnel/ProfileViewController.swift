@@ -14,25 +14,15 @@ protocol ProfileViewControllerDelegate {
 class ProfileViewController: UIViewController {
 
     var delegate: ProfileViewControllerDelegate?
+    @IBOutlet weak var logOutButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        addLogOutScreen()
+        self.logOutButton.layer.cornerRadius = 10
     }
     
-    private func addLogOutScreen() {
-        let logOutButton = UIButton()
-        logOutButton.frame = CGRectMake(10, self.view.bounds.height * 0.4, self.view.bounds.width - 20, (self.view.bounds.height - 20) * 0.1)
-        logOutButton.layer.cornerRadius = 10
-        logOutButton.layer.borderColor = UIColor.orangeColor().CGColor
-        logOutButton.setTitle("Log Out", forState: UIControlState.Normal)
-        logOutButton.backgroundColor = UIColor.orangeColor()
-        logOutButton.addTarget(self, action: "logOutButtonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
-        self.view.addSubview(logOutButton)
-    }
-    
-    func logOutButtonClicked(sender: UIButton) {
+    @IBAction func logOutButtonClicked(sender: UIButton) {
         if let delegate = self.delegate {
             delegate.logOutButtonClicked()
         }

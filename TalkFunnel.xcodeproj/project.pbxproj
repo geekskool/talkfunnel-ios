@@ -148,6 +148,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DA3D0E471BA2E81500B227F1 /* Saved Contacts List */ = {
+			isa = PBXGroup;
+			children = (
+				DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */,
+				DA90C3471B9BE05400F8B7E1 /* SavedContactsListViewController.swift */,
+				DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */,
+			);
+			name = "Saved Contacts List";
+			sourceTree = "<group>";
+		};
 		DA873A5E1BA0663A0022B1E7 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,10 +285,8 @@
 			children = (
 				DA90C3451B9BDCAF00F8B7E1 /* ContactsViewController.swift */,
 				DA9885D21BA18B1500A4FDEE /* ContactsContainerViewController.swift */,
-				DA90C3471B9BE05400F8B7E1 /* SavedContactsListViewController.swift */,
-				DA90C3491B9BE0FD00F8B7E1 /* ContactTableViewCell.swift */,
+				DA3D0E471BA2E81500B227F1 /* Saved Contacts List */,
 				DAB8A3E61BA1DFCD0078BEE5 /* ScanContact */,
-				DA4D28A21B96C89B002C4E2A /* SaveContactToAddressBook.swift */,
 				DA9885D01BA16D3C00A4FDEE /* ProfileViewController.swift */,
 			);
 			name = Contacts;

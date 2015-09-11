@@ -38,12 +38,16 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
         tableViewForSchedule.rowHeight = UITableViewAutomaticDimension
         
         tableViewForSchedule.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
-
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        refreshControl.endRefreshing()
     }
     
     private func addRefreshControl() {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.backgroundColor = UIColor.orangeColor()
+        self.refreshControl.backgroundColor = UIColor(red: 235/255, green: 91/255, blue: 35/255, alpha: 1)
         self.refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableViewForSchedule.addSubview(refreshControl)

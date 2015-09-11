@@ -41,11 +41,11 @@ class TalkInformationCell: UITableViewCell {
     }
     
     private func resetTextColorForAll() {
-        speakerName.textColor = UIColor.blackColor()
-        talkTimings.textColor = UIColor.blackColor()
-        talkRoomName.textColor = UIColor.blackColor()
-        talkSectionType.textColor = UIColor.blackColor()
-        talkTechnicalLevel.textColor = UIColor.blackColor()
+        speakerName.textColor = UIColor(red: 173/255, green: 68/255, blue: 27/255, alpha: 1)
+        talkTimings.textColor = UIColor.darkGrayColor()
+        talkRoomName.textColor = UIColor.darkGrayColor()
+        talkSectionType.textColor = UIColor.whiteColor()
+        talkTechnicalLevel.textColor = UIColor.whiteColor()
         talkDescription.textColor = UIColor.blackColor()
         speakerBio.textColor = UIColor.blackColor()
         

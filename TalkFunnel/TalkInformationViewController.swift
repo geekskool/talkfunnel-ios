@@ -27,7 +27,6 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         //To make the row height dynamic
         tableView.estimatedRowHeight = tableView.rowHeight
         tableView.rowHeight = UITableViewAutomaticDimension
-        
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 40, right: 0)
 
     }
@@ -66,6 +65,7 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         if talks.count > 0 {
             scrollToTalk(talks.count - 1)
         }
+        scrollToTalk(0)
     }
     
     func scrollToTalk(talkNumber: Int) {
@@ -131,15 +131,4 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
         
         return talkInformationCell
     }
-    
-    
-    //Private Methods
-    
-    private func getLabelSize(lbl: UILabel) -> CGSize{
-        let txt = lbl.text!
-        return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
-    }
-        
-
-    
 }

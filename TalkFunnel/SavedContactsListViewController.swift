@@ -11,6 +11,7 @@ import CoreData
 
 protocol SavedContactsListViewControllerDelegate {
     func triedToRefreshContactList(done: Bool)
+    func askToSaveContact(callback: Bool -> Void)
 }
 
 class SavedContactsListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
@@ -19,6 +20,7 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
     let messageLabel = UILabel()
     var refreshControl: UIRefreshControl!
     var delegate: SavedContactsListViewControllerDelegate?
+    let saveContactToAB = SaveContactToAddressBook()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +36,7 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
     
     private func addRefreshControl() {
         self.refreshControl = UIRefreshControl()
-        self.refreshControl.backgroundColor = UIColor.orangeColor()
+        self.refreshControl.backgroundColor = UIColor(red: 235/255, green: 91/255, blue: 35/255, alpha: 1)
         self.refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView.addSubview(refreshControl)
@@ -67,19 +69,14 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
                                     delegate.triedToRefreshContactList(done)
                                 }
                             }
-                            
                         })
                     })
                 }
             }
-            
             if num == 0 {
                 delegate?.triedToRefreshContactList(false)
             }
-            
-            
         }
-                
     }
     
     func refresh() {
@@ -120,16 +117,15 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
     private func addMessageLabel() {
         messageLabel.frame = CGRectMake(0.0, 0.0, self.view.frame.size.width, self.view.frame.size.height)
         messageLabel.textAlignment = NSTextAlignment.Center
-        messageLabel.text = "No Contacts saved yet.Pull down to refresh"
-        messageLabel.textColor = UIColor.grayColor()
+        messageLabel.text = "No contacts found\nPull down to refresh"
+        messageLabel.textColor = UIColor(red: 148/255, green: 120/255, blue: 158/255, alpha: 1)
         messageLabel.backgroundColor = UIColor.clearColor()
-        messageLabel.font = UIFont(name: "Helvetica", size: 25)
+        messageLabel.font = UIFont(name: "Helvetica Neue", size: 20)
         messageLabel.numberOfLines = 0
         view.addSubview(messageLabel)
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
         let cell = tableView.dequeueReusableCellWithIdentifier("ContactInformationCell", forIndexPath: indexPath) as! ContactTableViewCell
         let contact = savedContacts[indexPath.row]
         cell.setData(contact)
@@ -138,6 +134,48 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        if let delegate = self.delegate {
+            delegate.askToSaveContact({ (yes) -> Void in
+                if yes {
+                    self.saveContactToAB.saveSelectedContact(savedContacts[indexPath.row])
+                }
+                else {
+                    self.deleteSavedContact(savedContacts[indexPath.row])
+                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                        savedContacts.removeAtIndex(indexPath.row)
+                        self.tableView.reloadData()
+                    })
+                }
+            })
+        }
     }
-
+    
+    private func deleteSavedContact(contactToDelete: ParticipantsInformation) {
+        let appDelegate =
+        UIApplication.sharedApplication().delegate as! AppDelegate
+        let managedContext = appDelegate.managedObjectContext
+        
+        let fetchRequest = NSFetchRequest(entityName: "ParticipantData")
+        let fetchedResults: [ParticipantData]?
+        do {
+            fetchedResults = try managedContext.executeFetchRequest(fetchRequest) as? [ParticipantData]
+            if let results = fetchedResults {
+                for contact in results {
+                    if contact.publicKey == contactToDelete.publicKey {
+                        contact.privateKey = ""
+                        do {
+                            try managedContext.save()
+                        }
+                        catch {
+                            let nserror = error as NSError
+                            NSLog("Unresolved error \(nserror), \(nserror.userInfo)")
+                        }
+                    }
+                }
+            }
+        }
+        catch {
+            //error
+        }
+    }
 }

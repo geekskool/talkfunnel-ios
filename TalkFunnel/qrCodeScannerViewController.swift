@@ -11,6 +11,7 @@ import AVFoundation
 
 protocol qrCodeScannerViewControllerDelegate {
     func doneScanningContactInfo()
+    func noAccessToCamera()
 }
 
 class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjectsDelegate {
@@ -46,7 +47,9 @@ class qrCodeScannerViewController: UIViewController,AVCaptureMetadataOutputObjec
         
         if (error != nil) {
             // If any error occurs, simply log the description of it and don't continue any more.
-            print("\(error?.localizedDescription)")
+            if let delegate = self.delegate {
+                delegate.noAccessToCamera()
+            }
             return
         }
         

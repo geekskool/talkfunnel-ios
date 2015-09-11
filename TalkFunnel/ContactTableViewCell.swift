@@ -11,8 +11,8 @@ import CoreData
 
 class ContactTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var messageLabel: UILabel!
-    @IBOutlet weak var contactCellBackground: UIView!
+
+    @IBOutlet weak var cardView: UIView!
     @IBOutlet weak var contactName: UILabel!
     @IBOutlet weak var contactCompanyName: UILabel!
     @IBOutlet weak var contactPhoneNumber: UILabel!
@@ -30,7 +30,7 @@ class ContactTableViewCell: UITableViewCell {
     }
     
     func setData(contact: ParticipantsInformation) {
-        messageLabel.layer.cornerRadius = 8
+        cardView.layer.cornerRadius = 8
         contactName.text = contact.fullName
         contactCompanyName.text = contact.company
         contactPhoneNumber.text = contact.phoneNumber

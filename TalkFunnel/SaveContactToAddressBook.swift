@@ -10,36 +10,65 @@ import Foundation
 import AddressBook
 import AddressBookUI
 
+protocol SaveContactToAddressBookDelegate {
+    func savingSuccessfull()
+    func savingFailed()
+    func nothingToSave()
+    func noAccessGranted()
+}
 class SaveContactToAddressBook {
     
-    let addressBookRef: ABAddressBook = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
+    var addressBookRef: ABAddressBook!
+    var contactToSave: ParticipantsInformation?
+    var delegate: SaveContactToAddressBookDelegate?
     
-    func promptForAddressBookRequestAccess() {
+    func saveSelectedContact(contact: ParticipantsInformation) {
+        contactToSave = contact
+        getAuthorizationForAddressBook()
+    }
+    
+    private func getAuthorizationForAddressBook() {
+        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
+        
+        switch authorizationStatus {
+        case .Denied, .Restricted:
+            if let delegate = self.delegate {
+                delegate.noAccessGranted()
+            }
+        case .Authorized:
+            addressBookRef = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
+            addContact()
+        case .NotDetermined:
+            promptForAddressBookRequestAccess()
+        }
+    }
+    
+    private func promptForAddressBookRequestAccess() {
         ABAddressBookRequestAccessWithCompletion(addressBookRef) {
             (granted: Bool, error: CFError!) in
             dispatch_async(dispatch_get_main_queue()) {
                 if !granted {
-                    //denied
+
                 } else {
+                    self.addressBookRef = ABAddressBookCreateWithOptions(nil, nil).takeRetainedValue()
                     self.addContact()
                 }
             }
         }
     }
     
-    func addContact() {
+    private func addContact() {
         makeAndAddContactRecord()
     }
     
-    func getContactRecord() -> ABRecordRef? {
+    private func getContactRecord() -> ABRecordRef? {
         let allContacts = ABAddressBookCopyArrayOfAllPeople(addressBookRef).takeRetainedValue() as Array
         var contact: ABRecordRef?
         for record in allContacts {
             let currentContact: ABRecordRef = record
             let currentContactName = ABRecordCopyCompositeName(currentContact).takeRetainedValue() as String
-            if let contactName = scannedParticipantInfo?.fullName {
+            if let contactName = contactToSave?.fullName {
                 if (currentContactName == contactName) {
-                    print("found \(contactName).")
                     contact = currentContact
                 }
             }
@@ -47,13 +76,13 @@ class SaveContactToAddressBook {
         return contact
     }
     
-    func makeAndAddContactRecord() -> ABRecordRef {
+    private func makeAndAddContactRecord() -> ABRecordRef {
         let contactRecord: ABRecordRef = ABPersonCreate().takeRetainedValue()
         
-        ABRecordSetValue(contactRecord, kABPersonFirstNameProperty, scannedParticipantInfo?.fullName, nil)
-        ABRecordSetValue(contactRecord, kABPersonOrganizationProperty, scannedParticipantInfo?.company, nil)
+        ABRecordSetValue(contactRecord, kABPersonFirstNameProperty, contactToSave?.fullName, nil)
+        ABRecordSetValue(contactRecord, kABPersonOrganizationProperty, contactToSave?.company, nil)
         let phoneNumbers: ABMutableMultiValue = ABMultiValueCreateMutable(ABPropertyType(kABMultiStringPropertyType)).takeRetainedValue()
-        ABMultiValueAddValueAndLabel(phoneNumbers, scannedParticipantInfo?.phoneNumber, kABPersonPhoneMainLabel, nil)
+        ABMultiValueAddValueAndLabel(phoneNumbers, contactToSave?.phoneNumber, kABPersonPhoneMainLabel, nil)
         ABRecordSetValue(contactRecord, kABPersonPhoneProperty, phoneNumbers, nil)
         
         ABAddressBookAddRecord(addressBookRef, contactRecord, nil)
@@ -62,32 +91,23 @@ class SaveContactToAddressBook {
         return contactRecord
     }
     
-    func saveAddressBookChanges() {
+    private func saveAddressBookChanges() {
         if ABAddressBookHasUnsavedChanges(addressBookRef){
             var err: Unmanaged<CFErrorRef>? = nil
             let savedToAddressBook = ABAddressBookSave(addressBookRef, &err)
             if savedToAddressBook {
-                print("Successully saved changes.")
+                if let delegate = self.delegate {
+                    delegate.savingSuccessfull()
+                }
             } else {
-                print("Couldn't save changes.")
+                if let delegate = self.delegate {
+                    delegate.savingFailed()
+                }
             }
         } else {
-            print("No changes occurred.")
-        }
-    }
-    
-    func getAuthorizationForAddressBook() {
-        let authorizationStatus = ABAddressBookGetAuthorizationStatus()
-        
-        switch authorizationStatus {
-        case .Denied, .Restricted:
-            print("denied")
-        case .Authorized:
-            print("authorized")
-            addContact()
-        case .NotDetermined:
-            print("donno")
-            promptForAddressBookRequestAccess()
+            if let delegate = self.delegate {
+                delegate.nothingToSave()
+            }
         }
     }
 }

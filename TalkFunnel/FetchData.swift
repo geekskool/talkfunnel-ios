@@ -248,7 +248,7 @@ func fetchSavedContactData(url: String, callback: (Bool,String?) -> Void) {
     }
 }
 
-private func getSavedContacts() {
+func getSavedContacts() {
     savedContacts.removeAll()
     for participant in allParticipantsInfo {
         if participant.privateKey != "" {

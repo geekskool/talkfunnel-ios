@@ -207,7 +207,7 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
     }
     private func setPageTitleFrame() {
         pageTitleLabel.font = UIFont(name: "Helvetica Neue", size: 25)
-        pageTitleLabel.textColor = UIColor.orangeColor()
+        pageTitleLabel.textColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 1)
         pageTitleLabel.textAlignment = .Center
         let vSize: CGSize = getLabelSize(pageTitleLabel)
         let originX = (self.SCREENSIZE.width/2.0 - vSize.width/2.0)
@@ -224,24 +224,24 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
     }
     private func setBarButtonAlpha(pageNumber: CGFloat) {
         if pageNumber < 1 {
-            nextArrowButton.tintColor = UIColor.orangeColor()
+            nextArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 1)
             backArrowButton.tintColor = UIColor.clearColor()
         }
         else if pageNumber > 1 && pageNumber < 1.5 {
-            nextArrowButton.tintColor = UIColor.orangeColor()
-            backArrowButton.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0, alpha: 0.5)
+            nextArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 1)
+            backArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 0.5)
         }
         else if pageNumber > 2.0 {
             nextArrowButton.tintColor = UIColor.clearColor()
-            backArrowButton.tintColor = UIColor.orangeColor()
+            backArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 1)
         }
         else if pageNumber > 1.5 && pageNumber < 2.0 {
             backArrowButton.tintColor = UIColor.orangeColor()
-            nextArrowButton.tintColor = UIColor(red: 255/255, green: 153/255, blue: 0, alpha: 0.5)
+            nextArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 0.5)
         }
         else {
-            nextArrowButton.tintColor = UIColor.orangeColor()
-            backArrowButton.tintColor = UIColor.orangeColor()
+            nextArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 1)
+            backArrowButton.tintColor = UIColor(red: 237/255, green: 164/255, blue: 32/255, alpha: 1)
         }
     }
     
