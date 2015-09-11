@@ -64,8 +64,8 @@ class TalkInformationViewController: UIViewController, UITableViewDataSource, UI
     func resetTalksScroll() {
         if talks.count > 0 {
             scrollToTalk(talks.count - 1)
+            scrollToTalk(0)
         }
-        scrollToTalk(0)
     }
     
     func scrollToTalk(talkNumber: Int) {
