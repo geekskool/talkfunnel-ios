@@ -21,6 +21,7 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
     var refreshControl: UIRefreshControl!
     var delegate: SavedContactsListViewControllerDelegate?
     let saveContactToAB = SaveContactToAddressBook()
+    var isRefreshing = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,39 +44,43 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
     }
     
     func refreshData(sender: AnyObject) {
-        if savedContacts.count == 0 {
-            refreshControl.endRefreshing()
-        }
-        else {
-            var num = 0
-            for var i = 0; i < savedContacts.count; i++ {
-                if savedContacts[i].phoneNumber == nil {
-                    let string = savedContacts[i].participantDataUrl! + "participant?puk=" + savedContacts[i].publicKey! + "&key=" + savedContacts[i].privateKey!
-                    num++
-                    fetchSavedContactData(string, callback: { (done, error) -> Void in
-                        num--
-                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            if let delegate = self.delegate {
-                                if let updatedContactInfo = scannedParticipantInfo {
-                                    for var j = 0; j < savedContacts.count ;j++ {
-                                        if savedContacts[j].publicKey == updatedContactInfo.publicKey {
-                                            let temp = savedContacts[j].privateKey
-                                            savedContacts[j] = updatedContactInfo
-                                            savedContacts[j].privateKey = temp
+        if !isRefreshing {
+            isRefreshing = true
+            if savedContacts.count == 0 {
+                refreshControl.endRefreshing()
+            }
+            else {
+                var num = 0
+                for var i = 0; i < savedContacts.count; i++ {
+                    if savedContacts[i].phoneNumber == nil {
+                        let string = savedContacts[i].participantDataUrl! + "participant?puk=" + savedContacts[i].publicKey! + "&key=" + savedContacts[i].privateKey!
+                        num++
+                        fetchSavedContactData(string, callback: { (done, error) -> Void in
+                            num--
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                if let delegate = self.delegate {
+                                    if let updatedContactInfo = scannedParticipantInfo {
+                                        for var j = 0; j < savedContacts.count ;j++ {
+                                            if savedContacts[j].publicKey == updatedContactInfo.publicKey {
+                                                let temp = savedContacts[j].privateKey
+                                                savedContacts[j] = updatedContactInfo
+                                                savedContacts[j].privateKey = temp
+                                            }
                                         }
                                     }
+                                    if num == 0 {
+                                        delegate.triedToRefreshContactList(done)
+                                    }
                                 }
-                                if num == 0 {
-                                    delegate.triedToRefreshContactList(done)
-                                }
-                            }
+                            })
                         })
-                    })
+                    }
+                }
+                if num == 0 {
+                    delegate?.triedToRefreshContactList(false)
                 }
             }
-            if num == 0 {
-                delegate?.triedToRefreshContactList(false)
-            }
+
         }
     }
     

@@ -45,6 +45,8 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if item.title != nil {
+            contactsVC.contactsContainerVC.scanContactsVC.qrCodeScannerVC.stopRunning()
+
         }
         else {
             contactsVC.contactsContainerVC.scanContactsVC.qrCodeScannerVC.startRunning()

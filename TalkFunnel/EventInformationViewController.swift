@@ -22,6 +22,7 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     let loadingView = UIView()
     var delegate: EventInformationViewControllerDelegate?
     var refreshControl: UIRefreshControl!
+    var isRefreshing = false
     
     private struct constants {
         static let breakCellReuseIdentifier = "Break"
@@ -54,14 +55,16 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     }
     
     func refreshData(sender: AnyObject) {
-        dispatch_async(dispatch_get_main_queue()) { () -> Void in
-            fetchDataForEvent({ (done, error) -> Void in
-                if let delegate = self.delegate {
-                    delegate.triedToRefreshEventInfo(done)
-                }
-            })
+        if !isRefreshing {
+            isRefreshing = true
+            dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                fetchDataForEvent({ (done, error) -> Void in
+                    if let delegate = self.delegate {
+                        delegate.triedToRefreshEventInfo(done)
+                    }
+                })
+            }
         }
-
     }
     
     func refresh() {

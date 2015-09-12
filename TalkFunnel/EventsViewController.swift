@@ -89,6 +89,7 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
             pageController?.moveToPage(1)
             currentPageNumber = 1
             if currentEventDetail.title! == event.title && currentEventDetail.jsonUrl! == event.jsonUrl {
+                eventListVC.didFinishLoadingNewEvent()
                 eventInfoVC.refresh()
                 talksVC.refresh()
             }
@@ -98,36 +99,43 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                 fetchDataForEvent { (doneFetching,error) -> Void in
                     if doneFetching {
                         fetchParticipantRelatedData("participants/json", callback: { (done, error) -> Void in
-                            if done {
-                                currentEventTitle = currentEvent?.title
-                                addToLocalData()
-                                self.eventInfoVC.refresh()
-                                self.talksVC.refresh()
-                            }
-                            else {
-                                self.noInternetAlert({ (dismiss) -> Void in
-                                    if dismiss {
-                                        self.pageController?.moveToPage(0)
-                                        self.currentPageNumber = 0
-                                        currentEvent = tempEvent
-                                        self.eventInfoVC.refresh()
-                                        self.talksVC.refresh()
-                                    }
-                                })
-                            }
+                            
+                            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                                if done {
+                                    currentEventTitle = currentEvent?.title
+                                    addToLocalData()
+                                    self.eventListVC.didFinishLoadingNewEvent()
+                                    self.eventInfoVC.refresh()
+                                    self.talksVC.refresh()
+                                }
+                                else {
+                                    self.noInternetAlert({ (dismiss) -> Void in
+                                        if dismiss {
+                                            self.pageController?.moveToPage(0)
+                                            self.currentPageNumber = 0
+                                            currentEvent = tempEvent
+                                            self.eventListVC.didFinishLoadingNewEvent()
+                                            self.eventInfoVC.refresh()
+                                            self.talksVC.refresh()
+                                        }
+                                    })
+                                }
+                            })
                         })
                     }
                     else {
-                        self.noInternetAlert({ (dismiss) -> Void in
-                            if dismiss {
-                                self.pageController?.moveToPage(0)
-                                self.currentPageNumber = 0
-                                currentEvent = tempEvent
-                                self.eventInfoVC.refresh()
-                                self.talksVC.refresh()
-                            }
+                        dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                            self.noInternetAlert({ (dismiss) -> Void in
+                                if dismiss {
+                                    self.pageController?.moveToPage(0)
+                                    self.currentPageNumber = 0
+                                    self.eventListVC.didFinishLoadingNewEvent()
+                                    currentEvent = tempEvent
+                                    self.eventInfoVC.refresh()
+                                    self.talksVC.refresh()
+                                }
+                            })
                         })
-                        
                     }
                 }
             }
@@ -136,7 +144,20 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
     
     func triedToRefreshEventList(done: Bool) {
         eventListVC.refreshControl.endRefreshing()
+        eventListVC.isRefreshing = false
         reactToRefresh(done)
+    }
+    
+    func showStillLoadingClickedEventAlert() {
+        var message = "The internet connection appears to be slow , please wait until the previously clicked event has finished loading"
+        if let eventName = currentEvent?.title {
+            message = "The internet connection appears to be slow , please wait until \(eventName) has finished loading"
+        }
+        let alert = UIAlertController(title: "Patience", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let dismiss = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+        })
+        alert.addAction(dismiss)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
     
     //MARK: Alert
@@ -158,6 +179,7 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
     
     func triedToRefreshEventInfo(done: Bool) {
         eventInfoVC.refreshControl.endRefreshing()
+        eventInfoVC.isRefreshing = false
         reactToRefresh(done)
     }
     

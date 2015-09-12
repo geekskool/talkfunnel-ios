@@ -101,6 +101,7 @@ class ContactsContainerViewController: UIViewController,DMDynamicPageViewControl
     
     private func doneRefreshingSavedContactList() {
         savedContactsListVC.refreshControl.endRefreshing()
+        savedContactsListVC.isRefreshing = false
         savedContactsListVC.refresh()
     }
     

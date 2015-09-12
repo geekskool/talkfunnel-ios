@@ -11,6 +11,7 @@ import UIKit
 protocol EventListViewControllerDelegate {
     func didSelectEvent(event: EventList)
     func triedToRefreshEventList(done: Bool)
+    func showStillLoadingClickedEventAlert()
 }
 class EventListViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
 
@@ -18,6 +19,10 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     var requiredEventList = [EventList]()
     var delegate: EventListViewControllerDelegate?
     var refreshControl: UIRefreshControl!
+    
+    var isRefreshing = false
+    var isLoadingNewEvent = false
+    var newEventSelected = currentEvent?.title
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +49,15 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     }
     
     func refreshData(sender: AnyObject) {
-        fetchAllData { (done, error) -> Void in
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                if let delegate = self.delegate {
-                    delegate.triedToRefreshEventList(done)
-                }
-            })
+        if !isRefreshing {
+            isRefreshing = true
+            fetchAllData { (done, error) -> Void in
+                dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                    if let delegate = self.delegate {
+                        delegate.triedToRefreshEventList(done)
+                    }
+                })
+            }
         }
     }
 
@@ -73,10 +81,24 @@ class EventListViewController: UIViewController,UITableViewDataSource,UITableVie
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if let delegate = self.delegate {
-            delegate.didSelectEvent(eventList[indexPath.row])
+        if isLoadingNewEvent {
+            if let delegate = self.delegate {
+                delegate.showStillLoadingClickedEventAlert()
+            }
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
         }
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        else {
+            isLoadingNewEvent = true
+            if let delegate = self.delegate {
+                delegate.didSelectEvent(eventList[indexPath.row])
+            }
+            tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        }
+        
+    }
+    
+    func didFinishLoadingNewEvent() {
+        isLoadingNewEvent = false
     }
     
 }

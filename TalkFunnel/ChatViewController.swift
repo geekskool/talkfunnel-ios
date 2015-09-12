@@ -18,6 +18,10 @@ class ChatViewController: UIViewController, UIWebViewDelegate {
         loadPage()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     func loadPage() {
         webView.delegate = self
         let requestURL = NSURL(string: "https://scrollback.io/hasgeek")
@@ -30,7 +34,6 @@ class ChatViewController: UIViewController, UIWebViewDelegate {
     }
     
     func webView(webView: UIWebView, didFailLoadWithError error: NSError?) {
-        //print("WebView error is \(error)")
         if finishedLoadingPage == false {
             loadPage()
         }
