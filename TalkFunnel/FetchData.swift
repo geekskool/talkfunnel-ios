@@ -221,6 +221,12 @@ func fetchParticipantRelatedData(urlAddition: String, callback: (Bool,String?) -
                 })
             })
         }
+        else {
+            callback(false,nil)
+        }
+    }
+    else {
+        callback(false,nil)
     }
 }
 

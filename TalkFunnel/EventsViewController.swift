@@ -99,27 +99,22 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                 fetchDataForEvent { (doneFetching,error) -> Void in
                     if doneFetching {
                         fetchParticipantRelatedData("participants/json", callback: { (done, error) -> Void in
-                            
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                                 if done {
-                                    currentEventTitle = currentEvent?.title
-                                    addToLocalData()
-                                    self.eventListVC.didFinishLoadingNewEvent()
-                                    self.eventInfoVC.refresh()
-                                    self.talksVC.refresh()
-                                    self.pageController?.moveToPage(1)
+                                    self.moveToNewEvent()
                                 }
                                 else {
-                                    self.noInternetAlert({ (dismiss) -> Void in
-                                        if dismiss {
-                                            self.pageController?.moveToPage(0)
-                                            self.currentPageNumber = 0
-                                            currentEvent = tempEvent
-                                            self.eventListVC.didFinishLoadingNewEvent()
-                                            self.eventInfoVC.refresh()
-                                            self.talksVC.refresh()
-                                        }
-                                    })
+                                    if isUserLoggedIn {
+                                        self.noInternetAlert({ (dismiss) -> Void in
+                                            if dismiss {
+                                                self.moveToPreviousEvent(tempEvent)
+                                            }
+                                        })
+                                    }
+                                    else {
+                                        self.moveToNewEvent()
+                                    }
+                                    
                                 }
                             })
                         })
@@ -128,12 +123,7 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             self.noInternetAlert({ (dismiss) -> Void in
                                 if dismiss {
-                                    self.pageController?.moveToPage(0)
-                                    self.currentPageNumber = 0
-                                    self.eventListVC.didFinishLoadingNewEvent()
-                                    currentEvent = tempEvent
-                                    self.eventInfoVC.refresh()
-                                    self.talksVC.refresh()
+                                    self.moveToPreviousEvent(tempEvent)
                                 }
                             })
                         })
@@ -141,6 +131,27 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                 }
             }
         }
+    }
+    
+    func moveToNewEvent() {
+        currentEventTitle = currentEvent?.title
+        addToLocalData()
+        self.pageController?.moveToPage(1)
+        self.currentPageNumber = 1
+        refreshVCs()
+    }
+    
+    func moveToPreviousEvent(tempEvent: EventList?) {
+        self.pageController?.moveToPage(0)
+        self.currentPageNumber = 0
+        currentEvent = tempEvent
+        refreshVCs()
+    }
+    
+    func refreshVCs() {
+        self.eventListVC.didFinishLoadingNewEvent()
+        self.eventInfoVC.refresh()
+        self.talksVC.refresh()
     }
     
     func triedToRefreshEventList(done: Bool) {
