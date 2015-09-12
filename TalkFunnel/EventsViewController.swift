@@ -107,6 +107,7 @@ class EventsViewController: UIViewController,DMDynamicPageViewControllerDelegate
                                     self.eventListVC.didFinishLoadingNewEvent()
                                     self.eventInfoVC.refresh()
                                     self.talksVC.refresh()
+                                    self.pageController?.moveToPage(1)
                                 }
                                 else {
                                     self.noInternetAlert({ (dismiss) -> Void in
