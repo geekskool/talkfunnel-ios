@@ -48,6 +48,7 @@ class SavedContactsListViewController: UIViewController,UITableViewDataSource,UI
             isRefreshing = true
             if savedContacts.count == 0 {
                 refreshControl.endRefreshing()
+                isRefreshing = false
             }
             else {
                 var num = 0
