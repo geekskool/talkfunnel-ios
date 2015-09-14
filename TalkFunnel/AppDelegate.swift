@@ -41,9 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        userLogInString = url.description
-        isUserLoggedIn = true
-        mainTabVC.afterLogIn()
+
+        if url.description == "talkfunnel://login/redirect?error=access_denied" {
+            mainTabVC.accessDeniedAfterLogIn()
+        }
+        else {
+            userLogInString = url.description
+            isUserLoggedIn = true
+            mainTabVC.afterLogIn()
+        }
         return true
     }
     

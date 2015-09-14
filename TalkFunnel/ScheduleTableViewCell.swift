@@ -23,13 +23,8 @@ class ScheduleTableViewCell: UITableViewCell {
                 talkTitle.text = talk.title
                 speakerName.text = talk.speakerName
                 roomName.text = getRoomName(talk.roomName)
-                setNeedsDisplay()
             }
         }
-    }
-    private func getLabelSize(lbl: UILabel) -> CGSize{
-        let txt = lbl.text!
-        return txt.sizeWithAttributes([NSFontAttributeName: lbl.font])
     }
     
     private func getRoomName(string: String?) -> String {

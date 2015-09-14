@@ -594,7 +594,12 @@ func saveFetchedEventInformation() {
                     sessionEntry.roomName = session.roomName
                     sessionEntry.sectionType = session.sectionType
                     sessionEntry.technicalLevel = session.technicalLevel
-                    sessionEntry.isBreak = session.isBreak
+                    if session.isBreak! {
+                        sessionEntry.isBreak = 1
+                    }
+                    else {
+                        sessionEntry.isBreak = 0
+                    }
                     sessionEntry.talkDescription = session.description
                     sessionEntry.speakerBio = session.speakerBio
                     sessionEntry.jsonUrl = session.jsonUrl

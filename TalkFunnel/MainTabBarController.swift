@@ -31,7 +31,12 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
         image2 = image2?.imageWithRenderingMode(.AlwaysTemplate)
         chatVC.tabBarItem = UITabBarItem(title: "Chat", image: image2, tag: 0)
         self.viewControllers = [contactsVC,eventsVC,chatVC]
-        selectTab(1)
+        if isUserLoggedIn {
+            selectTab(1)
+        }
+        else {
+            selectTab(0)
+        }
         
     }
     
@@ -46,10 +51,17 @@ class MainTabBarController: UITabBarController, UITabBarControllerDelegate {
     override func tabBar(tabBar: UITabBar, didSelectItem item: UITabBarItem) {
         if item.title != nil {
             contactsVC.contactsContainerVC.scanContactsVC.qrCodeScannerVC.stopRunning()
-
         }
         else {
             contactsVC.contactsContainerVC.scanContactsVC.qrCodeScannerVC.startRunning()
         }
+    }
+    
+    func accessDeniedAfterLogIn() {
+        let alert = UIAlertController(title: "Access Denied", message: "You did not authorize Talkfunnel after logging in", preferredStyle: UIAlertControllerStyle.Alert)
+        let tryAgainAction = UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Cancel, handler: { (action) -> Void in
+        })
+        alert.addAction(tryAgainAction)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 }

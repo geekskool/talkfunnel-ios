@@ -135,13 +135,11 @@ class EventInformationViewController: UIViewController, UITableViewDataSource, U
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let talk = schedule[indexPath.section][indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier(constants.breakCellReuseIdentifier, forIndexPath: indexPath) as UITableViewCell
-        
         if let isBreak = talk.isBreak {
             if isBreak {
                 cell.textLabel?.text = getTimeFromDate(talk.startTime!)
                 cell.detailTextLabel?.text = talk.title
                 cell.userInteractionEnabled = false
-                cell.backgroundColor = UIColor.lightGrayColor()
             }
             else {
                 let scheduleCell = tableView.dequeueReusableCellWithIdentifier(constants.scheduleCellReuseIdentifier, forIndexPath: indexPath) as! ScheduleTableViewCell

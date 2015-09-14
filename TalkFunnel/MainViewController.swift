@@ -53,6 +53,7 @@ class MainViewController: UIViewController {
         fetchAllData { (doneFetching, error) -> Void in
             if doneFetching {
                 self.getSelectedEventFromEventList()
+                addToLocalData()
                 self.performSegueWithIdentifier("switchesToTabBarVC", sender: nil)
                 self.activityIndicator.stopAnimating()
             }

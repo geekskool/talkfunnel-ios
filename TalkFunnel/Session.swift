@@ -40,7 +40,7 @@ class Session {
     init(data: SessionData) {
         self.title = data.title
         self.description = data.talkDescription
-        if data.isBreak!.isEqualToValue(NSNumber(bool: true)) {
+        if data.isBreak == 1 {
             self.isBreak = true
         }
         else {
